@@ -23,7 +23,7 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
       >
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center opacity-60"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?q=80&w=2674&auto=format&fit=crop")' }}
+          style={{ backgroundImage: 'url("https://www.youtube.com/watch?v=2Z1oKtxleb4")' }}
         ></div>
 
         {/* Gradient overlay to ensure text readability on the bright image */}
