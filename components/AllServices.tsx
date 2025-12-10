@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Package, Layers, Zap, Layout, ChevronRight, ArrowRight, Gamepad2 } from 'lucide-react';
+import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2 } from 'lucide-react';
 import Contact from './Contact';
 
 interface AllServicesProps {

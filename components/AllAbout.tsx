@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Ruler, Hammer, Handshake, MapPin, DraftingCompass, X, TrendingUp, Heart } from 'lucide-react';
+import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Hammer, Handshake, MapPin, DraftingCompass, X, TrendingUp, Heart } from 'lucide-react';
 
 interface AllAboutProps {
   onShowContact?: () => void;

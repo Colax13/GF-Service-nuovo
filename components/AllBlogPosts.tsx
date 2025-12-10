@@ -72,7 +72,7 @@ const allPosts = [
   }
 ];
 
-const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onShowContact }) => {
+const AllBlogPosts: React.FC<AllBlogPostsProps> = ({}) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {

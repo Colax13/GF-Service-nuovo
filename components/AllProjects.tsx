@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, ArrowUpRight, Camera, MapPin, Calendar, Layout } from 'lucide-react';
+import { ArrowUpRight, Camera, MapPin, Calendar, Layout } from 'lucide-react';
 
 interface AllProjectsProps {
   onShowContact?: () => void;

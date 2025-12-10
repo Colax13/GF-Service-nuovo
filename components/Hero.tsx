@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowDown } from 'lucide-react';
 
 interface HeroProps {
   onShowContact?: () => void;

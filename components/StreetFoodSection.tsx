@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { MapPin, Calendar, Truck, Zap, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { MapPin, Calendar, Truck, Zap, ArrowRight } from 'lucide-react';
 
 const StreetFoodSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
