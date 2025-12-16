@@ -16,11 +16,13 @@ import StickySocials from './components/StickySocials';
 import CustomCursor from './components/CustomCursor';
 import StreetFoodSection from './components/StreetFoodSection';
 import LogoScroll from './components/LogoScroll';
+import ProjectDetail, { ProjectData } from './components/ProjectDetail';
 
 type ViewState = 'home' | 'contact' | 'services' | 'projects' | 'blog' | 'about';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>('home');
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
   const handleShowContact = () => {
     setCurrentView('contact');
@@ -62,6 +64,28 @@ const App: React.FC = () => {
     }, 100);
   };
 
+  // Handle opening a project detail
+  const handleProjectSelect = (project: ProjectData) => {
+      setSelectedProject(project);
+  };
+
+  // Handle closing a project detail
+  const handleProjectClose = () => {
+      setSelectedProject(null);
+  };
+
+  // If a project is selected, show the detail overlay on top of everything
+  // We wrap it in a fragment or just return it. 
+  // Note: We might want to keep the background mounted or just replace. Replacing is cleaner for scroll.
+  if (selectedProject) {
+      return (
+          <div className="font-sans text-gray-800 antialiased selection:bg-gf-green selection:text-white min-h-screen bg-gf-darker">
+              <CustomCursor />
+              <ProjectDetail project={selectedProject} onClose={handleProjectClose} />
+          </div>
+      )
+  }
+
   // Render Full Screen Contact View
   if (currentView === 'contact') {
     return (
@@ -74,13 +98,14 @@ const App: React.FC = () => {
             onShowServices={handleShowAllServices}
             onShowProjects={handleShowAllProjects}
             onShowBlog={handleShowAllBlogPosts} 
+            onShowAbout={handleShowAllAbout}
             forcedActive="Contatti" 
         />
         {/* Render only Contact component in full mode (default) */}
         <div className="flex-grow">
           <Contact />
         </div>
-        <Footer onShowContact={handleShowContact} onNavigate={handleNavigateHome} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </div>
     );
   }
@@ -97,12 +122,13 @@ const App: React.FC = () => {
             onShowServices={handleShowAllServices}
             onShowProjects={handleShowAllProjects}
             onShowBlog={handleShowAllBlogPosts} 
+            onShowAbout={handleShowAllAbout}
             forcedActive="Servizi" 
         />
         <div className="flex-grow">
           <AllServices onShowContact={handleShowContact} />
         </div>
-        <Footer onShowContact={handleShowContact} onNavigate={handleNavigateHome} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </div>
     );
   }
@@ -119,12 +145,13 @@ const App: React.FC = () => {
             onShowServices={handleShowAllServices}
             onShowProjects={handleShowAllProjects}
             onShowBlog={handleShowAllBlogPosts} 
+            onShowAbout={handleShowAllAbout}
             forcedActive="Progetti" 
         />
         <div className="flex-grow">
-          <AllProjects onShowContact={handleShowContact} />
+          <AllProjects onShowContact={handleShowContact} onProjectSelect={handleProjectSelect} />
         </div>
-        <Footer onShowContact={handleShowContact} onNavigate={handleNavigateHome} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </div>
     );
   }
@@ -141,12 +168,13 @@ const App: React.FC = () => {
             onShowServices={handleShowAllServices}
             onShowProjects={handleShowAllProjects}
             onShowBlog={handleShowAllBlogPosts} 
+            onShowAbout={handleShowAllAbout}
             forcedActive="Le nostre storie" 
         />
         <div className="flex-grow">
           <AllBlogPosts onShowContact={handleShowContact} />
         </div>
-        <Footer onShowContact={handleShowContact} onNavigate={handleNavigateHome} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </div>
     );
   }
@@ -163,12 +191,13 @@ const App: React.FC = () => {
             onShowServices={handleShowAllServices}
             onShowProjects={handleShowAllProjects}
             onShowBlog={handleShowAllBlogPosts} 
+            onShowAbout={handleShowAllAbout}
             forcedActive="Chi siamo" 
         />
         <div className="flex-grow">
           <AllAbout onShowContact={handleShowContact} />
         </div>
-        <Footer onShowContact={handleShowContact} onNavigate={handleNavigateHome} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </div>
     );
   }
@@ -183,19 +212,20 @@ const App: React.FC = () => {
         onShowServices={handleShowAllServices}
         onShowProjects={handleShowAllProjects}
         onShowBlog={handleShowAllBlogPosts} 
+        onShowAbout={handleShowAllAbout}
       />
       <Hero onShowContact={handleShowContact} />
       <StickySocials />
       <About onShowAllAbout={handleShowAllAbout} />
       <Services onShowAllServices={handleShowAllServices} onShowContact={handleShowContact} />
-      <Projects onShowAllProjects={handleShowAllProjects} />
+      <Projects onShowAllProjects={handleShowAllProjects} onProjectSelect={handleProjectSelect} />
       <LogoScroll />
       <Values />
       <Blog onShowAllBlogPosts={handleShowAllBlogPosts} />
       <StreetFoodSection />
       {/* Home page Contact section is now in 'simpleMode' - showing only normal form */}
       <Contact simpleMode={true} />
-      <Footer onShowContact={handleShowContact} />
+      <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} />
     </div>
   );
 };

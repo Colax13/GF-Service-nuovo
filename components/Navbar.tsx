@@ -7,6 +7,7 @@ interface NavbarProps {
   onShowServices?: () => void;
   onShowProjects?: () => void;
   onShowBlog?: () => void;
+  onShowAbout?: () => void;
   onNavigate?: (href: string) => void; // Renders standard header but intercepts clicks
   forcedActive?: string; // Force a specific link to be active (e.g., for sub-pages)
 }
@@ -26,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({
   onShowServices, 
   onShowProjects, 
   onShowBlog, 
+  onShowAbout,
   onNavigate, 
   forcedActive 
 }) => {
@@ -116,6 +118,12 @@ const Navbar: React.FC<NavbarProps> = ({
         setMobileMenuOpen(false);
         return;
     }
+
+    if (linkName === 'Chi siamo' && onShowAbout) {
+        onShowAbout();
+        setMobileMenuOpen(false);
+        return;
+    }
     
     // Priority 1: Navigation Override (for sub-pages going back to home anchors)
     if (onNavigate) {
@@ -138,28 +146,28 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled || onBackToHome ? 'bg-gf-darker/95 backdrop-blur-sm py-3 shadow-md' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled || onBackToHome ? 'bg-gf-darker/95 backdrop-blur-sm py-5 shadow-lg' : 'bg-transparent py-8'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center text-white relative z-50">
           
           {/* Left: Back Button or Standard Links */}
           {onBackToHome ? (
              <button 
                 onClick={onBackToHome}
-                className="flex items-center gap-2 text-white hover:text-gf-green transition-colors text-sm font-bold uppercase tracking-widest"
+                className="flex items-center gap-2 text-white hover:text-gf-green transition-colors text-base font-bold uppercase tracking-widest"
              >
-                <ArrowLeft size={18} /> Torna alla Home
+                <ArrowLeft size={20} /> Torna alla Home
              </button>
           ) : (
-            <div className="hidden lg:flex gap-4 text-[13px] font-medium tracking-wide">
+            <div className="hidden lg:flex gap-8 text-sm font-bold tracking-widest uppercase">
                 {navLinks.map((link) => (
                 <a 
                     key={link.name} 
                     href={link.href} 
                     onClick={(e) => handleLinkClick(e, link.name, link.href)}
-                    className={`relative group transition-opacity duration-300 cursor-pointer ${activeSection === link.name ? 'text-white opacity-100' : 'text-white opacity-65 hover:opacity-100'}`}
+                    className={`relative group transition-opacity duration-300 cursor-pointer ${activeSection === link.name ? 'text-white opacity-100' : 'text-white opacity-60 hover:opacity-100'}`}
                 >
                     {link.name}
-                    <span className={`absolute -bottom-1 left-0 w-full h-[1px] bg-white transform transition-transform duration-300 origin-left ${activeSection === link.name ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                    <span className={`absolute -bottom-2 left-0 w-full h-[2px] bg-gf-green transform transition-transform duration-300 origin-left ${activeSection === link.name ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
                 </a>
                 ))}
             </div>
@@ -171,7 +179,7 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate ? onNavigate('#hero') : document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
           >
              {/* Logo Icon */}
-             <div className="relative w-12 h-8 mb-0.5">
+             <div className="relative w-16 h-10 mb-1">
                  <svg viewBox="0 0 100 60" className="w-full h-full stroke-white fill-none stroke-[8] stroke-linecap-round stroke-linejoin-round group-hover:stroke-gf-green transition-colors duration-300">
                     {/* G */}
                     <path d="M 40 10 A 20 20 0 1 0 40 50 H 50 V 30 H 40" />
@@ -180,16 +188,16 @@ const Navbar: React.FC<NavbarProps> = ({
                  </svg>
              </div>
              {/* Text */}
-             <span className="text-[10px] font-bold tracking-[0.4em] text-white group-hover:text-gf-green transition-colors duration-300 uppercase">
+             <span className="text-xs font-bold tracking-[0.4em] text-white group-hover:text-gf-green transition-colors duration-300 uppercase">
                 Service
              </span>
           </div>
 
           {/* Right: Icons (Desktop) */}
-          <div className="hidden lg:flex gap-6 items-center">
-               <MessageCircle size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
-               <Phone size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
-               <Mail size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
+          <div className="hidden lg:flex gap-8 items-center">
+               <MessageCircle size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
+               <Phone size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
+               <Mail size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
           </div>
 
           {/* Mobile Toggle Button (Hamburger) */}
@@ -199,7 +207,7 @@ const Navbar: React.FC<NavbarProps> = ({
               className="text-white hover:text-gf-green transition-colors focus:outline-none p-2"
               aria-label="Open menu"
             >
-               <Menu size={32} />
+               <Menu size={36} />
             </button>
           </div>
         </div>
@@ -212,7 +220,7 @@ const Navbar: React.FC<NavbarProps> = ({
         }`}
       >
           {/* Header Bar inside Menu */}
-          <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center border-b border-white/5">
+          <div className="absolute top-0 left-0 right-0 p-8 flex justify-between items-center border-b border-white/5">
              <span className="text-white/50 text-xs font-bold tracking-[0.2em] uppercase">Menu</span>
              
              {/* The Close "X" Button */}
@@ -221,25 +229,25 @@ const Navbar: React.FC<NavbarProps> = ({
                className="group relative w-12 h-12 flex items-center justify-center rounded-full border border-white/10 hover:border-gf-green transition-all duration-300 hover:bg-white/5"
                aria-label="Close menu"
              >
-                <X size={24} className="text-white group-hover:text-gf-green group-hover:rotate-90 transition-transform duration-300" />
+                <X size={28} className="text-white group-hover:text-gf-green group-hover:rotate-90 transition-transform duration-300" />
              </button>
           </div>
 
           {/* Main Content Container */}
-          <div className="h-full flex flex-col justify-between pt-24 pb-8 px-8 overflow-y-auto">
+          <div className="h-full flex flex-col justify-between pt-28 pb-8 px-8 overflow-y-auto">
              
              {/* Navigation Links */}
-             <div className="flex flex-col gap-6">
+             <div className="flex flex-col gap-8">
                 {onBackToHome ? (
                     <button 
                         onClick={() => {
                             setMobileMenuOpen(false);
                             onBackToHome();
                         }}
-                        className="group flex items-center justify-between text-3xl md:text-4xl font-light text-white hover:text-gf-green transition-colors py-2 border-b border-white/5 hover:border-gf-green/30"
+                        className="group flex items-center justify-between text-3xl md:text-5xl font-light text-white hover:text-gf-green transition-colors py-4 border-b border-white/5 hover:border-gf-green/30"
                     >
                          <span className="flex items-baseline gap-4">Torna alla Home</span>
-                         <ArrowLeft size={20} className="text-gf-green" />
+                         <ArrowLeft size={24} className="text-gf-green" />
                     </button>
                 ) : (
                     navLinks.map((link, idx) => (
@@ -247,7 +255,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             key={link.name}
                             href={link.href}
                             onClick={(e) => handleLinkClick(e, link.name, link.href)}
-                            className={`group flex items-center justify-between text-3xl md:text-4xl font-light transition-colors py-2 border-b border-white/5 hover:border-gf-green/30 cursor-pointer ${activeSection === link.name ? 'text-white' : 'text-white/60 hover:text-white'}`}
+                            className={`group flex items-center justify-between text-3xl md:text-5xl font-light transition-colors py-4 border-b border-white/5 hover:border-gf-green/30 cursor-pointer ${activeSection === link.name ? 'text-white' : 'text-white/60 hover:text-white'}`}
                             style={{ 
                                 transitionDelay: mobileMenuOpen ? `${idx * 50}ms` : '0ms',
                                 transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
@@ -255,13 +263,13 @@ const Navbar: React.FC<NavbarProps> = ({
                                 transition: 'all 0.5s ease-out'
                             }}
                         >
-                            <span className="flex items-baseline gap-4">
-                                <span className={`text-xs font-mono transition-all duration-300 transform ${activeSection === link.name ? 'text-gf-green opacity-100 translate-x-0' : 'text-gf-green opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'}`}>
+                            <span className="flex items-baseline gap-6">
+                                <span className={`text-sm font-mono transition-all duration-300 transform ${activeSection === link.name ? 'text-gf-green opacity-100 translate-x-0' : 'text-gf-green opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'}`}>
                                     0{idx + 1}
                                 </span>
                                 {link.name}
                             </span>
-                            <ArrowRight size={20} className={`transition-all duration-300 text-gf-green ${activeSection === link.name ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'}`} />
+                            <ArrowRight size={24} className={`transition-all duration-300 text-gf-green ${activeSection === link.name ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'}`} />
                         </a>
                     ))
                 )}
@@ -279,28 +287,28 @@ const Navbar: React.FC<NavbarProps> = ({
                 <a 
                     href="#contatti"
                     onClick={(e) => handleLinkClick(e, 'Contatti', '#contatti')}
-                    className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-gf-green hover:border-gf-green group transition-all duration-300 cursor-pointer"
+                    className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-gf-green hover:border-gf-green group transition-all duration-300 cursor-pointer"
                 >
-                    <div className="flex justify-between items-start mb-2">
-                        <MessageCircle className="text-gf-green group-hover:text-white transition-colors" size={24} />
-                        <ArrowRight className="text-white/30 group-hover:text-white transition-colors" size={20} />
+                    <div className="flex justify-between items-start mb-4">
+                        <MessageCircle className="text-gf-green group-hover:text-white transition-colors" size={28} />
+                        <ArrowRight className="text-white/30 group-hover:text-white transition-colors" size={24} />
                     </div>
-                    <div className="font-bold text-white text-lg mb-1">Richiedi Preventivo</div>
-                    <div className="text-gray-400 group-hover:text-white/80 text-xs">Risposta garantita in 24h</div>
+                    <div className="font-bold text-white text-xl mb-1">Richiedi Preventivo</div>
+                    <div className="text-gray-400 group-hover:text-white/80 text-sm">Risposta garantita in 24h</div>
                 </a>
 
                 {/* Quick Details */}
                 <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-8">
                     <div>
-                        <h4 className="text-gf-green font-bold uppercase text-xs tracking-wider mb-3">Contatti</h4>
-                        <div className="flex flex-col gap-2 text-gray-400">
+                        <h4 className="text-gf-green font-bold uppercase text-xs tracking-wider mb-4">Contatti</h4>
+                        <div className="flex flex-col gap-3 text-gray-400 text-base">
                             <a href="mailto:info@gfservice.it" className="hover:text-white transition-colors">info@gfservice.it</a>
                             <a href="tel:+393331234567" className="hover:text-white transition-colors">+39 333 123 4567</a>
                         </div>
                     </div>
                     <div>
-                        <h4 className="text-gf-green font-bold uppercase text-xs tracking-wider mb-3">Sede</h4>
-                        <div className="flex flex-col gap-2 text-gray-400">
+                        <h4 className="text-gf-green font-bold uppercase text-xs tracking-wider mb-4">Sede</h4>
+                        <div className="flex flex-col gap-3 text-gray-400 text-base">
                             <a href="#" className="hover:text-white transition-colors">
                                 Via Marte, 105<br/>Frosinone (FR)
                             </a>

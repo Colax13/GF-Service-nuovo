@@ -116,6 +116,7 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
+  const dragMovedRef = useRef(false); // Track if drag occurred
 
   // Animation State
   const [inView, setInView] = useState(false);
@@ -194,6 +195,8 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
 
   // --- Dragging Handlers ---
   const handleMouseDown = (e: React.MouseEvent) => {
+    dragMovedRef.current = false; // Reset drag status
+
     // Only enable dragging if NOT in desktop view (matching lg:hidden logic)
     // Tailwind lg is 1024px.
     if (window.innerWidth >= 1024 || !scrollRef.current) return;
@@ -215,10 +218,19 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
     if (!isDragging || !scrollRef.current) return;
     
     e.preventDefault();
+    dragMovedRef.current = true; // Mark as dragged
     const x = e.pageX - scrollRef.current.offsetLeft;
     // Multiplier for drag speed
     const walk = (x - startX) * 1.5; 
     scrollRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  // This is the key handler for clicking a service card
+  const handleCardClick = () => {
+    // Only navigate if we haven't been dragging
+    if (!dragMovedRef.current && onShowAllServices) {
+        onShowAllServices();
+    }
   };
 
   // --- Arrow Navigation ---
@@ -352,6 +364,8 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
                " 
                onMouseEnter={() => setHoveredIndex(idx)}
                onMouseLeave={() => setHoveredIndex(null)}
+               // Apply click handler to the wrapper of the card
+               onClick={handleCardClick}
              >
                {/* 
                   On mobile/tablet (lg:hidden), we use the version with 'forceHover' for the active item.

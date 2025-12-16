@@ -8,25 +8,39 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger animation shortly after mount
+    // Trigger text animation shortly after mount
     const timer = setTimeout(() => {
       setLoaded(true);
     }, 100);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <section id="hero" className="relative h-screen min-h-[600px] w-full overflow-hidden flex items-center justify-center">
-      {/* Background Image Layer */}
+    <section 
+        id="hero" 
+        className="relative h-screen min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-gf-darker"
+    >
+      
+      {/* Background Layer - Video */}
       <div 
-        className={`absolute inset-0 z-0 transition-transform duration-[3000ms] ease-out ${loaded ? 'scale-100' : 'scale-110'}`}
+        className={`absolute inset-0 z-0 transition-opacity duration-[2000ms] ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
       >
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-60"
-          style={{ backgroundImage: 'url("https://res.cloudinary.com/dcmd1ukvx/image/upload/v1765401049/GF_SERVICE_jh2d4x.jpg")' }}
-        ></div>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="https://res.cloudinary.com/dcmd1ukvx/video/upload/v1765742741/NEXT_GROUP_2019_SHOWREEL_EVENTI_rkno5h.mp4"
+        >
+          {/* Using a high-quality stock event video */}
+          <source src="https://res.cloudinary.com/dcmd1ukvx/video/upload/v1765742741/NEXT_GROUP_2019_SHOWREEL_EVENTI_rkno5h.mp4" type="video/mp4" />
+        </video>
 
-        {/* Gradient overlay to ensure text readability on the bright image */}
+        {/* Gradient overlays to ensure text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/80"></div>
       </div>

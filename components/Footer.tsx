@@ -3,10 +3,11 @@ import { Facebook, Instagram, Linkedin, Twitter, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   onShowContact?: () => void;
+  onShowAbout?: () => void;
   onNavigate?: (sectionId: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onShowContact, onNavigate }) => {
+const Footer: React.FC<FooterProps> = ({ onShowContact, onShowAbout, onNavigate }) => {
   const [inView, setInView] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
 
@@ -32,6 +33,12 @@ const Footer: React.FC<FooterProps> = ({ onShowContact, onNavigate }) => {
      if (item === 'Contatti' && onShowContact) {
          e.preventDefault();
          onShowContact();
+         return;
+     }
+
+     if (item === 'Chi siamo' && onShowAbout) {
+         e.preventDefault();
+         onShowAbout();
          return;
      }
 

@@ -7,6 +7,7 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
   const [inView, setInView] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -19,6 +20,17 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+        if (!sectionRef.current) return;
+        // Simple parallax based on window scroll
+        setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const stats = [
@@ -53,9 +65,48 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
   ];
 
   return (
-    <section id="chi-siamo" ref={sectionRef} className="py-24 md:py-32 bg-gf-darker relative overflow-hidden text-white">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-gf-green/5 rounded-full blur-[100px] pointer-events-none"></div>
+    <section id="chi-siamo" ref={sectionRef} className="py-24 md:py-32 bg-gf-darker relative overflow-hidden text-white perspective-1000">
+      
+      {/* --- NEW DYNAMIC BACKGROUND SHAPES --- */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          
+          {/* Left Circle - Complete, Subtle, Floating away from text */}
+          <div 
+            className="absolute top-[-10%] -left-[300px] will-change-transform z-0 animate-[floatLarge_20s_ease-in-out_infinite]"
+            style={{ transform: `translateY(${scrollY * 0.02}px)` }}
+          >
+              <div 
+                className="w-[800px] h-[800px] border border-white/5 rounded-full opacity-30 animate-[spin_60s_linear_infinite]"
+              />
+          </div>
+
+          {/* Right Circle - Complete, Subtle, Floating away from text */}
+          <div 
+            className="absolute bottom-[-10%] -right-[300px] will-change-transform z-0 animate-[floatLarge_25s_ease-in-out_infinite_reverse]"
+            style={{ transform: `translateY(${-scrollY * 0.03}px)` }}
+          >
+              <div 
+                className="w-[900px] h-[900px] border border-gf-green/10 rounded-full opacity-20 animate-[spin_80s_linear_infinite_reverse]"
+              />
+          </div>
+
+          {/* Floating Small Bubbles - Very subtle */}
+          <div className="absolute top-[10%] right-[10%] opacity-20" style={{ transform: `translateY(${scrollY * -0.05}px)` }}>
+              <div className="w-6 h-6 border border-gf-green/20 rounded-full animate-[floatBubble_10s_ease-in-out_infinite]" />
+          </div>
+
+          <div className="absolute bottom-[20%] left-[5%] opacity-20" style={{ transform: `translateY(${scrollY * 0.08}px)` }}>
+              <div className="w-4 h-4 bg-white/10 rounded-full blur-[1px] animate-[floatBubble_15s_ease-in-out_infinite_reverse]" />
+          </div>
+
+          {/* Middle-Right Bubble (Kept away from center text) */}
+          <div className="absolute top-[40%] right-[5%] opacity-10" style={{ transform: `translateY(${scrollY * -0.02}px)` }}>
+              <div className="w-12 h-12 border border-white/5 rounded-full animate-[floatBubble_20s_ease-in-out_infinite_1s]" />
+          </div>
+      </div>
+
+      {/* Decorative Background Elements - Soft Central Glow (Behind Text but very diffuse) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-gf-green/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -75,11 +126,11 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
                 </div>
             </div>
 
-            {/* CENTER CONTENT */}
+            {/* CENTER CONTENT - Clean Background */}
             <div className={`lg:col-span-6 text-center transition-all duration-1000 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                 
                 {/* Badge with Mini Animated Icon */}
-                <div className="inline-flex items-center justify-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+                <div className="inline-flex items-center justify-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm shadow-lg">
                     {/* Mini Animated Union Icon */}
                     <div className="relative w-4 h-4 flex items-center justify-center">
                         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-3 border-l-2 border-t-2 border-b-2 border-gf-green rounded-l-[2px] animate-[slideRightSmall_2s_ease-in-out_infinite]"></div>
@@ -90,7 +141,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-none tracking-tight">
+                <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-none tracking-tight drop-shadow-xl">
                     Costruiamo ciò <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-gf-green to-emerald-400">che unisce.</span>
                 </h2>
@@ -204,6 +255,21 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(2px) rotate(2deg); }
             75% { transform: translateX(-2px) rotate(-2deg); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes floatBubble {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(10px, -15px); }
+            50% { transform: translate(-5px, -25px); }
+            75% { transform: translate(-10px, -10px); }
+        }
+        @keyframes floatLarge {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 30px); }
         }
       `}</style>
     </section>

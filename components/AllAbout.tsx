@@ -7,33 +7,33 @@ interface AllAboutProps {
 
 const timelineEvents = [
   {
-    year: "2005",
+    year: "2006",
     title: "Le Fondamenta",
-    desc: "GF Service nasce in un piccolo magazzino di Frosinone. Una sola squadra, un furgone e le prime piccole coperture per feste patronali.",
+    desc: "GF Service nasce in un piccolo magazzino di Frosinone. Una sola squadra, un furgone e i primi kit da birreria per feste patronali.",
     icon:  Clock
   },
   {
     year: "2010",
     title: "Il Primo Salto",
-    desc: "Acquisizione del primo capannone industriale e ampliamento del parco tensostrutture. Iniziamo a servire le province limitrofe.",
+    desc: "Acquisizione delle prime coperture e integrazione del settore beverage. Cominciamo a lavorare in tutta la provincia.",
     icon: Target
   },
   {
-    year: "2015",
+    year: "2020",
     title: "Strutture Grandi Eventi",
-    desc: "Ingresso nel mercato dei grandi eventi pubblici. Arrivano i palchi modulari Layher e le certificazioni ISO per la sicurezza.",
+    desc: "Ingresso nel mercato dei grandi eventi pubblici. Arrivano le tendostrutture e i palchi modulari, l'offerta si amplia.",
     icon: Award
   },
   {
-    year: "2020",
-    title: "Resilienza & Innovazione",
-    desc: "Durante lo stop globale, rinnoviamo l'intera logistica e investiamo in strutture sanitarie temporanee, dimostrando flessibilità.",
+    year: "2024",
+    title: "Le collaborazioni strategiche",
+    desc: "Inizio di collaborazioni nazionali e iternazionali e la nomina a partner tecnico per Street Food International",
     icon: ShieldCheck
   },
   {
     year: "2024",
     title: "Leader Centro Italia",
-    desc: "Oggi contiamo oltre 50 dipendenti, una flotta di 20 mezzi e la gestione tecnica dei più importanti tour di Street Food nazionali.",
+    desc: "Oggi con lo sviluppo delle casette di legno, ridefiano il concetto di service tecnico, puntando a essere leader nel centro Italia",
     icon: Users
   }
 ];

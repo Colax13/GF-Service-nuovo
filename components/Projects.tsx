@@ -1,35 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ProjectData } from './ProjectDetail';
 
 interface ProjectsProps {
   onShowAllProjects?: () => void;
+  onProjectSelect?: (project: ProjectData) => void;
 }
 
-const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
+const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects, onProjectSelect }) => {
   const projects = [
     {
       title: "October Fest",
       location: "Alatri",
+      category: "Sagra",
+      year: "2024",
       image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=2070&auto=format&fit=crop"
     },
     {
       title: "Sagra dell'Uva",
       location: "Marino",
+      category: "Festa Patronale",
+      year: "2024",
       image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop"
     },
     {
       title: "Festival del Jazz",
       location: "Atina",
+      category: "Concerto",
+      year: "2025",
       image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop"
     },
     {
       title: "Street Food Int.",
       location: "Latina",
+      category: "Tour Gastronomico",
+      year: "2025",
       image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop"
     },
     {
       title: "Villaggio di Natale",
       location: "Frosinone",
+      category: "Allestimento Tematico",
+      year: "2023",
       image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop"
     }
   ];
@@ -46,6 +58,8 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
+  // Track if we moved enough to consider it a drag vs a click
+  const dragMovedRef = useRef(false);
 
   // Wheel Cooldown to prevent rapid skipping
   const wheelCooldown = useRef(false);
@@ -74,7 +88,6 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
   }, []);
 
   // Navigation Logic
-  // Defined before useEffect so they can be used inside (though safely via setState callback)
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % projects.length);
   };
@@ -124,18 +137,22 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
     return () => {
         container.removeEventListener('wheel', handleWheel);
     };
-  }, [projects.length]); // Re-bind if projects length changes (unlikely but safe)
+  }, [projects.length]);
 
   // --- Interaction Handlers (Touch + Mouse Drag) ---
   const handleDragStart = (clientX: number) => {
     setIsDragging(true);
     setStartX(clientX);
     setCurrentX(clientX);
+    dragMovedRef.current = false;
   };
 
   const handleDragMove = (clientX: number) => {
     if (!isDragging) return;
     setCurrentX(clientX);
+    if(Math.abs(clientX - startX) > 10) {
+        dragMovedRef.current = true;
+    }
   };
 
   const handleDragEnd = () => {
@@ -148,7 +165,24 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
     } else if (dragOffset < -minSwipeDistance) {
       nextSlide(); // Swipe Left -> Next
     }
-    // If threshold not met, it snaps back automatically due to dragOffset becoming 0
+  };
+
+  const handleProjectClick = (index: number) => {
+      // If we were dragging, don't trigger click
+      if(dragMovedRef.current) return;
+
+      const len = projects.length;
+      const prevIndex = (currentIndex - 1 + len) % len;
+      const nextIndex = (currentIndex + 1) % len;
+
+      if (index === prevIndex) {
+          prevSlide();
+      } else if (index === nextIndex) {
+          nextSlide();
+      } else if (index === currentIndex) {
+          // Open detail view
+          if(onProjectSelect) onProjectSelect(projects[index]);
+      }
   };
 
   const onTouchStart = (e: React.TouchEvent) => handleDragStart(e.targetTouches[0].clientX);
@@ -168,7 +202,7 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
   // Desktop: Original Logic
   const getDesktopSlideStyles = (index: number) => {
     if (index === currentIndex) {
-      return "z-30 opacity-100 scale-100 translate-x-0 cursor-default shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10";
+      return "z-30 opacity-100 scale-100 translate-x-0 cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 hover:border-gf-green";
     }
     
     const len = projects.length;
@@ -185,7 +219,7 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
     return "z-0 opacity-0 scale-75 translate-x-0 pointer-events-none"; 
   };
 
-  // Mobile/Tablet: Dynamic Logic with Drag Support (Wheel is now purely a trigger, no visual offset)
+  // Mobile/Tablet
   const getMobileStyle = (index: number) => {
     const len = projects.length;
     const prevIndex = (currentIndex - 1 + len) % len;
@@ -215,21 +249,18 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
       zIndex = 10;
     }
 
-    // Only render visible slides to avoid artifacts
     if (index !== currentIndex && index !== prevIndex && index !== nextIndex) {
         return { display: 'none' };
     }
 
-    // Only apply drag offset if dragging. Wheel events trigger state change directly.
     const finalOffset = isDragging ? dragOffset : 0;
 
     return {
       zIndex,
       opacity,
       pointerEvents,
-      // Apply drag offset in pixels on top of the percentage based offset
       transform: `translateX(calc(${baseTranslate} + ${finalOffset}px)) scale(${baseScale})`,
-      transition: isDragging ? 'none' : 'all 500ms ease-out', // Instant movement when dragging, smooth otherwise
+      transition: isDragging ? 'none' : 'all 500ms ease-out', 
       display: 'block'
     };
   };
@@ -247,10 +278,6 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
       style={{ perspective: '1200px' }} 
     >
       
-      {/* 
-        Dynamic Atmospheric Background
-        Adjusted visibility: Higher image opacity, lower black overlay opacity.
-      */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           {projects.map((project, index) => (
               <div 
@@ -261,21 +288,18 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
                   style={{ 
                       backgroundImage: `url(${project.image})`,
                       filter: 'blur(60px) saturate(2)', 
-                      transform: 'scale(1.1)' // slight scale to prevent blur edges
+                      transform: 'scale(1.1)'
                   }}
               />
           ))}
           
-          {/* Reduced overlay opacity to let colors shine through */}
           <div className="absolute inset-0 bg-black/30"></div>
-          {/* Gradients to blend into the black theme */}
           <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center w-full">
         
-        {/* Centered Header with refined typography */}
         <div className={`text-center mb-16 max-w-3xl mx-auto transition-all duration-1000 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-gf-green animate-pulse"></span>
@@ -292,10 +316,7 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
             </p>
         </div>
 
-        {/* 
-            DESKTOP CAROUSEL (Original Design Preserved)
-            Visible only on lg (1024px+) screens. 
-        */}
+        {/* DESKTOP CAROUSEL */}
         <div 
           className="hidden lg:flex relative h-[500px] w-full items-center justify-center mt-4 mb-12"
           style={{
@@ -307,13 +328,7 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
           {projects.map((project, index) => (
             <div
               key={index}
-              onClick={() => {
-                const len = projects.length;
-                const prevIndex = (currentIndex - 1 + len) % len;
-                const nextIndex = (currentIndex + 1) % len;
-                if (index === prevIndex) prevSlide();
-                if (index === nextIndex) nextSlide();
-              }}
+              onClick={() => handleProjectClick(index)}
               className={`absolute top-0 w-[60%] h-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] rounded-2xl overflow-hidden ${getDesktopSlideStyles(index)}`}
             >
               <div 
@@ -322,8 +337,14 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
               >
                  <div className="absolute inset-0 bg-black/20 transition-colors duration-500"></div>
                  <div className="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                 {/* Detail Hover Overlay */}
+                 <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="border border-white px-6 py-2 text-white uppercase tracking-widest text-sm font-bold">
+                        Vedi Progetto
+                    </div>
+                 </div>
               </div>
-              <div className="absolute bottom-12 left-12 max-w-[90%]">
+              <div className="absolute bottom-12 left-12 max-w-[90%] pointer-events-none">
                  <h3 className="text-3xl lg:text-5xl font-bold text-white mb-3 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] tracking-tight">
                    {project.title}
                  </h3>
@@ -337,26 +358,22 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
             </div>
           ))}
 
-          {/* Desktop Controls */}
           <button 
-            onClick={prevSlide}
+            onClick={(e) => { e.stopPropagation(); prevSlide(); }}
             className="absolute left-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full backdrop-blur-md transition-all border border-white/10 shadow-xl hover:scale-110 group"
           >
             <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
           </button>
 
           <button 
-             onClick={nextSlide}
+             onClick={(e) => { e.stopPropagation(); nextSlide(); }}
              className="absolute right-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full backdrop-blur-md transition-all border border-white/10 shadow-xl hover:scale-110 group"
           >
             <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        {/* 
-            MOBILE & TABLET CAROUSEL (Original Design Preserved)
-            Visible on screens < lg (1024px).
-        */}
+        {/* MOBILE CAROUSEL */}
         <div 
           ref={mobileContainerRef}
           className={`lg:hidden relative h-[450px] w-full flex items-center justify-center mt-4 mb-8 transition-all duration-1000 delay-300 ease-out transform select-none ${
@@ -372,17 +389,17 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
         >
           {projects.map((project, index) => {
             const styles = getMobileStyle(index);
-            // Don't render if hidden (except for transitions, but simple display toggle works for performance here)
             if (styles.display === 'none') return null;
 
             return (
               <div
                 key={index}
-                className="absolute top-0 w-[75vw] md:w-[60vw] h-full rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+                onClick={() => handleProjectClick(index)}
+                className="absolute top-0 w-[75vw] md:w-[60vw] h-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 active:scale-95 transition-transform"
                 style={styles as React.CSSProperties}
               >
                 <div 
-                    className="w-full h-full bg-cover bg-center pointer-events-none" // prevent image drag
+                    className="w-full h-full bg-cover bg-center pointer-events-none"
                     style={{ backgroundImage: `url(${project.image})` }}
                 >
                   <div className="absolute inset-0 bg-black/20"></div>
@@ -405,7 +422,6 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
           })}
         </div>
         
-        {/* Mobile/Tablet Controls: Arrows + Dots */}
         <div className={`lg:hidden flex items-center justify-center gap-6 mt-6 mb-12 transition-all duration-700 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <button onClick={prevSlide} className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-gf-green text-white active:scale-95"><ChevronLeft size={20} /></button>
             <div className="flex gap-2">
@@ -416,9 +432,7 @@ const Projects: React.FC<ProjectsProps> = ({ onShowAllProjects }) => {
             <button onClick={nextSlide} className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-gf-green text-white active:scale-95"><ChevronRight size={20} /></button>
         </div>
 
-        {/* Bottom Actions / Counter (Redesigned) */}
         <div className={`mt-8 flex flex-col items-center gap-6 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-             {/* Simple Counter display */}
              <div className="font-mono text-sm text-gray-500 tracking-widest">
                 <span className="text-white text-lg">0{currentIndex + 1}</span> / 0{projects.length}
              </div>

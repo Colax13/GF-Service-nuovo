@@ -1,61 +1,188 @@
 import React, { useEffect, useState } from 'react';
-import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2 } from 'lucide-react';
+import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight, Search } from 'lucide-react';
 import Contact from './Contact';
+
+interface SubProduct {
+    name: string;
+    image: string;
+    description?: string;
+}
+
+interface ServiceItem {
+    name: string;
+    desc: string;
+    specs: string;
+    image: string;
+    subProducts?: SubProduct[];
+}
+
+interface Category {
+    id: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    icon: React.ElementType;
+    items: ServiceItem[];
+}
 
 interface AllServicesProps {
   onShowContact?: () => void;
 }
 
-const categories = [
+const categories: Category[] = [
   {
     id: "strutture",
-    title: "Strutture",
-    subtitle: "Coperture & Spazi",
-    description: "Soluzioni modulari certificate per ogni dimensione e condizione meteo. Dalle piazze storiche ai grandi parchi urbani.",
+    title: "Coperture e Strutture",
+    subtitle: "Spazi & Protezione",
+    description: "La base del tuo evento. Strutture modulari certificate per garantire sicurezza e protezione in ogni condizione, dal piccolo stand alla grande area hospitality.",
     icon: Layers,
     items: [
-      { name: "Tensostrutture", desc: "Modulari da 8m a 40m di larghezza.", specs: "Cert. UNI EN 13782", image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Gazebo Professionali", desc: "Pagode 3x3, 4x4, 5x5 e 6x6.", specs: "PVC Ignifugo CL.2", image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Casette in Legno", desc: "Per mercatini ed esposizioni.", specs: "Legno trattato", image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop" }
+      { 
+        name: "Tendostrutture", 
+        desc: "Modulari, campata singola 10x10m estensibile.", 
+        specs: "Cert. UNI EN 13782", 
+        image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2070&auto=format&fit=crop",
+        subProducts: [
+            { 
+                name: "Coperture Classiche", 
+                image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2070&auto=format&fit=crop",
+                description: "PVC bianco oscurante, ideale per conferenze e cene di gala."
+            },
+            { 
+                name: "Coperture Trasparenti", 
+                image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop",
+                description: "Teli Crystal panoramici per immergersi nella location circostante."
+            },
+            { 
+                name: "Con Corridoi Laterali", 
+                image: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2069&auto=format&fit=crop",
+                description: "Ampliamento laterale della struttura principale (es. estensione fino a 50x28m) per massimizzare lo spazio coperto."
+            }
+        ]
+      },
+      { 
+        name: "Gazebo Stand", 
+        desc: "Soluzioni modulari disponibili in varie misure: 3x3, 4x4, 5x5, 6x6, 7x7.", 
+        specs: "PVC Ignifugo CL.2", 
+        image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
+        subProducts: [
+            {
+                name: "Gazebo 3x3m",
+                image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
+                description: "Ideale per piccoli stand o punti informativi."
+            },
+            {
+                name: "Gazebo 4x4m",
+                image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
+                description: "Spazio equilibrato per esposizioni e vendita."
+            },
+            {
+                name: "Gazebo 5x5m",
+                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
+                description: "Perfetto per aree catering e accoglienza."
+            },
+            {
+                name: "Gazebo 6x6m",
+                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
+                description: "Ampia superficie per hospitality e grandi stand."
+            },
+            {
+                name: "Gazebo 7x7m",
+                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
+                description: "Massima capienza per eventi di rilievo."
+            }
+        ]
+      },
+      { 
+        name: "Casette in Legno", 
+        desc: "Strutture tipiche per mercatini ed esposizioni.", 
+        specs: "Legno Trattato", 
+        image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop",
+        subProducts: [
+            {
+                name: "Casetta 3x4m",
+                image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop",
+                description: "Modulo classico per mercatini e biglietterie."
+            },
+            {
+                name: "Casetta 3x8m",
+                image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2000&auto=format&fit=crop",
+                description: "Doppio modulo per bar temporanei o grandi esposizioni."
+            }
+        ]
+      }
     ]
   },
   {
-    id: "allestimenti",
-    title: "Allestimenti",
-    subtitle: "Arredo & Comfort",
-    description: "Dettagli che fanno la differenza. Creiamo ambienti accoglienti e funzionali per il tuo pubblico.",
+    id: "arredi",
+    title: "Arredi e Allestimenti",
+    subtitle: "Stile & Comfort",
+    description: "Tutto ciò che riempie lo spazio. Dalle sedute eleganti per cerimonie alle soluzioni pratiche per sagre e aree food.",
     icon: Layout,
     items: [
-      { name: "Palchi Modulari", desc: "Pedane Layher certificati.", specs: "Portata 600kg/mq", image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Set Birreria", desc: "Tavoli e panche in legno.", specs: "Abete verniciato", image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=1000&auto=format&fit=crop" },
-      { name: "Sedute Lounge", desc: "Divanetti e poltrone outdoor.", specs: "Tessuto tecnico", image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Pavimentazioni", desc: "Legno o moquette.", specs: "Ignifugo", image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop" }
+      { 
+        name: "Sedute & Lounge", 
+        desc: "Selezione completa di sedie e salotti.", 
+        specs: "Vari Stili", 
+        image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop",
+        subProducts: [
+            { name: "Sedie Wedding", image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop", description: "Eleganti sedie chiavarine o in legno bianco per cerimonie." },
+            { name: "Sedie Lounge Rattan", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop", description: "Set divanetti e poltrone comfort per aree relax." },
+            { name: "Sedia di Plastica", image: "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=2070&auto=format&fit=crop", description: "Monoblocco bianca impilabile, robusta ed economica." },
+            { name: "Sedie Black Elegant", image: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=2000&auto=format&fit=crop", description: "Seduta nera di design per eventi serali e gala." }
+        ]
+      },
+      { 
+        name: "Set Birreria", 
+        desc: "Tavoli e panche pieghevoli.", 
+        specs: "Abete Verniciato", 
+        image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=1000&auto=format&fit=crop",
+        subProducts: [
+            { name: "Set 200x60cm", image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=1000&auto=format&fit=crop", description: "Tavolo standard stretto (60cm) con due panche." },
+            { name: "Set 200x80cm", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop", description: "Tavolo maggiorato (80cm) per un comfort superiore." }
+        ]
+      },
+      { 
+        name: "Impianti Spina", 
+        desc: "Sistemi di spillatura mobili e banchi bar.", 
+        specs: "Refrigerati", 
+        image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop" 
+      }
     ]
   },
   {
-    id: "impianti",
-    title: "Impianti",
-    subtitle: "Energia & Servizi",
-    description: "L'infrastruttura invisibile ma essenziale. Garantiamo potenza e sicurezza.",
+    id: "logistica",
+    title: "Dettagli Tecnici",
+    subtitle: "Logistica & Tecnica",
+    description: "Il cuore tecnico dell'evento. Riscaldamento, energia, luce e palchi per garantire la riuscita dello show in sicurezza.",
     icon: Zap,
     items: [
-      { name: "Generatori", desc: "Gruppi elettrogeni silenziati.", specs: "Da 30 a 200 KW", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop" },
-      { name: "Illuminazione", desc: "Torri faro e catenarie LED.", specs: "IP65 Outdoor", image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Riscaldamento", desc: "Generatori d'aria calda.", specs: "Gasolio/Elettrico", image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Bagni Chimici", desc: "Cabine standard e disabili.", specs: "Igienizzati", image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop" }
+      { name: "Riscaldamento", desc: "Generatori aria calda e funghi per esterni.", specs: "Gas/Gasolio", image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop" },
+      { name: "Illuminazione", desc: "Luci tecniche, decorative e torri faro.", specs: "IP65 Outdoor", image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop" },
+      { name: "Impianti Elettrici", desc: "Quadri certificati e distribuzione.", specs: "Cert. 37/08", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop" },
+      { 
+        name: "Palco & Pavimentazioni", 
+        desc: "Palchi modulari e soluzioni di copertura suolo.", 
+        specs: "Certificati", 
+        image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=2070&auto=format&fit=crop",
+        subProducts: [
+            { name: "Palco Rialzato 5x4m", image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=2070&auto=format&fit=crop", description: "Modulo palco certificato, altezza variabile." },
+            { name: "Pavimento in Legno", image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop", description: "Pedane in legno livellabili per pavimentare qualsiasi terreno." },
+            { name: "Moquette Decorativa", image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", description: "Finitura estetica in vari colori, posata su pavimentazione." }
+        ]
+      }
     ]
   },
   {
-    id: "intrattenimento",
-    title: "Intrattenimento",
-    subtitle: "Svago & Giochi",
-    description: "Rendi unico il tuo evento con aree dedicate al divertimento. Dai grandi classici alle sfide arcade.",
+    id: "fun",
+    title: "Area Fun",
+    subtitle: "Giochi & Svago",
+    description: "Intrattenimento per tutte le età. Dai grandi classici da bar alle attrazioni vintage e per i più piccoli.",
     icon: Gamepad2,
     items: [
-      { name: "Calcio Balilla", desc: "Tavoli professionali da torneo.", specs: "Aste Rientranti", image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop" },
-      { name: "Biliardo", desc: "Tavoli da pool regolamentari.", specs: "Panno Verde/Blu", image: "https://images.unsplash.com/photo-1585802525164-9f893fa9134a?q=80&w=1000&auto=format&fit=crop" },
-      { name: "Freccette", desc: "Bersagli elettronici a colonna.", specs: "Display Punti", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Punchball & Arcade", desc: "Giochi di forza e abilità.", specs: "Gettoniera/Free", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" }
+      { name: "Giochi Classici", desc: "Biliardi, Carambole, Calciobalilla, Freccette.", specs: "Professionali", image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop" },
+      { name: "Arcade & Vintage", desc: "Flipper, Punchball e Macchine Multigioco.", specs: "Freeplay/Gettoniera", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" },
+      { name: "Area Bimbi", desc: "Dondoli, Pesche e attrazioni a gettone.", specs: "Sicurezza CE", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" }
     ]
   }
 ];
@@ -63,6 +190,12 @@ const categories = [
 const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
     const [activeCategory, setActiveCategory] = useState(categories[0].id);
     const [loaded, setLoaded] = useState(false);
+    
+    // State for Background Animation
+    const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+
+    // State for Product Modal
+    const [selectedItem, setSelectedItem] = useState<ServiceItem | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -99,60 +232,84 @@ const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
         }
     };
 
+    const handleItemClick = (item: ServiceItem) => {
+        if (item.subProducts && item.subProducts.length > 0) {
+            setSelectedItem(item);
+        }
+    };
+
+    const closeModal = () => {
+        setSelectedItem(null);
+    };
+
     return (
         <>
-            <section className="relative min-h-screen bg-gf-darker selection:bg-gf-green selection:text-white pb-20">
+            <section className="relative min-h-screen text-white pb-20">
                  
-                 {/* --- NEW ORGANIC ANIMATED BACKGROUND --- */}
-                 <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                    {/* 1. Base Dark Background */}
-                    <div className="absolute inset-0 bg-[#081312]"></div>
-                    
-                    {/* 2. Fluid Gradient Orbs */}
-                    <div className="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-r from-gf-green/10 to-emerald-600/10 blur-[120px] animate-[blob_20s_infinite]"></div>
-                    <div className="absolute bottom-[-15%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-l from-emerald-900/20 to-teal-900/20 blur-[130px] animate-[blob_25s_infinite_reverse]"></div>
-                    <div className="absolute top-[40%] left-[20%] w-[30vw] h-[30vw] rounded-full bg-gf-green/5 blur-[90px] animate-[pulse_10s_infinite]"></div>
-                    
-                    {/* 3. Subtle Noise Texture */}
-                    <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+                 {/* --- FIXED BACKGROUND & GRADIENT --- */}
+                 {/* This container has the gradient and blobs but is fixed to viewport to avoid scroll issues */}
+                 <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-black">
+                     
+                     {/* 1. DYNAMIC IMAGE LAYER (The Replay Animation) */}
+                     {/* This layer renders ALL images but keeps them hidden until hovered. */}
+                     {categories.map((cat) => (
+                        cat.items.map((item, idx) => (
+                            <div 
+                                key={`${cat.id}-${idx}`}
+                                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out will-change-opacity ${hoveredImage === item.image ? 'opacity-60 scale-110' : 'opacity-0 scale-100'}`}
+                                style={{ 
+                                    backgroundImage: `url("${item.image}")`,
+                                    filter: 'blur(80px) saturate(1.5)', 
+                                }}
+                            />
+                        ))
+                     ))}
+
+                     {/* 2. OVERLAY GRADIENT */}
+                     {/* Reduced opacity slightly in the middle to let the colored blur shine through */}
+                     <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a]/80 to-[#022c24]/90"></div>
+                     
+                     {/* 3. ANIMATED BLOBS (Keep existing animations for extra movement) */}
+                     <div className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-gf-green/5 rounded-full blur-[120px] animate-[float_18s_infinite_ease-in-out]"></div>
+                     <div className="absolute top-[40%] -right-[10%] w-[60vw] h-[60vw] bg-emerald-900/10 rounded-full blur-[120px] animate-[float_22s_infinite_reverse_ease-in-out]"></div>
+                     <div className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] bg-gf-green/5 rounded-full blur-[100px] animate-[pulse_15s_infinite]"></div>
+                     
+                     {/* Noise Overlay */}
+                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
                  </div>
 
                  <div className="relative z-10 pt-32 pb-12 container mx-auto px-6">
                      
-                     {/* --- DISTINCT HEADER SECTION --- */}
-                     <div className={`relative mb-20 pb-12 transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                     {/* --- HEADER --- */}
+                     <div className={`text-center mb-24 max-w-4xl mx-auto transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                         
-                        <div className="relative z-10 max-w-4xl mx-auto text-center">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-gf-green/20 bg-gf-green/5 text-gf-green text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-                                <Package size={12} className="animate-pulse" />
-                                Catalogo Ufficiale
-                            </div>
-                            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tight">
-                                Soluzioni <span className="font-serif italic text-white/50 font-light">Tecniche</span> <br/>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gf-green to-emerald-400">Integrate.</span>
-                            </h1>
-                            <p className="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
-                                Ogni evento richiede fondamenta solide. Esplora le nostre categorie di noleggio e allestimento.
-                            </p>
+                        {/* Badge */}
+                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gf-green animate-pulse"></span>
+                            <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 uppercase">Our Catalog</span>
                         </div>
                         
-                        {/* Visual Separator */}
-                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-gf-green/50 to-transparent"></div>
+                        {/* Site Standard Title: Bold Sans + Italic Green Serif */}
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight drop-shadow-2xl">
+                            IL NOSTRO <span className="font-serif italic text-gf-green font-light">CATALOGO</span>
+                        </h1>
+
+                        <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                            Esplora il catalogo completo delle nostre attrezzature e soluzioni per eventi.
+                        </p>
                      </div>
 
                      {/* --- MAIN LAYOUT --- */}
                      <div className="flex flex-col lg:flex-row gap-16 items-start relative">
                         
                         {/* LEFT: Sidebar Navigation - Sticky */}
+                        {/* Note: Sticky works here because the parent section does not have overflow-hidden */}
                         <aside 
-                            className={`hidden lg:block lg:w-1/4 sticky top-40 transition-all duration-1000 ease-out delay-500 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
+                            className={`hidden lg:block lg:w-1/4 sticky top-32 transition-all duration-1000 ease-out delay-500 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
                         >
-                            {/* Glassmorphism Panel */}
-                            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                            {/* Panel with Strong Shadow for contrast against gradient */}
+                            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
                                 
-                                {/* Panel Highlight */}
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gf-green to-transparent opacity-50"></div>
-
                                 <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6 text-opacity-50">
                                     Indice Categorie
                                 </h3>
@@ -227,7 +384,13 @@ const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
                                     {/* Items Grid */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {cat.items.map((item, i) => (
-                                            <div key={i} className="group relative h-[320px] rounded-2xl overflow-hidden border border-white/10 hover:border-gf-green/50 transition-all duration-500 shadow-lg hover:shadow-2xl cursor-default">
+                                            <div 
+                                                key={i} 
+                                                onClick={() => handleItemClick(item)}
+                                                onMouseEnter={() => setHoveredImage(item.image)}
+                                                onMouseLeave={() => setHoveredImage(null)}
+                                                className={`group relative h-[320px] rounded-2xl overflow-hidden border border-white/10 hover:border-gf-green/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_40px_rgba(0,112,90,0.3)] ${item.subProducts ? 'cursor-pointer hover:ring-1 hover:ring-gf-green/50' : 'cursor-default'}`}
+                                            >
                                                 
                                                 {/* Image Background */}
                                                 <div 
@@ -235,22 +398,28 @@ const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
                                                     style={{ backgroundImage: `url("${item.image}")` }}
                                                 >
                                                     {/* Dark Gradient Overlay - Darkens on active */}
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
                                                 </div>
 
                                                 {/* Specs Badge */}
-                                                <div className="absolute top-4 right-4 z-20">
-                                                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-white/80 bg-black/40 backdrop-blur-md px-2 py-1 rounded border border-white/10 group-hover:border-gf-green/30 group-hover:text-white transition-colors">
+                                                <div className="absolute top-4 right-4 z-20 flex flex-col gap-2 items-end">
+                                                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-white/80 bg-black/60 backdrop-blur-md px-2 py-1 rounded border border-white/10 group-hover:border-gf-green/30 group-hover:text-white transition-colors">
                                                         {item.specs}
                                                     </span>
+                                                    {item.subProducts && (
+                                                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gf-green bg-black/80 backdrop-blur-md px-2 py-1 rounded border border-gf-green/50 animate-pulse">
+                                                            <Package size={10} /> + {item.subProducts.length} Varianti
+                                                        </span>
+                                                    )}
                                                 </div>
 
                                                 {/* Content (Bottom) */}
                                                 <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full z-20">
                                                     <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 flex flex-col items-start">
                                                          
-                                                         <h4 className="text-white font-bold text-2xl mb-2 group-hover:text-gf-green transition-colors leading-none uppercase drop-shadow-md">
+                                                         <h4 className="text-white font-bold text-2xl mb-2 group-hover:text-gf-green transition-colors leading-none uppercase drop-shadow-md flex items-center gap-2">
                                                             {item.name}
+                                                            {item.subProducts && <ChevronRight size={20} className="text-gf-green opacity-0 group-hover:opacity-100 transition-opacity" />}
                                                          </h4>
                                                          
                                                          {/* Separator */}
@@ -272,13 +441,111 @@ const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
                      </div>
 
                  </div>
+
+                 {/* --- PRODUCT CAROUSEL MODAL --- */}
+                 {selectedItem && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <div className="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity" onClick={closeModal}></div>
+                        
+                        <div className="relative bg-gf-darker border border-white/10 rounded-3xl w-full max-w-5xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-[slideUp_0.4s_ease-out]">
+                             
+                             {/* --- DYNAMIC BACKGROUND FOR MODAL --- */}
+                             <div className="absolute inset-0 z-0 pointer-events-none">
+                                {selectedItem.subProducts?.map((prod, idx) => (
+                                    <div 
+                                        key={`modal-bg-${idx}`}
+                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${hoveredImage === prod.image ? 'opacity-60 scale-110' : 'opacity-0 scale-100'}`}
+                                        style={{ 
+                                            backgroundImage: `url("${prod.image}")`,
+                                            filter: 'blur(60px) saturate(1.5)', 
+                                        }}
+                                    />
+                                ))}
+                                {/* Overlay to ensure text readability on top of blur */}
+                                <div className="absolute inset-0 bg-gf-darker/80"></div>
+                             </div>
+
+                             {/* Modal Header */}
+                             <div className="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-gf-darker/50 backdrop-blur-xl relative z-10">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="w-10 h-10 rounded-full bg-gf-green/20 flex items-center justify-center text-gf-green">
+                                            <Package size={20} />
+                                        </div>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-white leading-none">{selectedItem.name}</h3>
+                                    </div>
+                                    <p className="text-gray-400 text-sm md:text-base font-light ml-13">{selectedItem.desc}</p>
+                                </div>
+                                <button 
+                                    onClick={closeModal}
+                                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all hover:rotate-90"
+                                >
+                                    <X size={20} />
+                                </button>
+                             </div>
+
+                             {/* Modal Body - Carousel/Grid */}
+                             <div className="relative z-10 flex-1 overflow-y-auto p-6 md:p-8 bg-transparent">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {selectedItem.subProducts?.map((prod, idx) => (
+                                        <div 
+                                            key={idx} 
+                                            className="group relative bg-white/5 border border-white/5 rounded-xl overflow-hidden hover:border-gf-green/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,112,90,0.15)] hover:-translate-y-1"
+                                            onMouseEnter={() => setHoveredImage(prod.image)}
+                                            onMouseLeave={() => setHoveredImage(null)}
+                                        >
+                                            
+                                            {/* Image */}
+                                            <div className="relative h-48 overflow-hidden">
+                                                <div 
+                                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                                    style={{ backgroundImage: `url("${prod.image}")` }}
+                                                ></div>
+                                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                                            </div>
+
+                                            {/* Content */}
+                                            <div className="p-5">
+                                                <h4 className="text-lg font-bold text-white mb-2 group-hover:text-gf-green transition-colors">{prod.name}</h4>
+                                                <p className="text-sm text-gray-400 font-light leading-relaxed">{prod.description || "Soluzione ideale per eventi esclusivi."}</p>
+                                            </div>
+
+                                            {/* Action Bar */}
+                                            <div className="px-5 pb-5 pt-0 mt-auto flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                                <span className="text-[10px] uppercase font-bold text-gf-green tracking-widest">Disponibile</span>
+                                                <button 
+                                                    onClick={() => { closeModal(); if(onShowContact) onShowContact(); }}
+                                                    className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white hover:bg-white hover:text-gf-green transition-colors shadow-lg"
+                                                >
+                                                    <ArrowRight size={14} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                             </div>
+
+                             {/* Modal Footer */}
+                             <div className="relative z-10 p-4 border-t border-white/10 bg-gf-darker/80 text-center text-xs text-gray-500">
+                                <p>Tutte le strutture sono certificate secondo le normative vigenti.</p>
+                             </div>
+                        </div>
+                    </div>
+                 )}
                  
                  <style>{`
-                    @keyframes blob {
-                        0% { transform: translate(0px, 0px) scale(1); }
-                        33% { transform: translate(30px, -50px) scale(1.1); }
-                        66% { transform: translate(-20px, 20px) scale(0.9); }
-                        100% { transform: translate(0px, 0px) scale(1); }
+                    @keyframes float {
+                        0%, 100% { transform: translate(0, 0); }
+                        33% { transform: translate(30px, -50px); }
+                        66% { transform: translate(-20px, 20px); }
+                    }
+                    @keyframes slideUp {
+                        0% { transform: translateY(50px); opacity: 0; }
+                        100% { transform: translateY(0); opacity: 1; }
+                    }
+                    @keyframes fadeInGradient {
+                        0% { opacity: 0; }
+                        100% { opacity: 1; }
                     }
                  `}</style>
             </section>
