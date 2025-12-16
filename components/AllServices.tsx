@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight, Search } from 'lucide-react';
+import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight } from 'lucide-react';
 import Contact from './Contact';
 
 interface SubProduct {

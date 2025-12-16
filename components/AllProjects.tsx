@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { ArrowUpRight, Camera, MapPin, Calendar, Layout, Filter, SlidersHorizontal, ArrowDown } from 'lucide-react';
 import { ProjectData } from './ProjectDetail';
-import Contact from './Contact';
 
 interface AllProjectsProps {
   onShowContact?: () => void;

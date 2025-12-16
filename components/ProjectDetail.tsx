@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ArrowLeft, Play, X, MapPin, Calendar, Share2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowLeft, Play, X, MapPin, Share2 } from 'lucide-react';
 
 export interface ProjectData {
   title: string;

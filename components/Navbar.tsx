@@ -146,19 +146,19 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled || onBackToHome ? 'bg-gf-darker/95 backdrop-blur-sm py-5 shadow-lg' : 'bg-transparent py-8'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled || onBackToHome ? 'bg-gf-darker/95 backdrop-blur-sm py-6 shadow-lg' : 'bg-transparent py-10'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center text-white relative z-50">
           
           {/* Left: Back Button or Standard Links */}
           {onBackToHome ? (
              <button 
                 onClick={onBackToHome}
-                className="flex items-center gap-2 text-white hover:text-gf-green transition-colors text-base font-bold uppercase tracking-widest"
+                className="flex items-center gap-2 text-white hover:text-gf-green transition-colors text-sm font-bold uppercase tracking-widest"
              >
-                <ArrowLeft size={20} /> Torna alla Home
+                <ArrowLeft size={18} /> Torna alla Home
              </button>
           ) : (
-            <div className="hidden lg:flex gap-8 text-sm font-bold tracking-widest uppercase">
+            <div className="hidden lg:flex gap-6 text-xs font-bold tracking-widest uppercase">
                 {navLinks.map((link) => (
                 <a 
                     key={link.name} 
@@ -179,7 +179,7 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate ? onNavigate('#hero') : document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
           >
              {/* Logo Icon */}
-             <div className="relative w-16 h-10 mb-1">
+             <div className="relative w-12 h-8 mb-1">
                  <svg viewBox="0 0 100 60" className="w-full h-full stroke-white fill-none stroke-[8] stroke-linecap-round stroke-linejoin-round group-hover:stroke-gf-green transition-colors duration-300">
                     {/* G */}
                     <path d="M 40 10 A 20 20 0 1 0 40 50 H 50 V 30 H 40" />
@@ -188,16 +188,16 @@ const Navbar: React.FC<NavbarProps> = ({
                  </svg>
              </div>
              {/* Text */}
-             <span className="text-xs font-bold tracking-[0.4em] text-white group-hover:text-gf-green transition-colors duration-300 uppercase">
+             <span className="text-[10px] font-bold tracking-[0.4em] text-white group-hover:text-gf-green transition-colors duration-300 uppercase">
                 Service
              </span>
           </div>
 
           {/* Right: Icons (Desktop) */}
-          <div className="hidden lg:flex gap-8 items-center">
-               <MessageCircle size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
-               <Phone size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
-               <Mail size={22} className="cursor-pointer hover:text-gf-green transition-colors" />
+          <div className="hidden lg:flex gap-6 items-center">
+               <MessageCircle size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
+               <Phone size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
+               <Mail size={20} className="cursor-pointer hover:text-gf-green transition-colors" />
           </div>
 
           {/* Mobile Toggle Button (Hamburger) */}
@@ -207,7 +207,7 @@ const Navbar: React.FC<NavbarProps> = ({
               className="text-white hover:text-gf-green transition-colors focus:outline-none p-2"
               aria-label="Open menu"
             >
-               <Menu size={36} />
+               <Menu size={32} />
             </button>
           </div>
         </div>
