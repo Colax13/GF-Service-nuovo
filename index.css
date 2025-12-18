@@ -20,3 +20,17 @@ html {
   background: #00705a;
   border-radius: 4px;
 }
+
+/* Animazione per il tracciamento del bordo delle card */
+@keyframes draw-border {
+  from {
+    stroke-dashoffset: 3000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-border {
+  animation: draw-border 2s ease-in-out forwards;
+}
