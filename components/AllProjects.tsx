@@ -123,7 +123,7 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2025",
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    description: "Madonna del Carmine 2025 a Tecchiena. Una festa patronale con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service non solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n300 kit da birreria: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, mas anche i turisti, i connazionali tornati dal resto d'Italia.\n\nQuesta è la maestria che i nostri clienti non vedono ma riconoscono: la capacità di trasformare un numero grande in un'esperienza fluida. Non 300 tavoli sparsi nel caos - 300 tavoli che raccontano una storia di inclusione e comunità.",
+    description: "Madonna del Carmine 2025 a Tecchiena. Una festa patronale con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service not solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n300 kit da birreria: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, mas anche i turisti, i connazionali tornati dal resto d'Italia.\n\nQuesta è la maestria che i nostri clienti non vedono ma riconoscono: la capacità di trasformare un numero grande in un'esperienza fluida. Non 300 tavoli sparsi nel caos - 300 tavoli che raccontano una storia di inclusione e comunità.",
     imageNarrative: "La fornitura di 300 kit birreria rappresenta uno dei nostri allestimenti più massivi per eventi di comunità nel territorio ciociaro.",
     videoLabel: "Pianificazione logistica e distribuzione dei tavoli per l'accoglienza di oltre 2000 persone.",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -146,14 +146,13 @@ const filters = [
 
 /**
  * Interface for AllProjects component props.
- * Added onShowContact to resolve TypeScript error in App.tsx.
  */
 interface AllProjectsProps {
   onProjectSelect?: (project: ProjectData) => void;
   onShowContact?: () => void;
 }
 
-const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect, onShowContact }) => {
+const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
     const [loaded, setLoaded] = useState(false);
     const [activeFilter, setActiveFilter] = useState('all');
     const [hoveredProject, setHoveredProject] = useState<string | null>(null);

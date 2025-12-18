@@ -142,7 +142,7 @@ const App: React.FC = () => {
               forcedActive="Progetti" 
           />
           <div className="flex-grow">
-            <AllProjects onShowContact={handleShowContact} onProjectSelect={handleProjectSelect} />
+            <AllProjects onProjectSelect={handleProjectSelect} />
           </div>
           <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
         </div>
