@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Play, X, MapPin, Package, CheckCircle2, Info, Maximize2 } from 'lucide-react';
+import { ArrowLeft, Play, X, MapPin, Package, CheckCircle2, Info } from 'lucide-react';
 
 export interface GalleryItem {
   image: string;

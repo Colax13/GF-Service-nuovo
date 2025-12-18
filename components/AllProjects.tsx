@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { ArrowUpRight, Camera, MapPin, Instagram, Facebook, ArrowRight } from 'lucide-react';
+import { Camera, MapPin, Instagram, Facebook } from 'lucide-react';
 import { ProjectData } from './ProjectDetail';
 
 const projects: ProjectData[] = [
@@ -57,7 +57,7 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2024",
     image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop",
-    description: "\"Tavolata lungo corso\" è le nome giusto: 180 tavoli distribuiti lungo il corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".",
+    description: "\"Tavolata lungo corso\" è le nome giusto: 180 tavoli distribuiti lungo le corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".",
     imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
     videoLabel: "Timelaps del montaggio record: 180 tavoli posizionati e pronti all'uso in un pomeriggio.",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -144,7 +144,16 @@ const filters = [
     { id: 'natalizi', label: 'Mercatini Natalizi' },
 ];
 
-const AllProjects: React.FC<{ onShowContact?: () => void; onProjectSelect?: (project: ProjectData) => void; }> = ({ onShowContact, onProjectSelect }) => {
+/**
+ * Interface for AllProjects component props.
+ * Added onShowContact to resolve TypeScript error in App.tsx.
+ */
+interface AllProjectsProps {
+  onProjectSelect?: (project: ProjectData) => void;
+  onShowContact?: () => void;
+}
+
+const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect, onShowContact }) => {
     const [loaded, setLoaded] = useState(false);
     const [activeFilter, setActiveFilter] = useState('all');
     const [hoveredProject, setHoveredProject] = useState<string | null>(null);
