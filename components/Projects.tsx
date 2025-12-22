@@ -1,6 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, MapPin } from 'lucide-react';
-import { ProjectData } from './ProjectDetail';
+import { ProjectData, GalleryItem } from './ProjectDetail';
+
+const octoberFestGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg", label: "Vista prospettica interna tendostruttura.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427497/fuori_1_u5vafl.jpg", label: "Dettaglio ingresso esterno.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427551/struttura_interna_3_zmw9ip.jpg", label: "Allineamento tavoli.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427492/struttur_ainterna_1_xn3x1l.jpg", label: "Allestimento interno.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg", label: "Area intrattenimento e svago.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427567/struttura_interna_4_fnsxdx.jpg", label: "Allestimento interno.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427537/struttur_ainterna_2_y6ipjj.jpg", label: "Dettaglio allestimento interno.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427525/air_hockey_nmm4of.jpg", label: "Air hokcey professionale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427559/impianti_eetito.jpg", label: "Impianto spina professionale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", label: "Pavimentazione palco modulare.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427554/palchetto_x5eb9l.jpg", label: "Palchetto modulare.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427510/flipper_rb0m4z.jpg", label: "Area giochi: Flipper Vintage.", orientation: 'portrait' }
+];
 
 const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (project: ProjectData) => void; }> = ({ onShowAllProjects, onProjectSelect }) => {
   const projects: ProjectData[] = [
@@ -13,36 +28,30 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       target: "Famiglie, shopping natalizio",
       year: "2024",
       image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
-      description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.\n\nLa sfida più grande non è il montaggio iniziale, ma la **gestione continuativa su 8 settimane**: mantenere l'integrità strutturale sotto la pioggia, il vento, le gelate; preservare l'aspetto estetico while garantendo funzionalità; coordinare con i commercianti che cambiano merci e strategie di vendita.\n\nLe casette di legno rappresentano la nostra risposta al problema della stagionalità: non sono temporanee nel senso di \"fragili\", ma temporanee nel senso di \"pensate per vivere il loro momento perfetto e poi scomparire con eleganza\".\n\nPorta di Roma non vuole un \"noleggio\": vuole che i suoi visitatori dimentichino che quello che vedono è stato montato da qualcuno. Vuole che sembrino sempre stati lì.",
-      imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua, garantendo isolamento termico e un'estetica calda e accogliente.",
-      videoLabel: "Analisi della stabilità strutturale in condizioni di affollamento massivo durante il weekend inaugurale.",
+      description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**.",
+      imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua.",
       videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov", 
       galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Schiera di casette di legno." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Dettaglio della casetta con logo Porta Pia." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "Detagli di una casetta al calar del solo." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
       ],
-      materials: ["17 casette di legno modulari", "Personalizzazione estetica", "Gestione stagionale continuativa", "Coesione visiva su 8 settimane"]
+      materials: ["17 casette di legno modulari"]
     },
     {
       title: "October Fest",
       location: "Alatri, Lazio",
       category: "Sagre e Feste di Paese",
       client: "Pizzeria Il Decimo",
+      typeLabel: "Privato (Ristorante/Pizzeria)",
+      target: "Adulti - Occasioni enogastronomiche",
       year: "2023",
-      image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=2070&auto=format&fit=crop",
-      description: "Per il progetto dell'October Fest organizzato dalla Pizzeria Il Decimo ad Alatri, l'obiettivo era creare uno spazio che fosse contemporaneamente funzionale, accogliente e capace di mantenere l'energia dell'evento per due settimane consecutive.\n\nAbbiamo realizzato una tendostruttura di 500 metri quadri, dotata di teli Crystal di ultima generazione che permettono alla luce naturale di creare un'atmosfera unica durante il giorno, mentre di sera le luci integrate trasformano lo spazio in una destination enogastronomica. All'interno, un palco modulare 5x4 metri ospita le performance live, circondato da 30 panche che trasformano i visitatori in una comunità temporanea.\n\nLa vera sfida è stata integrare l'area giochi esterna - punchball, biliardino e cento altri giochi - creando una fluidità di movement tra la zona principale della birra e lo spazio ludico, garantendo al contempo la sicurezza di adulti e bambini.",
-      imageNarrative: "La tendostruttura Crystal da 500mq ha permesso di mantenere un legame visivo con il paesaggio di Alatri, garantendo al contempo una temperatura ideale interna.",
-      videoLabel: "Sincronizzazione tra service audio/luci e allestimento strutturale durante i concerti live serali.",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      galleryItems: [
-        { image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=2070&auto=format&fit=crop", label: "Vista panoramica della tendostruttura da 500 metri quadri." },
-        { image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop", label: "Allestimento luci interne per creare l'atmosfera bavarese." },
-        { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop", label: "Area food con 30 panche per il comfort dei visitatori." },
-        { image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area giochi integrata con biliardini e attrazioni." }
-      ],
-      materials: ["Tendostruttura 500mq", "Palco modulare 5x4m", "30 panche", "Impianti birra 3 sezioni"]
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg",
+      description: "Per il progetto della Festa della Birra organizzato dalla Pizzeria Il Decimo ad Alatri, l'obiettivo era creare uno spazio che fosse contemporaneamente funzionale, accogliente e capace di mantenere l'energia dell'evento per due settimane consecutive.\n\nAbbiamo realizzato una **tendostruttura di 500 metri quadri (25x20)**, dotata di teli PVC di ultima generazione che permettono di mantenere il calore all'interno della struttura e che trasformano lo spazio in una destination enogastronomica. All'interno, un **palchetto modulare 5x4 metri** ospita le performance live, circondato da **50 panche** che trasformano i visitatori in una comunità temporanea.\n\nLa vera sfida è stata integrare l'area giochi esterna - punchball, biliardino, air hockey e altri giochi - creando una fluidità di movemento tra la zona principale della birra e lo spazio ludico, garantendo al contempo la sicurezza di adulti e bambini. Per farlo abbiamo pensato di utilizzare un **gazebo 5x5** direttamente collegato alla struttura principale con copertura per il passaggio.\n\nQuello che è emerso da questo progetto è che la struttura non è mai stata percepita come \"allestimento\": è diventata la casa di quell'evento, il luogo dove i ricordi si sono creati. Due settimane è tempo sufficiente perché uno spazio temporaneo diventi \"il nostro spazio\".",
+      imageNarrative: "La tendostruttura da 500mq con gazebo 5x5 integrato ha permesso di creare un'area food e ludica perfettamente connessa.",
+      galleryItems: octoberFestGallery,
+      materials: ["Tendostruttura 500mq", "Palchetto modulare 5x4m", "50 panche", "Gazebo 5x5", "Area giochi integrata"]
     },
     {
       title: "Belgian Beer Festival",
@@ -51,17 +60,14 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       client: "Shire Brewing",
       year: "2025",
       image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop",
-      description: "Quando Shire Brewing ha scelto di organizzare il Belgian Beer Festival a Fiuggi, sapeva che lo spazio avrebbe dovuto raccontare una story: quella della birra belga, della tradizione, dell'artigianalità.\n\nLa nostra risposta è stata architetturale. Una tendostruttura 50x10 metri come cuore pulsante dell'evento, con teli che permettono al visitatore di sentirsi \"dentro\" mentre rimane consapevole dell'esterno.\n\nLa vera innovazione è stata l'illuminazione e il riscaldamento: cannoni termici che non riscaldano solo l'aria, ma trasformano lo spazio in qualcosa di più accogliente conforme al clima esterno. Perché una birra belga a Fiuggi a febbraio ha bisogno di calore, ma non di artificio.",
-      imageNarrative: "Il riscaldamento integrato con cannoni termici professionali ha garantito una temperatura costante di 21°C nonostante il clima invernale di Fiuggi.",
-      videoLabel: "Focus tecnico sull'impianto di riscaldamento e distribuzione dell'aria all'interno della tendostruttura.",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      description: "Una tendostruttura 50x10 metri come cuore pulsante dell'evento.",
       galleryItems: [
-        { image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", label: "La maestosa tendostruttura 50x10 metri nel cuore di Fiuggi." },
-        { image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", label: "Interni riscaldati e illuminati per un'esperienza premium." },
-        { image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area spillatura professionale." },
-        { image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop", label: "Il festival prende vita grazie all'architettura temporanea GF Service." }
+        { image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", label: "La maestosa tendostruttura 50x10 metri." },
+        { image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop", label: "L'atmosfera calda creata all'interno." },
+        { image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio spillatrici Shire Brewing." },
+        { image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop", label: "Area lounge con arredi in rattan." }
       ],
-      materials: ["Tendostruttura 50x10m", "30 kit da birreria", "Riscaldamento", "Illuminazione"]
+      materials: ["Tendostruttura 50x10m"]
     },
     {
       title: "Tavolata lungo corso",
@@ -70,23 +76,22 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       client: "Comune di Sora",
       year: "2024",
       image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop",
-      description: "\"Tavolata lungo corso\" è il nome giusto: 180 tavoli distribuiti lungo il corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".",
-      imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
-      videoLabel: "Timelaps del montaggio record: 180 tavoli posizionati e pronti all'uso in un pomeriggio.",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      description: "180 tavoli trasformano il corso storico in un'area di comunità.",
       galleryItems: [
         { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop", label: "L'infinita linea di tavoli che attraversa il centro storico." },
         { image: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2070&auto=format&fit=crop", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
-        { image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", label: "Squadre tecniche al lavoro durante la fase di allineamento dei tavoli." },
-        { image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop", label: "Vista notturna dell'evento: la trasformazione del corso è compiuta." }
+        { image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'allestimento dei kit birreria." },
+        { image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2070&auto=format&fit=crop", label: "Vista aerea della distribuzione lungo l'asse stradale." }
       ],
-      materials: ["180 kit da birreria", "4 gazebi 4x4", "Montaggio rapido"]
+      materials: ["180 kit da birreria"]
     }
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const infiniteProjects = [...projects, ...projects, ...projects];
+  const [currentIndex, setCurrentIndex] = useState(projects.length);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.1 });
@@ -94,14 +99,42 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
     return () => observer.disconnect();
   }, []);
 
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % projects.length);
-  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  useEffect(() => {
+    if (mobileScrollRef.current) {
+      const scrollContainer = mobileScrollRef.current;
+      const cardWidth = scrollContainer.offsetWidth * 0.8;
+      const gap = 24;
+      const initialScroll = (projects.length * (cardWidth + gap));
+      scrollContainer.scrollLeft = initialScroll;
+    }
+  }, [projects.length]);
+
+  const handleScroll = () => {
+    if (!mobileScrollRef.current) return;
+    const { scrollLeft, scrollWidth, offsetWidth } = mobileScrollRef.current;
+    
+    const cardWidth = offsetWidth * 0.8;
+    const gap = 24;
+    const singleSetWidth = projects.length * (cardWidth + gap);
+
+    if (scrollLeft <= 10) {
+      mobileScrollRef.current.scrollLeft = singleSetWidth + scrollLeft;
+    } else if (scrollLeft >= scrollWidth - offsetWidth - 10) {
+      mobileScrollRef.current.scrollLeft = scrollLeft - singleSetWidth;
+    }
+
+    const centerPoint = scrollLeft + offsetWidth / 2;
+    const index = Math.round(centerPoint / (cardWidth + gap)) % infiniteProjects.length;
+    setCurrentIndex(index);
+  };
+
+  const activeDot = currentIndex % projects.length;
 
   return (
     <section id="progetti" ref={sectionRef} className="py-24 md:py-32 bg-black relative overflow-hidden flex flex-col items-center">
       <div className="absolute inset-0 z-0 overflow-hidden">
           {projects.map((project, index) => (
-              <div key={index} className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === currentIndex ? 'opacity-50' : 'opacity-0'}`} style={{ backgroundImage: `url(${project.image})`, filter: 'blur(60px) saturate(2)' }} />
+              <div key={index} className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === activeDot ? 'opacity-50' : 'opacity-0'}`} style={{ backgroundImage: `url(${project.image})`, filter: 'blur(60px) saturate(2)' }} />
           ))}
           <div className="absolute inset-0 bg-black/30"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
@@ -115,76 +148,43 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 uppercase">PROGETTI <span className="font-serif italic text-gf-green font-light lowercase">Iconici</span></h2>
         </div>
 
+        <div className="lg:hidden w-full flex flex-col items-center">
+            <div ref={mobileScrollRef} onScroll={handleScroll} className="w-full flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-6 px-10 pb-8 transition-all duration-500" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {infiniteProjects.map((project, index) => (
+                <div key={index} onClick={() => onProjectSelect?.(project)} className={`min-w-[80vw] snap-center relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-500 ease-out flex-shrink-0 ${index === currentIndex ? 'scale-100 opacity-100' : 'scale-90 opacity-40 grayscale-[0.3]'}`}>
+                  <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${project.image})` }} />
+                  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent p-8 flex flex-col justify-end">
+                    <h3 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight leading-tight">{project.title}</h3>
+                    <div className="flex items-center gap-2 text-xs text-gray-300 uppercase tracking-widest font-semibold"><MapPin size={14} className="text-gf-green" />{project.location}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+        </div>
+
         <div className="hidden lg:flex relative h-[500px] w-full items-center justify-center">
           {projects.map((project, index) => {
-            const isActive = index === currentIndex;
-            const isPrev = index === (currentIndex - 1 + projects.length) % projects.length;
-            const isNext = index === (currentIndex + 1) % projects.length;
-            
-            let styleClass = "z-0 opacity-0 scale-75 translate-x-0 pointer-events-none";
-            if (isActive) styleClass = "z-30 opacity-100 scale-100 translate-x-0 cursor-pointer shadow-2xl border border-white/10";
-            else if (isPrev) styleClass = "z-10 opacity-50 scale-90 -translate-x-[65%] cursor-pointer grayscale border-transparent";
-            else if (isNext) styleClass = "z-10 opacity-50 scale-90 translate-x-[65%] cursor-pointer grayscale border-transparent";
-
+            const isActive = index === activeDot;
+            const isPrev = index === (activeDot - 1 + projects.length) % projects.length;
+            const isNext = index === (activeDot + 1) % projects.length;
+            let styleClass = isActive ? "z-30 opacity-100 scale-100 translate-x-0 cursor-pointer shadow-2xl border border-white/10" : (isPrev ? "z-10 opacity-50 scale-90 -translate-x-[65%] cursor-pointer grayscale" : (isNext ? "z-10 opacity-50 scale-90 translate-x-[65%] cursor-pointer grayscale" : "z-0 opacity-0 scale-75 translate-x-0 pointer-events-none"));
             return (
-              <div 
-                key={index} 
-                onClick={() => index === currentIndex ? onProjectSelect?.(project) : (isPrev ? prevSlide() : nextSlide())} 
-                className={`absolute top-0 w-[60%] h-full transition-all duration-500 ease-out rounded-2xl overflow-hidden group border-2 border-transparent ${styleClass}`}
-              >
+              <div key={index} onClick={() => isActive ? onProjectSelect?.(project) : (isPrev ? setCurrentIndex(activeDot - 1 + projects.length) : setCurrentIndex(activeDot + 1))} className={`absolute top-0 w-[60%] h-full transition-all duration-500 ease-out rounded-2xl overflow-hidden group border-2 border-transparent ${styleClass}`}>
                 <div className="w-full h-full relative overflow-hidden">
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-50">
-                    <rect
-                      x="4"
-                      y="4"
-                      width="calc(100% - 8px)"
-                      height="calc(100% - 8px)"
-                      fill="none"
-                      stroke="#10b981"
-                      strokeWidth="5"
-                      strokeDasharray="3000"
-                      strokeDashoffset="3000"
-                      rx="20"
-                      className="group-hover:animate-draw-border opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ 
-                        animationDuration: '0.6s', 
-                        animationFillMode: 'forwards',
-                        strokeLinecap: 'round'
-                      }}
-                    />
-                  </svg>
-
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" 
-                    style={{ backgroundImage: `url(${project.image})` }}
-                  ></div>
-
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-500"></div>
-                  
-                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-80"></div>
-
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-20">
-                     <div className="group/btn flex items-center gap-3 px-8 py-3.5 rounded-full border border-white/30 text-white text-xs font-bold uppercase tracking-[0.2em] bg-white/10 backdrop-blur-xl hover:bg-gf-green hover:border-gf-green hover:scale-105 transition-all duration-300 shadow-xl">
-                        Vedi Progetto
-                        <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1.5" />
-                     </div>
-                  </div>
-
-                  <div className="absolute bottom-12 left-12 text-left z-10 transition-transform duration-500 group-hover:scale-105 origin-left pr-12">
-                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2 leading-tight drop-shadow-lg uppercase tracking-tight line-clamp-2">
-                        {project.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-200 uppercase tracking-widest font-semibold drop-shadow-md">
-                        <MapPin size={16} className="text-gf-green" />
-                        {project.location}
-                    </div>
+                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={{ backgroundImage: `url(${project.image})` }} />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-500" />
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none opacity-80 transition-opacity duration-500" />
+                  <div className="absolute bottom-12 left-12 text-left z-10">
+                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2 leading-tight uppercase tracking-tight">{project.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-200 uppercase tracking-widest font-semibold"><MapPin size={16} className="text-gf-green" />{project.location}</div>
                   </div>
                 </div>
               </div>
             );
           })}
-          <button onClick={prevSlide} className="absolute left-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full transition-all"><ArrowLeft size={24} /></button>
-          <button onClick={nextSlide} className="absolute right-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full transition-all"><ArrowRight size={24} /></button>
+          <button onClick={() => setCurrentIndex(activeDot - 1 + projects.length)} className="absolute left-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full transition-all"><ArrowLeft size={24} /></button>
+          <button onClick={() => setCurrentIndex(activeDot + 1)} className="absolute right-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full transition-all"><ArrowRight size={24} /></button>
         </div>
 
         <div className="mt-8">
@@ -194,6 +194,10 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
              </a>
         </div>
       </div>
+      
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+      `}</style>
     </section>
   );
 };

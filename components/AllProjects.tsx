@@ -1,6 +1,21 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Camera, MapPin, Instagram, Facebook } from 'lucide-react';
-import { ProjectData } from './ProjectDetail';
+import { ProjectData, GalleryItem } from './ProjectDetail';
+
+const octoberFestGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg", label: "Vista prospettica interna tendostruttura.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427497/fuori_1_u5vafl.jpg", label: "Dettaglio ingresso esterno.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427551/struttura_interna_3_zmw9ip.jpg", label: "Allineamento tavoli interna.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427492/struttur_ainterna_1_xn3x1l.jpg", label: "Allestimento luci interne.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg", label: "Area intrattenimento e svago.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427567/struttura_interna_4_fnsxdx.jpg", label: "Allestimento zona bar.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427537/struttur_ainterna_2_y6ipjj.jpg", label: "Finiture dei teli PVC.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427525/air_hockey_nmm4of.jpg", label: "Area giochi: Air Hockey.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427559/impianti_eetito.jpg", label: "Impianto spina professionale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", label: "Pavimentazione palco modulare.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427554/palchetto_x5eb9l.jpg", label: "Configurazione palco eventi.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427510/flipper_rb0m4z.jpg", label: "Area giochi: Flipper Vintage.", orientation: 'portrait' }
+];
 
 const projects: ProjectData[] = [
   {
@@ -13,15 +28,14 @@ const projects: ProjectData[] = [
     type: "natalizi",
     year: "2024",
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
-    description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.\n\nLa sfida più grande non è il montaggio iniziale, ma la **gestione continuativa su 8 settimane**: mantenere l'integrità strutturale sotto la pioggia, il vento, le gelate; preservare l'aspetto estetico while garantendo funzionalità; coordinare con i commercianti che cambiano merci e strategie di vendita.\n\nLe casette di legno rappresentano la nostra risposta al problema della stagionalità: non sono temporanee nel senso di \"fragili\", ma temporanee nel senso di \"pensate per vivere il loro momento perfetto e poi scomparire con eleganza\".\n\nPorta di Roma non vuole un \"noleggio\": vuole che i suoi visitatori dimentichino che quello che vedono è stato montato da qualcuno. Vuole che sembrino sempre stati lì.",
+    description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.",
     imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua, garantendo isolamento termico e un'estetica calda e accogliente.",
-    videoLabel: "Analisi della stabilità strutturale in condizioni di affollamento massivo durante il weekend inaugurale.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov",
     galleryItems: [
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Il villaggio natalizio illuminato al calar del sole." },
-        { image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2000&auto=format&fit=crop", label: "Dettaglio dell'assemblaggio dei moduli in legno naturale." },
-        { image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop", label: "Vista aerea della distribuzione spaziale dei 17 stand." },
-        { image: "https://images.unsplash.com/photo-1544030617-e25f8266205e?q=80&w=2070&auto=format&fit=crop", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Schiera di casette di legno." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Dettaglio della casetta con logo Porta Pia." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
     ],
     materials: ["17 casette di legno modulari", "Personalizzazione estetica", "Gestione stagionale continuativa", "Coesione visiva su 8 settimane"]
   },
@@ -34,21 +48,14 @@ const projects: ProjectData[] = [
     target: "Adulti - Occasioni enogastronomiche",
     type: "sagre",
     year: "2023",
-    image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=2070&auto=format&fit=crop",
-    description: "Per il progetto dell'October Fest organizzato dalla Pizzeria Il Decimo ad Alatri, l'obiettivo era creare uno spazio che fosse contemporaneamente funzionale, accogliente e capace di mantenere l'energia dell'evento per due settimane consecutive.\n\nAbbiamo realizzato una tendostruttura di 500 metri quadri, dotata di teli Crystal di ultima generazione che permettono alla luce naturale di creare un'atmosfera unica durante il giorno, mentre di sera le luci integrate trasformano lo spazio in una destination enogastronomica. All'interno, un palco modulare 5x4 metri ospita le performance live, circondato da 30 panche che trasformano i visitatori in una comunità temporanea.\n\nLa vera sfida è stata integrare l'area giochi esterna - punchball, biliardino e cento altri giochi - creando una fluidità di movement tra la zona principale della birra e lo spazio ludico, garantendo al contempo la sicurezza di adulti e bambini.",
-    imageNarrative: "La tendostruttura Crystal da 500mq ha permesso di mantenere un legame visivo con il paesaggio di Alatri, garantendo al contempo una temperatura ideale interna.",
-    videoLabel: "Sincronizzazione tra service audio/luci e allestimento strutturale durante i concerti live serali.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    galleryItems: [
-        { image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=2070&auto=format&fit=crop", label: "Vista panoramica della tendostruttura da 500 metri quadri." },
-        { image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop", label: "Allestimento luci interne per creare l'atmosphere bavarese." },
-        { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop", label: "Area food con 30 panche per il comfort dei visitatori." },
-        { image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area giochi integrata con biliardini e attrazioni." }
-    ],
-    materials: ["Tendostruttura 500mq", "Palco modulare 5x4m", "30 panche", "Impianti birra 3 sezioni", "Area giochi integrata"]
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430190/cover_q7wcxz.jpg",
+    description: "Per il progetto della Festa della Birra organizzato dalla Pizzeria Il Decimo ad Alatri, l'obiettivo era creare uno spazio che fosse contemporaneamente funzionale, accogliente e capace di mantenere l'energia dell'evento per due settimane consecutive.\n\nAbbiamo realizzato una **tendostruttura di 500 metri quadri (25x20)**, dotata di teli PVC di ultima generazione che permettono di mantenere il calore all'interno della struttura e che trasformano lo spazio in una destination enogastronomica. All'interno, un **palchetto modulare 5x4 metri** ospita le performance live, circondato da **50 panche** che trasformano i visitatori in una comunità temporanea.\n\nLa vera sfida è stata integrare l'area giochi esterna - punchball, biliardino, air hockey e altri giochi - creando una fluidità di movemento tra la zona principale della birra e lo spazio ludico, garantendo al contempo la sicurezza di adulti e bambini. Per farlo abbiamo pensato di utilizzare un **gazebo 5x5** direttamente collegato alla struttura principale con copertura per il passaggio.\n\nQuello che è emerso da questo progetto è che la struttura non è mai stata percepita come \"allestimento\": è diventata la casa di quell'evento, il luogo dove i ricordi si sono creati. Due settimane è tempo sufficiente perché uno spazio temporaneo diventi \"il nostro spazio\".",
+    imageNarrative: "La tendostruttura da 500mq con gazebo 5x5 integrato ha permesso di creare un'area food e ludica perfettamente connessa.",
+    galleryItems: octoberFestGallery,
+    materials: ["Tendostruttura 500mq", "Palchetto modulare 5x4m", "50 panche", "Gazebo 5x5", "Area giochi integrata"]
   },
   {
-    title: "Tavolata lungo corso",
+    title: "Tavolata lungo il corso",
     location: "Sora, Lazio",
     category: "Sagre e Feste di Paese",
     client: "Comune di Sora (Evento pubblico)",
@@ -56,16 +63,15 @@ const projects: ProjectData[] = [
     target: "Comunità locale",
     type: "sagre",
     year: "2024",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop",
-    description: "\"Tavolata lungo corso\" è le nome giusto: 180 tavoli distribuiti lungo le corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg",
+    description: "\"Tavolata lungo il corso\" è le nome giusto: 180 tavoli distribuiti lungo le corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino.",
     imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
-    videoLabel: "Timelaps del montaggio record: 180 tavoli posizionati e pronti all'uso in un pomeriggio.",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     galleryItems: [
-        { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop", label: "L'infinita linea di tavoli che attraversa le centro storico." },
-        { image: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2070&auto=format&fit=crop", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
-        { image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", label: "Squadre tecniche al lavoro durante la fase di allineamento dei tavoli." },
-        { image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop", label: "Vista notturna dell'evento: la trasformazione del corso è compiuta." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "L'infinita linea di tavoli che attraversa il centro storico." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430424/tavolata_kvlj4x.jpg", label: "Dettaglio dell'allestimento dei kit birreria." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea della distribuzione lungo l'asse stradale." }
     ],
     materials: ["180 kit da birreria", "4 gazebi 4x4", "Montaggio/smontaggio rapido coordinato"]
   },
@@ -79,15 +85,14 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2024",
     image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop",
-    description: "Abbiamo supportato il Palio San Pietro Eremita per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: 400 transenne delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica. Ma il vero nemico non è la dimensione: è il timing assoluto.\n\nDomenica mattina, prima che la sabbia copra la strada per la corsa: tutto deve essere montato. Subito dopo la corsa: tutto deve essere smontato. Il margine di errore è zero.\n\nTre anni di esecuzione senza difetti ci hanno insegnato che l'affidabilità non è una promise: è una dimostrazione ripetuta.",
+    description: "Abbiamo supportato il Palio San Pietro Eremita per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: 400 transenne delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica.",
     imageNarrative: "La messa in sicurezza del percorso tramite 400 transenne professionali è l'elemento critico per la riuscita di questa manifestazione storica.",
-    videoLabel: "Coordinamento delle squadre per la posa delle transenne lungo il percorso di gara.",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     galleryItems: [
-        { image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop", label: "Il percorso transennato pronto per la sfilata e la corsa." },
-        { image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop", label: "Aree relax create con gazebi professionali per i turisti." },
-        { image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop", label: "Allestimento dei banchi spina e dei kit birreria." },
-        { image: "https://images.unsplash.com/photo-1506192170364-7067d020d0f4?q=80&w=2070&auto=format&fit=crop", label: "La solidità dei materiali GF Service a tutela della tradizione." }
+        { image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop", label: "Il percorso transennato pronto per la corsa." },
+        { image: "https://images.unsplash.com/photo-1506192170364-7067d020d0f4?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio delle transenne tecniche." },
+        { image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", label: "Aree conviviali con kit birreria." },
+        { image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop", label: "Gazebo ospitalità per le autorità del Palio." }
     ],
     materials: ["400 transenne", "3 gazebi", "30 kit da birreria", "Partnership continuativa su 3 anni"]
   },
@@ -100,18 +105,16 @@ const projects: ProjectData[] = [
     target: "Appassionati birra, turisti, adulti",
     type: "fiere",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop",
-    description: "Quando Shire Brewing ha scelto di organizzare il Belgian Beer Festival a Fiuggi, sapeva che lo spazio avrebbe dovuto raccontare una story: quella della birra belga, della tradizione, dell'artigianalità.\n\nLa nostra risposta è stata architetturale. Una tendostruttura 50x10 metri come cuore pulsante dell'evento, con teli che permettono al visitatore di sentirsi \"dentro\" mentre rimane consapevole dell'esterno.\n\nLa vera innovazione è stata l'illuminazione e il riscaldamento: cannoni termici che non riscaldano solo l'aria, ma trasformano lo spazio in qualcosa di più accogliente conforme al clima esterno. Perché una birra belga a Fiuggi a febbraio ha bisogno di calore, ma non di artificio.",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg",
+    description: "Quando Shire Brewing ha scelto di organizzare il Belgian Beer Festival a Fiuggi, sapeva che lo spazio avrebbe dovuto raccontare una story: quella della birra belga, della tradizione, dell'artigianalità.\n\nLa nostra risposta è stata architetturale. Una tendostruttura 50x10 metri come cuore pulsante dell'evento, con teli che permettono al visitatore di sentirsi \"dentro\" mentre rimane consapevole dell'esterno.",
     imageNarrative: "Il riscaldamento integrato con cannoni termici professionali ha garantito una temperatura costante di 21°C nonostante il clima invernale di Fiuggi.",
-    videoLabel: "Focus tecnico sull'impianto di riscaldamento e distribuzione dell'aria all'interno della tendostruttura.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     galleryItems: [
-        { image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", label: "La maestosa tendostruttura 50x10 metri nel cuore di Fiuggi." },
-        { image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", label: "Interni riscaldati e illuminati per un'esperienza premium." },
-        { image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area spillatura professionale." },
-        { image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop", label: "Il festival prende vita grazie all'architettura temporanea GF Service." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg", label: "La maestosa tendostruttura 50x10 metri." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg", label: "L'atmosfera calda creata all'interno." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432824/20251205_155318_ad71ej.jpg", label: "Dettaglio spillatrici Shire Brewing." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "struttura e gazebi visti dall'ingresso." }
     ],
-    materials: ["Tendostruttura 50x10m", "30 kit da birreria", "Illuminazione integrata", "Riscaldamento con cannoni", "2 gazebi 4x4", "1 gazebo 3x3", "Layout multi-area"]
+    materials: ["Tendostruttura 50x10m", "30 kit da birreria", "Illuminazione integrata", "Riscaldamento con cannoni"]
   },
   {
     title: "Madonna del Carmine",
@@ -123,17 +126,16 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2025",
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    description: "Madonna del Carmine 2025 a Tecchiena. Una festa patronale con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service not solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n300 kit da birreria: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, mas anche i turisti, i connazionali tornati dal resto d'Italia.\n\nQuesta è la maestria che i nostri clienti non vedono ma riconoscono: la capacità di trasformare un numero grande in un'esperienza fluida. Non 300 tavoli sparsi nel caos - 300 tavoli che raccontano una storia di inclusione e comunità.",
+    description: "Madonna del Carmine 2025 a Tecchiena. Una festa patronale con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service not solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n300 kit da birreria: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, mas anche i turisti.",
     imageNarrative: "La fornitura di 300 kit birreria rappresenta uno dei nostri allestimenti più massivi per eventi di comunità nel territorio ciociaro.",
-    videoLabel: "Pianificazione logistica e distribuzione dei tavoli per l'accoglienza di oltre 2000 persone.",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     galleryItems: [
         { image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop", label: "L'ampia area conviviale allestita a Tecchiena." },
-        { image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=2070&auto=format&fit=crop", label: "Kit birreria in abete verniciato: robustezza per eventi popolari." },
-        { image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop", label: "Vista d'insieme durante il picco di affluenza serale." },
-        { image: "https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?q=80&w=2070&auto=format&fit=crop", label: "Il palco GF Service come centro della celebrazione." }
+        { image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop", label: "La logistica dietro la distribuzione dei tavoli." },
+        { image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", label: "Fasi finali dell'allestimento tecnico." },
+        { image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area ristorazione pronta all'uso." }
     ],
-    materials: ["300 kit da birreria", "Coordinamento logistico massivo", "Gestione della sicurezza", "Distribuzione ottimale dello spazio"]
+    materials: ["300 kit da birreria", "Coordinamento logistico massivo", "Gestione della sicurezza"]
   }
 ];
 
@@ -144,9 +146,6 @@ const filters = [
     { id: 'natalizi', label: 'Mercatini Natalizi' },
 ];
 
-/**
- * Interface for AllProjects component props.
- */
 interface AllProjectsProps {
   onProjectSelect?: (project: ProjectData) => void;
   onShowContact?: () => void;
@@ -254,10 +253,8 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                         ))}
                     </div>
 
-                    {/* Footer Section: Future Projects CTA */}
                     <div className={`mt-32 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                         <div className="relative max-w-5xl mx-auto rounded-[32px] overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-12 md:p-20 text-center shadow-2xl">
-                            {/* Decorative Background Elements */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gf-green/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
                             
@@ -288,12 +285,6 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                                         <Facebook size={20} className="transition-transform group-hover:rotate-12" />
                                         Seguici su Facebook
                                     </a>
-                                </div>
-
-                                <div className="mt-16 flex items-center gap-2 text-gray-500 text-xs font-bold uppercase tracking-[0.3em]">
-                                    <div className="w-8 h-[1px] bg-white/10"></div>
-                                    Join the Community
-                                    <div className="w-8 h-[1px] bg-white/10"></div>
                                 </div>
                             </div>
                         </div>
