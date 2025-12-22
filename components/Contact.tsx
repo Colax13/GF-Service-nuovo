@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Check, ChevronDown, Calendar, MapPin, Building, Phone, ArrowLeft, X, Mail, User, MessageSquare, Users, HelpCircle, Briefcase, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Calendar, MapPin, Building, Phone, ArrowLeft, X, Mail, User, MessageSquare, Briefcase, Loader2, AlertCircle } from 'lucide-react';
 
 interface ContactProps {
   simpleMode?: boolean;
@@ -9,7 +8,7 @@ interface ContactProps {
 // Configurazione Google Sheets
 const CLIENT_ID = "363608924740-d9bgi0ii9s7rffincsi11t2mkfvapv2t.apps.googleusercontent.com";
 const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
-const SPREADSHEET_ID = "YOUR_SPREADSHEET_ID_HERE"; // Inserisci qui l'ID del tuo Google Sheet
+const SPREADSHEET_ID = "1mBJVMzkPEqv_09n12drU0jgbLR79p42CJB5zq0pbgQM";
 
 const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
   const [isAdvanced, setIsAdvanced] = useState(false);
@@ -50,7 +49,7 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
   const sendToSheets = async (accessToken: string, rowData: any[]) => {
     try {
       const response = await fetch(
-        `https://sheets.googleapis.com/v4/spreadsheets/1mBJVMzkPEqv_09n12drU0jgbLR79p42CJB5zq0pbgQM/values/Sheet1!A1:append?valueInputOption=USER_ENTERED`,
+        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Sheet1!A1:append?valueInputOption=USER_ENTERED`,
         {
           method: 'POST',
           headers: {
