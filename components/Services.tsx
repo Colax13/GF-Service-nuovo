@@ -126,7 +126,7 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
     { 
       title: "COPERTURE MODULARI", 
       subtitle: "Tendostrutture modulari e gazebo professionali",
-      image: "https://images.unsplash.com/photo-1505373877841-8d43f7166778?q=80&w=1000&auto=format&fit=crop" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg" 
     },
     { 
       title: "TAVOLI E SEDUTE", 
@@ -136,17 +136,17 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
     { 
       title: "CASETTE DI LEGNO", 
       subtitle: "Strutture in legno per mercatini ed eventi",
-      image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg" 
     },
     { 
       title: "SPILLATORI MOBILI", 
       subtitle: "Impianti spina e fornitura beverage",
-      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1765398827/SPILLATORI_wtmtdx.png" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515659/spillatori_lcwozy.jpg" 
     },
     { 
       title: "GIOCHI E INTRATTENIMENTO", 
       subtitle: "Aree svago e divertimento per tutti",
-      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg" 
     },
   ];
 

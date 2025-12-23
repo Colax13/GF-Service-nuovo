@@ -28,16 +28,17 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       target: "Famiglie, shopping natalizio",
       year: "2024",
       image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
-      description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**.",
-      imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua.",
-      videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov", 
+      description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.\n\nLa sfida più grande non è il montaggio iniziale, ma la **gestione continuativa su 8 settimane**: mantenere l'integrità strutturale sotto la pioggia, il vento, le gelate; preservare l'aspetto estetico while garantendo funzionalità; koordinare con i commercianti che cambiano merci e strategie di vendita.\n\nLe casette di legno rappresentano la nostra risposta al problema della stagionalità: non sono temporanee nel senso di \"fragili\", ma temporanee nel senso di \"pensate per vivere il loro momento perfetto e poi scomparire con eleganza\".\n\nPorta di Roma non vuole un \"noleggio\": vuole che i suoi visitatori dimentichino che quello che vedono è stato montato da qualcuno. Vuole che sembrino sempre stati lì.",
+      imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua, garantendo isolamento termico e un'estetica calda e accogliente.",
+      videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov",
+      videoLabel: "L'atmosfera magica dei Mercatini di Natale a Porta di Roma.",
       galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Schiera di casette di legno." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Dettaglio della casetta con logo Porta Pia." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
       ],
-      materials: ["17 casette di legno modulari"]
+      materials: ["17 casette di legno modulari", "Personalizzazione estetica", "Gestione stagionale continuativa", "Coesione visiva su 8 settimane"]
     },
     {
       title: "October Fest",
@@ -47,11 +48,28 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       typeLabel: "Privato (Ristorante/Pizzeria)",
       target: "Adulti - Occasioni enogastronomiche",
       year: "2023",
-      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430190/cover_q7wcxz.jpg",
       description: "Per il progetto della Festa della Birra organizzato dalla Pizzeria Il Decimo ad Alatri, l'obiettivo era creare uno spazio che fosse contemporaneamente funzionale, accogliente e capace di mantenere l'energia dell'evento per due settimane consecutive.\n\nAbbiamo realizzato una **tendostruttura di 500 metri quadri (25x20)**, dotata di teli PVC di ultima generazione che permettono di mantenere il calore all'interno della struttura e che trasformano lo spazio in una destination enogastronomica. All'interno, un **palchetto modulare 5x4 metri** ospita le performance live, circondato da **50 panche** che trasformano i visitatori in una comunità temporanea.\n\nLa vera sfida è stata integrare l'area giochi esterna - punchball, biliardino, air hockey e altri giochi - creando una fluidità di movemento tra la zona principale della birra e lo spazio ludico, garantendo al contempo la sicurezza di adulti e bambini. Per farlo abbiamo pensato di utilizzare un **gazebo 5x5** direttamente collegato alla struttura principale con copertura per il passaggio.\n\nQuello che è emerso da questo progetto è che la struttura non è mai stata percepita come \"allestimento\": è diventata la casa di quell'evento, il luogo dove i ricordi si sono creati. Due settimane è tempo sufficiente perché uno spazio temporaneo diventi \"il nostro spazio\".",
       imageNarrative: "La tendostruttura da 500mq con gazebo 5x5 integrato ha permesso di creare un'area food e ludica perfettamente connessa.",
       galleryItems: octoberFestGallery,
       materials: ["Tendostruttura 500mq", "Palchetto modulare 5x4m", "50 panche", "Gazebo 5x5", "Area giochi integrata"]
+    },
+    {
+      title: "Tavolata lungo il corso",
+      location: "Sora, Lazio",
+      category: "Sagre e Feste di Paese",
+      client: "Comune di Sora",
+      year: "2024",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg",
+      description: "\"Tavolata\" è il nome giusto: 180 tavoli distribuiti lungo il corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il **timing chirurgico**: montaggio sabato pomeriggio in poche ore, smontaggio nella notte del giorno stesso prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".\n\nIl risultato? Una strada che per 12 ore è diventata quello che tutte le strade potrebbero essere: uno spazio dove le persone si incontrano, mangiano, bevono, parlano. E domenica mattina, tutto spariva come non fosse mai stato. Questa è la maestria della logistica temporanea: scomparire perfettamente.",
+      imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
+      galleryItems: [
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "L'infinita linea di tavoli che attraversa il centro storico." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430424/tavolata_kvlj4x.jpg", label: "Dettaglio dell'allestimento dei kit birreria." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea della distribuzione lungo l'asse stradale." }
+      ],
+      materials: ["180 kit da birreria", "4 gazebi 4x4", "Montaggio/smontaggio rapido coordinato"]
     },
     {
       title: "Belgian Beer Festival",
@@ -59,31 +77,16 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
       category: "Fiere e Manifestazioni",
       client: "Shire Brewing",
       year: "2025",
-      image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop",
-      description: "Una tendostruttura 50x10 metri come cuore pulsante dell'evento.",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg",
+      description: "Per il Belgian Beer Festival di Fiuggi abbiamo fornito una tendostruttura 50x10 metri come area principale dell’evento, attrezzata con 30 kit da birreria per le zone degustazione.\n\nAll’esterno abbiamo installato 2 gazebi 4x4 per gli stand e un gazebo 3x3 come punto di passaggio e supporto logistico tra le diverse aree.\n\nLa richiesta del cliente era semplice e chiara: uno spazio coperto affidabile, funzionale e rapido da montare per tre giorni di festival, in grado di garantire comfort al pubblico anche in inverno.\n\nCi siamo occupati di posizionamento delle strutture e coordinamento del montaggio, lasciando al cliente la libertà di personalizzare interni, arredi e comunicazione visiva secondo la propria identità.",
+      imageNarrative: "La maestosa tendostruttura 50x10m ha ospitato uno dei festival brassicoli più importanti del Lazio garantendo comfort termico.",
       galleryItems: [
-        { image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", label: "La maestosa tendostruttura 50x10 metri." },
-        { image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop", label: "L'atmosfera calda creata all'interno." },
-        { image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio spillatrici Shire Brewing." },
-        { image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop", label: "Area lounge con arredi in rattan." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg", label: "La maestosa tendostruttura 50x10 metri." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg", label: "L'atmosfera calda creata all'interno." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432824/20251205_155318_ad71ej.jpg", label: "Dettaglio spillatrici Shire Brewing." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "Struttura e gazebi visti dall'ingresso." }
       ],
-      materials: ["Tendostruttura 50x10m"]
-    },
-    {
-      title: "Tavolata lungo corso",
-      location: "Sora, Lazio",
-      category: "Sagre e Feste di Paese",
-      client: "Comune di Sora",
-      year: "2024",
-      image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop",
-      description: "180 tavoli trasformano il corso storico in un'area di comunità.",
-      galleryItems: [
-        { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop", label: "L'infinita linea di tavoli che attraversa il centro storico." },
-        { image: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2070&auto=format&fit=crop", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
-        { image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'allestimento dei kit birreria." },
-        { image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2070&auto=format&fit=crop", label: "Vista aerea della distribuzione lungo l'asse stradale." }
-      ],
-      materials: ["180 kit da birreria"]
+      materials: ["Tendostruttura 50x10m", "30 kit da birreria", "2 gazebi 4x4", "1 gazebo 3x3"]
     }
   ];
 

@@ -28,13 +28,14 @@ const projects: ProjectData[] = [
     type: "natalizi",
     year: "2024",
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
-    description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.",
+    description: "I mercatini di Natale non sono eventi: sono **esperienze temporanee che si sedimentano nella memoria urbana**. Quando il Centro Commerciale Porta di Roma decide di ospitare i propri mercatini, sa che lo spazio non deve sentirsi commerciale, ma autentico, accogliente, quasi come se fosse sempre stato lì.\n\n**17 casette di legno** modulari e personalizzabili non sono semplici stand di vendita: sono piccole rappresentazioni dell'idea di \"mercato natalizio\". Ogni casetta, anche se identica alle altre, deve sentirsi parte di un tutto organico.\n\nLa sfida più grande non è il montaggio iniziale, ma la **gestione continuativa su 8 settimane**: mantenere l'integrità strutturale sotto la pioggia, il vento, le gelate; preservare l'aspetto estetico while garantendo funzionalità; koordinare con i commercianti che cambiano merci e strategie di vendita.\n\nLe casette di legno rappresentano la nostra risposta al problema della stagionalità: non sono temporanee nel senso di \"fragili\", ma temporanee nel senso di \"pensate per vivere il loro momento perfetto e poi scomparire con eleganza\".\n\nPorta di Roma non vuole un \"noleggio\": vuole che i suoi visitatori dimentichino che quello che vedono è stato montato da qualcuno. Vuole che sembrino sempre stati lì.",
     imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua, garantendo isolamento termico e un'estetica calda e accogliente.",
     videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov",
+    videoLabel: "L'atmosfera magica dei Mercatini di Natale a Porta di Roma.",
     galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Schiera di casette di legno." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Dettaglio della casetta con logo Porta Pia." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
     ],
     materials: ["17 casette di legno modulari", "Personalizzazione estetica", "Gestione stagionale continuativa", "Coesione visiva su 8 settimane"]
@@ -64,9 +65,8 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2024",
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg",
-    description: "\"Tavolata lungo il corso\" è le nome giusto: 180 tavoli distribuiti lungo le corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono.\n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il timing chirurgico: montaggio sabato pomeriggio in poche ore, smontaggio domenica notte prima delle 9 del mattino.",
+    description: "\"Tavolata\" è il nome giusto: 180 tavoli distribuiti lungo il corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono. \n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il **timing chirurgico**: montaggio sabato pomeriggio in poche ore, smontaggio nella notte del giorno stesso prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".\n\nIl risultato? Una strada che per 12 ore è diventata quello che tutte le strade potrebbero essere: uno spazio dove le persone si incontrano, mangiano, bevono, parlano. E domenica mattina, tutto spariva come non fosse mai stato. Questa è la maestria della logistica temporanea: scomparire perfettamente.",
     imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "L'infinita linea di tavoli che attraversa il centro storico." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
@@ -74,27 +74,6 @@ const projects: ProjectData[] = [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea della distribuzione lungo l'asse stradale." }
     ],
     materials: ["180 kit da birreria", "4 gazebi 4x4", "Montaggio/smontaggio rapido coordinato"]
-  },
-  {
-    title: "Palio San Pietro Eremita",
-    location: "Trevi nel Lazio, Lazio",
-    category: "Sagre e Feste di Paese",
-    client: "Palio tradizionale",
-    typeLabel: "Ente Pubblico/Associazione locale",
-    target: "Comunità locale + turisti",
-    type: "sagre",
-    year: "2024",
-    image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop",
-    description: "Abbiamo supportato il Palio San Pietro Eremita per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: 400 transenne delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica.",
-    imageNarrative: "La messa in sicurezza del percorso tramite 400 transenne professionali è l'elemento critico per la riuscita di questa manifestazione storica.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    galleryItems: [
-        { image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2070&auto=format&fit=crop", label: "Il percorso transennato pronto per la corsa." },
-        { image: "https://images.unsplash.com/photo-1506192170364-7067d020d0f4?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio delle transenne tecniche." },
-        { image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", label: "Aree conviviali con kit birreria." },
-        { image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop", label: "Gazebo ospitalità per le autorità del Palio." }
-    ],
-    materials: ["400 transenne", "3 gazebi", "30 kit da birreria", "Partnership continuativa su 3 anni"]
   },
   {
     title: "Belgian Beer Festival",
@@ -106,36 +85,35 @@ const projects: ProjectData[] = [
     type: "fiere",
     year: "2025",
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg",
-    description: "Quando Shire Brewing ha scelto di organizzare il Belgian Beer Festival a Fiuggi, sapeva che lo spazio avrebbe dovuto raccontare una story: quella della birra belga, della tradizione, dell'artigianalità.\n\nLa nostra risposta è stata architetturale. Una tendostruttura 50x10 metri come cuore pulsante dell'evento, con teli che permettono al visitatore di sentirsi \"dentro\" mentre rimane consapevole dell'esterno.",
-    imageNarrative: "Il riscaldamento integrato con cannoni termici professionali ha garantito una temperatura costante di 21°C nonostante il clima invernale di Fiuggi.",
+    description: "Per il Belgian Beer Festival di Fiuggi abbiamo fornito una tendostruttura 50x10 metri come area principale dell’evento, attrezzata con 30 kit da birreria per le zone degustazione.\n\nAll’esterno abbiamo installato 2 gazebi 4x4 per gli stand e un gazebo 3x3 come punto di passaggio e supporto logistico tra le diverse aree.\n\nLa richiesta del cliente era semplice e chiara: uno spazio coperto affidabile, funzionale e rapido da montare per tre giorni di festival, in grado di garantire comfort al pubblico anche in inverno.\n\nCi siamo occupati di posizionamento delle strutture e coordinamento del montaggio, lasciando al cliente la libertà di personalizzare interni, arredi e comunicazione visiva secondo la propria identità.",
+    imageNarrative: "La maestosa tendostruttura 50x10m ha ospitato uno dei festival brassicoli più importanti del Lazio garantendo comfort termico.",
     galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg", label: "La maestosa tendostruttura 50x10 metri." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg", label: "L'atmosfera calda creata all'interno." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432824/20251205_155318_ad71ej.jpg", label: "Dettaglio spillatrici Shire Brewing." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "struttura e gazebi visti dall'ingresso." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "Struttura e gazebi visti dall'ingresso." }
     ],
-    materials: ["Tendostruttura 50x10m", "30 kit da birreria", "Illuminazione integrata", "Riscaldamento con cannoni"]
+    materials: ["Tendostruttura 50x10m", "30 kit da birreria", "2 gazebi 4x4", "1 gazebo 3x3"]
   },
   {
-    title: "Madonna del Carmine",
-    location: "Tecchiena, Lazio",
+    title: "Palio San Pietro Eremita",
+    location: "Trevi nel Lazio, Lazio",
     category: "Sagre e Feste di Paese",
-    client: "Evento locale/Pro Loco",
+    client: "Palio tradizionale",
     typeLabel: "Ente Pubblico/Associazione locale",
-    target: "Comunità locale",
+    target: "Comunità locale + turisti",
     type: "sagre",
-    year: "2025",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    description: "Madonna del Carmine 2025 a Tecchiena. Una festa patronale con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service not solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n300 kit da birreria: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, mas anche i turisti.",
-    imageNarrative: "La fornitura di 300 kit birreria rappresenta uno dei nostri allestimenti più massivi per eventi di comunità nel territorio ciociaro.",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    year: "2024",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg",
+    description: "Abbiamo supportato il Palio San Pietro Eremita per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: 400 transenne delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica.",
+    imageNarrative: "La messa in sicurezza del percorso tramite 400 transenne professionali è l'elemento critico per la riuscita di questa manifestazione storica.",
     galleryItems: [
-        { image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop", label: "L'ampia area conviviale allestita a Tecchiena." },
-        { image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop", label: "La logistica dietro la distribuzione dei tavoli." },
-        { image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", label: "Fasi finali dell'allestimento tecnico." },
-        { image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop", label: "Dettaglio dell'area ristorazione pronta all'uso." }
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_2_aygjdp.jpg", label: "Vista su cavallo e transenne per la sicurezza." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg", label: "Visione ampia del percorso." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515475/palio_di_san_pietro_eremita_6_sjp5ye.jpg", label: "Dettaglio sulle emozioni." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg", label: "Orgoglio e appartenenza partecipanti." }
     ],
-    materials: ["300 kit da birreria", "Coordinamento logistico massivo", "Gestione della sicurezza"]
+    materials: ["400 transenne", "3 gazebi", "30 kit da birreria", "Partnership continuativa su 3 anni"]
   }
 ];
 
@@ -190,7 +168,7 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                             IL NOSTRO <span className="font-serif italic text-gf-green font-light">PORTFOLIO</span>
                         </h1>
                         <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto leading-relaxed">
-                            Dalle grandi piazze storiche ai mercatini natalizi. Ogni allestimento è una story di affidabilità e precisione tecnica.
+                            Ogni allestimento è una story di affidabilità e precisione tecnica, dalle grandi piazze storiche ai mercatini natalizi.
                         </p>
                      </div>
                  </div>

@@ -204,7 +204,7 @@ const App: React.FC = () => {
         <Services onShowAllServices={handleShowAllServices} onShowContact={handleShowContact} />
         <Projects onShowAllProjects={handleShowAllProjects} onProjectSelect={handleProjectSelect} />
         <LogoScroll />
-        <Values />
+        <Values onShowAbout={handleShowAllAbout} />
         <Blog onShowAllBlogPosts={handleShowAllBlogPosts} />
         <StreetFoodSection />
         <Contact simpleMode={true} />
