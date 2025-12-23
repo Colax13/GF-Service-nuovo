@@ -5,38 +5,11 @@ interface ContactProps {
   simpleMode?: boolean;
 }
 
-// Configurazione Google Sheets
-const CLIENT_ID = "363608924740-d9bgi0ii9s7rffincsi11t2mkfvapv2t.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
-const SPREADSHEET_ID = "1mBJVMzkPEqv_09n12drU0jgbLR79p42CJB5zq0pbgQM";
-
 const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const sectionRef = useRef<HTMLElement>(null);
-  const tokenClientRef = useRef<any>(null);
-
-  useEffect(() => {
-    // Inizializza Google Identity Services
-    const initGsi = () => {
-      // Accessing google object on window via casting to any to avoid TS error
-      if ((window as any).google) {
-        tokenClientRef.current = (window as any).google.accounts.oauth2.initTokenClient({
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          callback: '', // Definito al momento della richiesta
-        });
-      }
-    };
-
-    // Accessing google object on window via casting to any to avoid TS error
-    if ((window as any).google) {
-      initGsi();
-    } else {
-      window.addEventListener('load', initGsi);
-    }
-  }, []);
 
   useEffect(() => {
     if (isAdvanced && sectionRef.current) {
@@ -46,85 +19,37 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
     }
   }, [isAdvanced]);
 
-  const sendToSheets = async (accessToken: string, rowData: any[]) => {
-    try {
-      const response = await fetch(
-        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Sheet1!A1:append?valueInputOption=USER_ENTERED`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            values: [rowData],
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Errore durante l\'invio al foglio Google');
-      }
-
-      setStatus('success');
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (err: any) {
-      console.error(err);
-      setErrorMessage(err.message || 'Errore tecnico durante l\'invio.');
-      setStatus('error');
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (status === 'submitting') return;
 
     setStatus('submitting');
+    setErrorMessage('');
+
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     
-    // Invio anche all'endpoint locale /api/contact per consistenza (richiesto)
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).catch(err => console.error('Errore durante l\'invio a /api/contact:', err));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Prepariamo la riga per lo sheet
-    const timestamp = new Date().toLocaleString('it-IT');
-    const row = [
-      timestamp,
-      data.nome || data.first_name,
-      data.last_name || '',
-      data.email,
-      data.tel || data.phone,
-      data.evento || data.event_type || '',
-      data.location || '',
-      data.date || '',
-      data.note || data.message || '',
-      data.cliente_tipo || '',
-      data.azienda || '',
-      // Raccogliamo i servizi selezionati se presenti
-      Array.from(formData.keys()).filter(k => !['nome', 'email', 'tel', 'evento', 'message', 'first_name', 'last_name', 'phone', 'event_type', 'location', 'date', 'note', 'cliente_tipo', 'azienda'].includes(k)).join(', ')
-    ];
-
-    if (!tokenClientRef.current) {
-      setErrorMessage('Libreria Google non caricata. Riprova tra un istante.');
-      setStatus('error');
-      return;
-    }
-
-    // Richiediamo il token e inviamo
-    tokenClientRef.current.callback = async (response: any) => {
-      if (response.error !== undefined) {
-        setStatus('error');
-        setErrorMessage('Autorizzazione negata.');
-        return;
+      if (response.ok) {
+        setStatus('success');
+        // Reset status after 5 seconds to allow new submissions
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        throw new Error('Si è verificato un errore durante l\'invio. Riprova più tardi.');
       }
-      await sendToSheets(response.access_token, row);
-    };
-
-    tokenClientRef.current.requestAccessToken({ prompt: 'consent' });
+    } catch (err: any) {
+      console.error('Errore durante l\'invio a /api/contact:', err);
+      setErrorMessage(err.message || 'Errore di connessione. Controlla la tua rete.');
+      setStatus('error');
+    }
   };
 
   return (

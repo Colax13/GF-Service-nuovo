@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
       tailwind.config = {
         theme: {
@@ -65,13 +63,15 @@
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     <script>
-      // Funzione JavaScript per gestire l'invio del form all'endpoint /api/contact
+      // Gestore globale per l'invio dei form all'endpoint /api/contact
       document.addEventListener('submit', function(event) {
         if (event.target && event.target.id === 'contactForm') {
+          // Preveniamo l'invio standard se non gestito da React
+          // (In questo caso React lo gestisce internamente, ma questo script funge da backup)
           const formData = new FormData(event.target);
           const data = Object.fromEntries(formData.entries());
 
-          console.log('Intercettato invio form contactForm, invio a /api/contact...');
+          console.log('Invio dati a /api/contact...');
           
           fetch('/api/contact', {
             method: 'POST',
@@ -82,13 +82,11 @@
           })
           .then(response => {
             if (response.ok) {
-              console.log('Dati inviati correttamente a /api/contact');
-            } else {
-              console.error('Errore durante l\'invio a /api/contact:', response.statusText);
+              console.log('Dati ricevuti dal server');
             }
           })
           .catch(error => {
-            console.error('Errore di rete durante l\'invio a /api/contact:', error);
+            console.error('Errore invio form:', error);
           });
         }
       });
