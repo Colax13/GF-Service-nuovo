@@ -41,11 +41,11 @@ const categories: Category[] = [
         name: "Tendostrutture", 
         desc: "Modulari, campata singola 10x10m estensibile.", 
         specs: "Cert. UNI EN 13782", 
-        image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2070&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766517692/Gemini_Generated_Image_5pvrz25pvrz25pvr_xszzdt.png",
         subProducts: [
             { 
                 name: "Coperture Classiche", 
-                image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2070&auto=format&fit=crop",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766517692/Gemini_Generated_Image_5pvrz25pvrz25pvr_xszzdt.png",
                 description: "PVC bianco oscurante, ideale per conferenze e cene di gala."
             },
             { 

@@ -83,6 +83,13 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     
+    // Invio anche all'endpoint locale /api/contact per consistenza (richiesto)
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(err => console.error('Errore durante l\'invio a /api/contact:', err));
+
     // Prepariamo la riga per lo sheet
     const timestamp = new Date().toLocaleString('it-IT');
     const row = [
@@ -171,7 +178,7 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
                             <p className="text-gray-400">Ti contatteremo entro 24 ore lavorative.</p>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                        <form id="contactForm" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
                             <div className="relative group md:col-span-1 lg:col-span-2">
                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
                                 <input name="nome" required type="text" placeholder="Nome" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
@@ -265,7 +272,7 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
                             <button onClick={() => setIsAdvanced(false)} className="mt-12 text-gf-green font-bold uppercase tracking-widest text-sm hover:text-white transition-colors">Torna al sito</button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                        <form id="contactForm" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
                             <div className="md:col-span-2 mb-2 flex items-center gap-4">
                                 <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">1</span>
                                 <h4 className="text-white font-bold text-lg uppercase tracking-wider">Contatti</h4>
