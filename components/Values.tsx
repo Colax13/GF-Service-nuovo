@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, History, Rocket, MapPin, Globe } from 'lucide-react';
+import { History, Rocket, MapPin, Globe } from 'lucide-react';
 
 interface ValuesProps {
   onShowAbout?: () => void;
@@ -70,7 +70,7 @@ const Values: React.FC<ValuesProps> = ({ onShowAbout }) => {
         <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 z-30 hidden md:block">
             <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-black border border-white/10 flex flex-col items-center justify-center transition-all duration-500 z-40 ${hoveredSide ? 'border-gf-green scale-110 shadow-[0_0_30px_rgba(0,90,72,0.4)]' : ''}`}>
                 <div className={`absolute inset-0 rounded-full border border-gf-green/20 transition-opacity ${hoveredSide ? 'opacity-100 animate-ping' : 'opacity-0'}`}></div>
-                <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] leading-none mb-1">Since</span>
+                <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-sans leading-none mb-1">Since</span>
                 <span className="text-xl font-black text-white leading-none">2005</span>
             </div>
         </div>
