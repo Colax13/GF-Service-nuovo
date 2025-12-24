@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Check, ChevronDown, Calendar, MapPin, Building, Phone, ArrowLeft, X, Mail, User, MessageSquare, Briefcase, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Calendar, MapPin, Building, Phone, ArrowLeft, X, Mail, User, MessageSquare, Briefcase, Loader2 } from 'lucide-react';
 
 interface ContactProps {
   simpleMode?: boolean;
@@ -8,7 +8,6 @@ interface ContactProps {
 const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -20,17 +19,14 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
   }, [isAdvanced]);
 
   // La logica di invio fetch è ora gestita dallo script globale nell'index.html
-  // per soddisfare la richiesta dell'utente. Gestiamo qui solo lo stato visivo di React
-  // se necessario, o lasciamo che gli alert dello script facciano il loro lavoro.
-  const handleReactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // Non facciamo nulla qui se vogliamo che lo script globale agisca.
-    // Lo script globale ha e.preventDefault() e gestisce il fetch.
+  // per soddisfare la richiesta dell'utente.
+  const handleReactSubmit = () => {
     console.log("Form sottomesso, gestione delegata allo script globale.");
     
-    // Possiamo opzionalmente attivare uno stato visivo temporaneo
+    // Attiviamo uno stato visivo temporaneo di caricamento
     setStatus('submitting');
-    // Lo script farà scattare l'alert e resetterà il form
-    // Usiamo un timeout per riportare lo stato a idle nel componente React
+    // Lo script globale farà scattare l'alert e resetterà il form.
+    // Riportiamo lo stato a idle nel componente React dopo un breve lasso di tempo.
     setTimeout(() => setStatus('idle'), 2000);
   };
 
@@ -161,7 +157,6 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
                             <div className="h-[1px] bg-white/10 flex-grow"></div>
                         </div>
 
-                        {/* Utilizziamo ID anche qui per permettere allo script di catturare almeno Nome, Email e Messaggio (se mappati) */}
                         <div className="space-y-2">
                             <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Nome *</label>
                             <input id="nome" name="first_name" required type="text" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
