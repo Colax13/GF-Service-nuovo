@@ -19,37 +19,19 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
     }
   }, [isAdvanced]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (status === 'submitting') return;
-
-    setStatus('submitting');
-    setErrorMessage('');
-
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+  // La logica di invio fetch è ora gestita dallo script globale nell'index.html
+  // per soddisfare la richiesta dell'utente. Gestiamo qui solo lo stato visivo di React
+  // se necessario, o lasciamo che gli alert dello script facciano il loro lavoro.
+  const handleReactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Non facciamo nulla qui se vogliamo che lo script globale agisca.
+    // Lo script globale ha e.preventDefault() e gestisce il fetch.
+    console.log("Form sottomesso, gestione delegata allo script globale.");
     
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json' 
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        // Reset status after 5 seconds to allow new submissions
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        throw new Error('Si è verificato un errore durante l\'invio. Riprova più tardi.');
-      }
-    } catch (err: any) {
-      console.error('Errore durante l\'invio a /api/contact:', err);
-      setErrorMessage(err.message || 'Errore di connessione. Controlla la tua rete.');
-      setStatus('error');
-    }
+    // Possiamo opzionalmente attivare uno stato visivo temporaneo
+    setStatus('submitting');
+    // Lo script farà scattare l'alert e resetterà il form
+    // Usiamo un timeout per riportare lo stato a idle nel componente React
+    setTimeout(() => setStatus('idle'), 2000);
   };
 
   return (
@@ -94,64 +76,49 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
                 }`}
             >
                 <div className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-16 shadow-2xl">
-                    {status === 'success' ? (
-                        <div className="py-12 text-center animate-in zoom-in duration-500">
-                            <div className="w-20 h-20 bg-gf-green rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(0,112,90,0.5)]">
-                                <Check size={40} className="text-white" />
-                            </div>
-                            <h3 className="text-3xl font-bold text-white mb-2 uppercase">Richiesta Inviata!</h3>
-                            <p className="text-gray-400">Ti contatteremo entro 24 ore lavorative.</p>
+                    <form id="contactForm" onSubmit={handleReactSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                        <div className="relative group md:col-span-1 lg:col-span-2">
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                            <input id="nome" name="nome" required type="text" placeholder="Nome" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
                         </div>
-                    ) : (
-                        <form id="contactForm" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-                            <div className="relative group md:col-span-1 lg:col-span-2">
-                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-                                <input name="nome" required type="text" placeholder="Nome" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
-                            </div>
-                            <div className="relative group md:col-span-1 lg:col-span-2">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-                                <input name="email" required type="email" placeholder="Email" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
-                            </div>
-                            <div className="relative group md:col-span-1 lg:col-span-2">
-                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-                                <input name="tel" required type="tel" placeholder="Telefono" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
-                            </div>
+                        <div className="relative group md:col-span-1 lg:col-span-2">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                            <input id="email" name="email" required type="email" placeholder="Email" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
+                        </div>
+                        <div className="relative group md:col-span-1 lg:col-span-2">
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                            <input id="tel" name="tel" required type="tel" placeholder="Telefono" className="w-full h-14 pl-12 pr-4 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all" />
+                        </div>
 
-                            <div className="relative group md:col-span-1 lg:col-span-6">
-                                <select name="evento" className="w-full h-14 px-4 bg-black/20 text-white/80 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all appearance-none cursor-pointer">
-                                    <option value="" disabled selected>Che evento stai organizzando?</option>
-                                    <option className="bg-gf-dark" value="fiera">Fiera / Sagra</option>
-                                    <option className="bg-gf-dark" value="privato">Evento Privato</option>
-                                    <option className="bg-gf-dark" value="aziendale">Evento Aziendale</option>
-                                    <option className="bg-gf-dark" value="altro">Altro</option>
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" size={18} />
-                            </div>
-                            
-                            <div className="relative group col-span-1 md:col-span-2 lg:col-span-6">
-                                <MessageSquare className="absolute left-4 top-4 text-white/40" size={18} />
-                                <textarea 
-                                    name="message"
-                                    placeholder="Cosa vorresti includere nel tuo evento? (Coperture, tavoli, cucine...)" 
-                                    className="w-full h-32 p-4 pl-12 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all resize-none" 
-                                />
-                            </div>
+                        <div className="relative group md:col-span-1 lg:col-span-6">
+                            <select name="evento" className="w-full h-14 px-4 bg-black/20 text-white/80 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Che evento stai organizzando?</option>
+                                <option className="bg-gf-dark" value="fiera">Fiera / Sagra</option>
+                                <option className="bg-gf-dark" value="privato">Evento Privato</option>
+                                <option className="bg-gf-dark" value="aziendale">Evento Aziendale</option>
+                                <option className="bg-gf-dark" value="altro">Altro</option>
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" size={18} />
+                        </div>
+                        
+                        <div className="relative group col-span-1 md:col-span-2 lg:col-span-6">
+                            <MessageSquare className="absolute left-4 top-4 text-white/40" size={18} />
+                            <textarea 
+                                id="messaggio"
+                                name="message"
+                                placeholder="Cosa vorresti includere nel tuo evento? (Coperture, tavoli, cucine...)" 
+                                className="w-full h-32 p-4 pl-12 bg-black/20 text-white placeholder:text-white/40 rounded-xl outline-none focus:bg-black/40 focus:ring-2 focus:ring-gf-green/50 transition-all resize-none" 
+                            />
+                        </div>
 
-                            <button type="submit" disabled={status === 'submitting'} className="col-span-1 md:col-span-2 lg:col-span-6 h-14 bg-gf-green hover:bg-emerald-600 text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-lg hover:shadow-emerald-900/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-                                {status === 'submitting' ? (
-                                    <>Inviando... <Loader2 className="animate-spin" size={18} /></>
-                                ) : (
-                                    <>Invia <ArrowRight size={18} /></>
-                                )}
-                            </button>
-                            
-                            {status === 'error' && (
-                                <div className="col-span-full mt-4 flex items-center justify-center gap-2 text-red-400 bg-red-400/10 p-4 rounded-xl border border-red-400/20">
-                                    <AlertCircle size={18} /> {errorMessage}
-                                </div>
+                        <button type="submit" className="col-span-1 md:col-span-2 lg:col-span-6 h-14 bg-gf-green hover:bg-emerald-600 text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-lg hover:shadow-emerald-900/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                            {status === 'submitting' ? (
+                                <>Inviando... <Loader2 className="animate-spin" size={18} /></>
+                            ) : (
+                                <>Invia <ArrowRight size={18} /></>
                             )}
-                        </form>
-                    )}
+                        </button>
+                    </form>
                     
                     <div className="text-center mt-4">
                          <label className="text-xs text-white/40 flex items-center justify-center gap-2 cursor-pointer hover:text-white/60 transition-colors">
@@ -187,134 +154,118 @@ const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
                         <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
                     </button>
 
-                    {status === 'success' ? (
-                        <div className="py-20 text-center">
-                            <div className="w-24 h-24 bg-gf-green rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(0,112,90,0.6)] animate-bounce">
-                                <Check size={48} className="text-white" />
-                            </div>
-                            <h3 className="text-4xl font-bold text-white mb-4 uppercase">Richiesta Ricevuta!</h3>
-                            <p className="text-gray-400 text-lg">Il nostro ufficio tecnico analizzerà i dettagli e ti ricontatterà al più presto.</p>
-                            <button onClick={() => setIsAdvanced(false)} className="mt-12 text-gf-green font-bold uppercase tracking-widest text-sm hover:text-white transition-colors">Torna al sito</button>
+                    <form id="contactForm" onSubmit={handleReactSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                        <div className="md:col-span-2 mb-2 flex items-center gap-4">
+                            <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">1</span>
+                            <h4 className="text-white font-bold text-lg uppercase tracking-wider">Contatti</h4>
+                            <div className="h-[1px] bg-white/10 flex-grow"></div>
                         </div>
-                    ) : (
-                        <form id="contactForm" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
-                            <div className="md:col-span-2 mb-2 flex items-center gap-4">
-                                <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">1</span>
-                                <h4 className="text-white font-bold text-lg uppercase tracking-wider">Contatti</h4>
-                                <div className="h-[1px] bg-white/10 flex-grow"></div>
-                            </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Nome *</label>
-                                <input name="first_name" required type="text" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
+                        {/* Utilizziamo ID anche qui per permettere allo script di catturare almeno Nome, Email e Messaggio (se mappati) */}
+                        <div className="space-y-2">
+                            <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Nome *</label>
+                            <input id="nome" name="first_name" required type="text" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Cognome *</label>
+                            <input name="last_name" required type="text" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Telefono *</label>
+                            <div className="relative">
+                                <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                <input name="phone" required type="tel" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Cognome *</label>
-                                <input name="last_name" required type="text" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Telefono *</label>
-                                <div className="relative">
-                                    <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                                    <input name="phone" required type="tel" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Email *</label>
-                                <input name="email" required type="email" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gf-green font-bold uppercase tracking-wider ml-1">Email *</label>
+                            <input id="email" name="email" required type="email" className="w-full h-12 px-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
+                        </div>
 
-                            <div className="md:col-span-2 mb-2 mt-4 flex items-center gap-4">
-                                <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">2</span>
-                                <h4 className="text-white font-bold text-lg uppercase tracking-wider">Profilo</h4>
-                                <div className="h-[1px] bg-white/10 flex-grow"></div>
-                            </div>
+                        <div className="md:col-span-2 mb-2 mt-4 flex items-center gap-4">
+                            <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">2</span>
+                            <h4 className="text-white font-bold text-lg uppercase tracking-wider">Profilo</h4>
+                            <div className="h-[1px] bg-white/10 flex-grow"></div>
+                        </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Tipologia Cliente</label>
-                                <div className="relative">
-                                    <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                                    <select name="cliente_tipo" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer">
-                                        <option className="bg-gf-darker">Seleziona...</option>
-                                        <option className="bg-gf-darker" value="organizzatore">Organizzatore di eventi</option>
-                                        <option className="bg-gf-darker" value="agenzia">Agenzia di comunicazione</option>
-                                        <option className="bg-gf-darker" value="azienda">Azienda privata</option>
-                                        <option className="bg-gf-darker" value="ente">Ente Pubblico</option>
-                                        <option className="bg-gf-darker" value="privato">Privato</option>
-                                    </select>
-                                    <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
-                                </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Tipologia Cliente</label>
+                            <div className="relative">
+                                <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                <select name="cliente_tipo" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer">
+                                    <option className="bg-gf-darker">Seleziona...</option>
+                                    <option className="bg-gf-darker" value="organizzatore">Organizzatore di eventi</option>
+                                    <option className="bg-gf-darker" value="agenzia">Agenzia di comunicazione</option>
+                                    <option className="bg-gf-darker" value="azienda">Azienda privata</option>
+                                    <option className="bg-gf-darker" value="ente">Ente Pubblico</option>
+                                    <option className="bg-gf-darker" value="privato">Privato</option>
+                                </select>
+                                <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Azienda / Ente (Opzionale)</label>
-                                <div className="relative">
-                                    <Building size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                                    <input name="azienda" type="text" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                                </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Azienda / Ente (Opzionale)</label>
+                            <div className="relative">
+                                <Building size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                <input name="azienda" type="text" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
                             </div>
+                        </div>
 
-                            <div className="md:col-span-2 mb-2 mt-4 flex items-center gap-4">
-                                <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">3</span>
-                                <h4 className="text-white font-bold text-lg uppercase tracking-wider">L'Evento</h4>
-                                <div className="h-[1px] bg-white/10 flex-grow"></div>
-                            </div>
+                        <div className="md:col-span-2 mb-2 mt-4 flex items-center gap-4">
+                            <span className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white font-bold text-sm">3</span>
+                            <h4 className="text-white font-bold text-lg uppercase tracking-wider">L'Evento</h4>
+                            <div className="h-[1px] bg-white/10 flex-grow"></div>
+                        </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Dove si svolgerà?</label>
-                                <div className="relative">
-                                    <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                                    <input name="location" type="text" placeholder="Città / Location" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                                </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Dove si svolgerà?</label>
+                            <div className="relative">
+                                <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                <input name="location" type="text" placeholder="Città / Location" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Quando (Periodo/Data)?</label>
-                                <div className="relative">
-                                    <Calendar size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                                    <input name="date" type="text" placeholder="Data precisa o indicativa" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
-                                </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Quando (Periodo/Data)?</label>
+                            <div className="relative">
+                                <Calendar size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                <input name="date" type="text" placeholder="Data precisa o indicativa" className="w-full h-12 pl-10 pr-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all" />
                             </div>
+                        </div>
 
-                            <div className="md:col-span-2 space-y-3 mt-4">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Di cosa hai bisogno? (Seleziona)</label>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    {['Tensostrutture', 'Palchi e Pedane', 'Sedie e Tavoli', 'Gazebo', 'Casette in Legno', 'Impianti Audio/Luci', 'Spillatori', 'Bagni Chimici', 'Generatore', 'Transenne', 'Riscaldamento', 'Pavimentazione'].map((item) => (
-                                        <label key={item} className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-lg cursor-pointer hover:bg-white/10 hover:border-gf-green/50 transition-all group">
-                                            <div className="relative flex items-center">
-                                              <input type="checkbox" name={`servizio_${item.replace(/ /g, '_')}`} className="peer appearance-none w-5 h-5 rounded border border-white/30 checked:bg-gf-green checked:border-gf-green transition-all" />
-                                              <Check size={12} className="absolute inset-0 m-auto text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
-                                            </div>
-                                            <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{item}</span>
-                                        </label>
-                                    ))}
-                                </div>
+                        <div className="md:col-span-2 space-y-3 mt-4">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Di cosa hai bisogno? (Seleziona)</label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {['Tensostrutture', 'Palchi e Pedane', 'Sedie e Tavoli', 'Gazebo', 'Casette in Legno', 'Impianti Audio/Luci', 'Spillatori', 'Bagni Chimici', 'Generatore', 'Transenne', 'Riscaldamento', 'Pavimentazione'].map((item) => (
+                                    <label key={item} className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-lg cursor-pointer hover:bg-white/10 hover:border-gf-green/50 transition-all group">
+                                        <div className="relative flex items-center">
+                                          <input type="checkbox" name={`servizio_${item.replace(/ /g, '_')}`} className="peer appearance-none w-5 h-5 rounded border border-white/30 checked:bg-gf-green checked:border-gf-green transition-all" />
+                                          <Check size={12} className="absolute inset-0 m-auto text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
+                                        </div>
+                                        <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{item}</span>
+                                    </label>
+                                ))}
                             </div>
+                        </div>
 
-                            <div className="md:col-span-2 space-y-2">
-                                <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Note e Richieste Specifiche</label>
-                                <textarea name="note" rows={4} className="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all resize-none placeholder:text-white/20" placeholder="Descrivi le strutture, le dimensioni o altre necessità particolari..."></textarea>
-                            </div>
+                        <div className="md:col-span-2 space-y-2">
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-1">Note e Richieste Specifiche</label>
+                            <textarea id="messaggio" name="note" rows={4} className="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-gf-green focus:bg-white/10 outline-none transition-all resize-none placeholder:text-white/20" placeholder="Descrivi le strutture, le dimensioni o altre necessità particolari..."></textarea>
+                        </div>
 
-                            <div className="md:col-span-2 pt-8 flex flex-col-reverse md:flex-row items-center justify-between gap-6 border-t border-white/10 mt-4">
-                                <button type="button" onClick={() => setIsAdvanced(false)} className="text-gray-400 hover:text-white text-sm font-medium flex items-center gap-2 transition-colors group">
-                                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Torna alla richiesta rapida
-                                </button>
-                                
-                                <button type="submit" disabled={status === 'submitting'} className="w-full md:w-auto px-10 py-4 bg-gf-green hover:bg-emerald-600 text-white font-bold uppercase tracking-widest text-sm rounded-full shadow-[0_10px_20px_rgba(0,112,90,0.3)] hover:shadow-[0_15px_30px_rgba(0,112,90,0.5)] transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-                                    {status === 'submitting' ? (
-                                        <>Inviando... <Loader2 className="animate-spin" size={18} /></>
-                                    ) : (
-                                        <>Invia Richiesta Completa</>
-                                    )}
-                                </button>
-                            </div>
+                        <div className="md:col-span-2 pt-8 flex flex-col-reverse md:flex-row items-center justify-between gap-6 border-t border-white/10 mt-4">
+                            <button type="button" onClick={() => setIsAdvanced(false)} className="text-gray-400 hover:text-white text-sm font-medium flex items-center gap-2 transition-colors group">
+                                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Torna alla richiesta rapida
+                            </button>
                             
-                            {status === 'error' && (
-                                <div className="col-span-full mt-4 flex items-center justify-center gap-2 text-red-400 bg-red-400/10 p-4 rounded-xl border border-red-400/20">
-                                    <AlertCircle size={18} /> {errorMessage}
-                                </div>
-                            )}
-                        </form>
-                    )}
+                            <button type="submit" className="w-full md:w-auto px-10 py-4 bg-gf-green hover:bg-emerald-600 text-white font-bold uppercase tracking-widest text-sm rounded-full shadow-[0_10px_20px_rgba(0,112,90,0.3)] hover:shadow-[0_15px_30px_rgba(0,112,90,0.5)] transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                                {status === 'submitting' ? (
+                                    <>Inviando... <Loader2 className="animate-spin" size={18} /></>
+                                ) : (
+                                    <>Invia Richiesta Completa</>
+                                )}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

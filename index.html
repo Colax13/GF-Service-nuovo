@@ -63,32 +63,52 @@
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     <script>
-      // Gestore globale per l'invio dei form all'endpoint /api/contact
-      document.addEventListener('submit', function(event) {
-        if (event.target && event.target.id === 'contactForm') {
-          // Preveniamo l'invio standard se non gestito da React
-          // (In questo caso React lo gestisce internamente, ma questo script funge da backup)
-          const formData = new FormData(event.target);
-          const data = Object.fromEntries(formData.entries());
-
-          console.log('Invio dati a /api/contact...');
+      // Funzione di invio asincrona richiesta
+      async function handleSubmit(event) {
+          event.preventDefault();
           
-          fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-          .then(response => {
-            if (response.ok) {
-              console.log('Dati ricevuti dal server');
-            }
-          })
-          .catch(error => {
-            console.error('Errore invio form:', error);
-          });
-        }
+          const nomeEl = document.getElementById('nome');
+          const emailEl = document.getElementById('email');
+          const messaggioEl = document.getElementById('messaggio');
+
+          // Verifichiamo l'esistenza degli elementi prima di accedere al valore
+          if (!nomeEl || !emailEl || !messaggioEl) {
+              console.warn("Elementi del form non trovati tramite ID. Assicurati che gli ID 'nome', 'email' e 'messaggio' siano presenti.");
+              return;
+          }
+
+          const formData = {
+              nome: nomeEl.value,
+              email: emailEl.value,
+              messaggio: messaggioEl.value
+          };
+
+          try {
+              const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(formData),
+              });
+
+              if (response.ok) {
+                  alert('Messaggio inviato con successo!');
+                  event.target.reset();
+              } else {
+                  alert('Errore durante l\'invio. Riprova.');
+              }
+          } catch (error) {
+              console.error('Errore:', error);
+              alert('Errore di connessione.');
+          }
+      }
+
+      // Utilizziamo la delegazione degli eventi perché il form viene renderizzato da React
+      document.addEventListener('submit', function(event) {
+          if (event.target && event.target.id === 'contactForm') {
+              handleSubmit(event);
+          }
       });
     </script>
   </body>
