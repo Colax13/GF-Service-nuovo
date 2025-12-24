@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   // QUESTO È L'URL CHE PRENDI DA "APPS SCRIPT" (NON APPSHEET!)
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRtlLRd7r1cv_Cb3O39KT4UAoGUzDxhU7jf4yCk6bFuKIPSf1AQMnIPcenIwrBSFvODA/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/library/d/103tM0-nJFWsRT3X6V0IAODOEKXx9v_HG6JIzLG7tLu4RxKfZ-ewbgi7S/3';
 
   try {
     const response = await fetch(GOOGLE_SCRIPT_URL, {
