@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Calendar, BookOpen } from 'lucide-react';
+import { ArrowRight, Calendar, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface BlogPostProps {
   title: string;
@@ -16,7 +16,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, excerpt, date, image, catego
 
   return (
     <article 
-      className="group flex flex-col bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-gf-green/50 hover:bg-white/[0.07] transition-all duration-300 cursor-pointer"
+      className="group flex flex-col bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-gf-green/50 hover:bg-white/[0.07] transition-all duration-300 cursor-pointer h-full"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(20px)',
@@ -67,7 +67,10 @@ interface BlogProps {
 
 const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
   const [inView, setInView] = useState(false);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const posts = [
     {
@@ -108,9 +111,54 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
     return () => observer.disconnect();
   }, []);
 
+  // Intersection Observer per il carosello mobile
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute('data-index'));
+            setActiveMobileIndex(index);
+          }
+        });
+      },
+      { 
+        root: scrollRef.current,
+        threshold: 0.6 
+      }
+    );
+
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleArchiveClick = (e: React.MouseEvent) => {
       e.preventDefault();
       if (onShowAllBlogPosts) onShowAllBlogPosts();
+  };
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.offsetWidth * 0.85;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -cardWidth : cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleDotClick = (index: number) => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.offsetWidth * 0.85;
+      const gap = 24; // Corrisponde a gap-6 (1.5rem = 24px)
+      scrollRef.current.scrollTo({
+        left: index * (cardWidth + gap),
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -133,8 +181,64 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
             </p>
         </div>
 
-        {/* Standard Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {/* Mobile Carousel Layout (Hidden on LG+) */}
+        <div className="lg:hidden flex flex-col items-center">
+            <div 
+              ref={scrollRef}
+              className="w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-6 pb-4 -mx-4 px-4"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {posts.map((post, index) => (
+                <div 
+                  key={index} 
+                  ref={(el) => { cardRefs.current[index] = el; }}
+                  data-index={index}
+                  className="min-w-[85vw] md:min-w-[50vw] snap-center"
+                >
+                  <BlogPost 
+                    {...post} 
+                    index={index} 
+                    inView={true}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination Controls Mobile */}
+            <div className="flex items-center justify-center gap-6 mt-8 mb-4">
+                <button 
+                  onClick={() => scrollCarousel('left')}
+                  className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-gf-green hover:border-gf-green transition-all text-white"
+                  aria-label="Articolo precedente"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                <div className="flex gap-2">
+                  {posts.map((_, idx) => (
+                    <button 
+                      key={idx}
+                      onClick={() => handleDotClick(idx)}
+                      className={`h-1.5 transition-all duration-300 rounded-full ${
+                        idx === activeMobileIndex ? 'w-8 bg-gf-green' : 'w-2 bg-white/20'
+                      }`}
+                      aria-label={`Vai all'articolo ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button 
+                  onClick={() => scrollCarousel('right')}
+                  className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-gf-green hover:border-gf-green transition-all text-white"
+                  aria-label="Articolo successivo"
+                >
+                  <ChevronRight size={20} />
+                </button>
+            </div>
+        </div>
+
+        {/* Standard Grid Layout Desktop (Hidden on Mobile) */}
+        <div className="hidden lg:grid grid-cols-3 gap-8 mb-12">
           {posts.map((post, index) => (
             <BlogPost 
               key={index} 
@@ -146,7 +250,7 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
         </div>
 
         {/* Centered CTA */}
-        <div className={`text-center transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className={`text-center mt-12 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
              <button 
                 onClick={handleArchiveClick}
                 className="inline-flex items-center gap-2 text-white border-b border-white/30 pb-1 hover:text-gf-green hover:border-gf-green transition-all text-sm font-bold uppercase tracking-widest group"
@@ -156,6 +260,12 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
         </div>
 
       </div>
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 };

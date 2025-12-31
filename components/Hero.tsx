@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 interface HeroProps {
   onShowContact?: () => void;
@@ -8,7 +10,6 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger text animation shortly after mount
     const timer = setTimeout(() => {
       setLoaded(true);
     }, 100);
@@ -36,16 +37,12 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
           className="absolute inset-0 w-full h-full object-cover"
           poster="https://res.cloudinary.com/dcmd1ukvx/video/upload/v1765742741/NEXT_GROUP_2019_SHOWREEL_EVENTI_rkno5h.mp4"
         >
-          {/* Using a high-quality stock event video */}
           <source src="https://res.cloudinary.com/dcmd1ukvx/video/upload/v1765742741/NEXT_GROUP_2019_SHOWREEL_EVENTI_rkno5h.mp4" type="video/mp4" />
         </video>
-
-        {/* Gradient overlays to ensure text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/80"></div>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center text-white mt-12">
         <h1 
           className={`font-bold text-3xl md:text-5xl lg:text-7xl mb-6 tracking-tight leading-tight transition-all duration-1000 ease-out transform drop-shadow-xl flex flex-col md:block items-center justify-center ${
@@ -55,19 +52,10 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
           COSTRUIAMO CIÒ <br className="md:hidden" />
           <span className="text-gf-green italic inline-flex items-center gap-2 md:gap-4 align-middle">
             CHE UNISCE
-            {/* Custom Animated Union Icon */}
             <div className="relative w-8 h-8 md:w-12 md:h-12 flex items-center justify-center">
-                {/* Outer Glow */}
                 <div className="absolute inset-0 bg-gf-green/20 rounded-full blur-md animate-pulse"></div>
-                
-                {/* Left Bracket */}
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-6 md:w-4 md:h-8 border-l-4 border-t-4 border-b-4 border-gf-green rounded-l-md animate-[slideRight_2s_ease-in-out_infinite]"></div>
-                
-                {/* Right Bracket */}
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-6 md:w-4 md:h-8 border-r-4 border-t-4 border-b-4 border-gf-green rounded-r-md animate-[slideLeft_2s_ease-in-out_infinite]"></div>
-                
-                {/* Center Connection Spark */}
-                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full opacity-0 animate-[spark_2s_ease-in-out_infinite]"></div>
             </div>
           </span>
         </h1>
@@ -77,7 +65,7 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
-          Noleggio e allestimento strutture per eventi in tutto il Centro Italia
+          Noleggio e allestimento professionale strutture per eventi in tutto il Centro Italia
         </p>
         
         <div 
@@ -87,25 +75,13 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
         >
           <button 
             onClick={onShowContact}
-            className="inline-block bg-gf-green hover:bg-emerald-800 text-white font-medium py-3 px-10 text-sm tracking-widest uppercase transition-all rounded-full shadow-[0_10px_20px_rgba(0,112,90,0.3)] hover:shadow-[0_15px_30px_rgba(0,112,90,0.5)] transform hover:-translate-y-1 cursor-pointer"
+            className="inline-flex items-center gap-3 bg-gf-green hover:bg-emerald-800 text-white font-bold py-4 px-12 text-sm tracking-widest uppercase transition-all rounded-full shadow-[0_10px_20px_rgba(0,112,90,0.3)] hover:shadow-[0_15px_30px_rgba(0,112,90,0.5)] transform hover:-translate-y-1 group"
           >
-            Contattaci
+            Inizia il Noleggio <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
-
-      {/* Modern Scroll Indicator */}
-      <a 
-        href="#chi-siamo"
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 transition-opacity duration-1000 delay-1000 cursor-pointer hover:opacity-100 z-30 ${
-          loaded ? 'opacity-70' : 'opacity-0'
-        }`}
-      >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white to-transparent opacity-50"></div>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-white/70 shadow-black drop-shadow-md">Scroll</span>
-      </a>
-
-      {/* Inject Custom Keyframes for the Icon */}
+      
       <style>{`
         @keyframes slideRight {
             0%, 100% { transform: translateX(0) translateY(-50%); }
@@ -114,10 +90,6 @@ const Hero: React.FC<HeroProps> = ({ onShowContact }) => {
         @keyframes slideLeft {
             0%, 100% { transform: translateX(0) translateY(-50%); }
             50% { transform: translateX(-4px) translateY(-50%); }
-        }
-        @keyframes spark {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1.5); }
         }
       `}</style>
     </section>

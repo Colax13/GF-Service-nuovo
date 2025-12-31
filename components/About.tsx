@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { ShieldCheck, Truck, Users, Clock, ArrowRight } from 'lucide-react';
 
@@ -115,7 +116,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className={`hidden lg:block lg:col-span-3 transition-all duration-1000 ease-out delay-200 ${inView ? 'opacity-100 translate-y-12' : 'opacity-0 translate-y-32'}`}>
                 <div className="relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 group">
                     <img 
-                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1765395251/main-sample.png" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg" 
                         alt="Event Setup Detail" 
                         className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0"
                     />
@@ -152,7 +153,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
                         <strong className="text-white font-medium">Non è un semplice slogan.</strong> È la visione che guida ogni nostro singolo allestimento dal 2005.
                     </p>
                     <p>
-                        GF Service nasce con l'obiettivo di fornire non solo strutture, ma <span className="text-white border-b border-gf-green/50 pb-0.5">soluzioni</span>. Sappiamo che dietro ogni palco, ogni tensostruttura e ogni impianto c'è un evento irripetibile, un'emozione da proteggere e un pubblico da accogliere.
+                        Malù Service and Games nasce con l'obiettivo di fornire non solo strutture, ma <span className="text-white border-b border-gf-green/50 pb-0.5">soluzioni</span>. Sappiamo che dietro ogni palco, ogni tensostruttura e ogni impianto c'è un evento irripetibile, un'emozione da proteggere e un pubblico da accogliere.
                     </p>
                     <p className="text-base text-gray-400">
                         Operiamo in tutto il Centro Italia con un parco mezzi proprietario e squadre di tecnici specializzati, garantendo rapidità d'intervento e certificazione di ogni componente installato.
@@ -206,7 +207,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className={`hidden lg:block lg:col-span-3 transition-all duration-1000 ease-out delay-300 ${inView ? 'opacity-100 -translate-y-12' : 'opacity-0 translate-y-32'}`}>
                 <div className="relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 group">
                     <img 
-                        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png" 
                         alt="Team Work" 
                         className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0"
                     />
@@ -221,7 +222,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className="block lg:hidden w-full mt-8">
                 <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5">
                      <img 
-                        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png" 
                         alt="Team Work" 
                         className="w-full h-full object-cover opacity-80"
                     />

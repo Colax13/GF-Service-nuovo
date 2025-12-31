@@ -1,6 +1,8 @@
+
 import React, { useEffect, useState, useMemo } from 'react';
 import { Camera, MapPin, Instagram, Facebook } from 'lucide-react';
 import { ProjectData, GalleryItem } from './ProjectDetail';
+import StreetFoodSection from './StreetFoodSection';
 
 const octoberFestGallery: GalleryItem[] = [
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg", label: "Vista prospettica interna tendostruttura.", orientation: 'landscape' },
@@ -69,7 +71,7 @@ const projects: ProjectData[] = [
     imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
     galleryItems: [
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "L'infinita linea di tavoli che attraversa il centro storico." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo per il beverage." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo for the beverage." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430424/tavolata_kvlj4x.jpg", label: "Dettaglio dell'allestimento dei kit birreria." },
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea della distribuzione lungo l'asse stradale." }
     ],
@@ -188,7 +190,7 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24 min-h-[50vh]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32 min-h-[50vh]">
                         {filteredProjects.map((project, idx) => (
                             <div 
                                 key={idx} 
@@ -231,7 +233,14 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                         ))}
                     </div>
 
-                    <div className={`mt-32 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                    <div className="relative mb-32">
+                         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full flex flex-col items-center gap-4 mb-8">
+                            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-gf-green/50 to-gf-green"></div>
+                         </div>
+                         <StreetFoodSection />
+                    </div>
+
+                    <div className={`mt-12 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                         <div className="relative max-w-5xl mx-auto rounded-[32px] overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-12 md:p-20 text-center shadow-2xl">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gf-green/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>

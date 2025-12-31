@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -37,31 +38,37 @@ const App: React.FC = () => {
   }, [selectedProject]);
 
   const handleShowContact = () => {
+    setSelectedProject(null);
     setCurrentView('contact');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllServices = () => {
+    setSelectedProject(null);
     setCurrentView('services');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllProjects = () => {
+    setSelectedProject(null);
     setCurrentView('projects');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllBlogPosts = () => {
+    setSelectedProject(null);
     setCurrentView('blog');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllAbout = () => {
+    setSelectedProject(null);
     setCurrentView('about');
     window.scrollTo(0, 0);
   };
 
   const handleNavigateHome = (href: string) => {
+    setSelectedProject(null);
     setCurrentView('home');
     setTimeout(() => {
         const id = href.replace('#', '');
@@ -88,19 +95,21 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Determina quale voce della navbar deve essere attiva
+  const getForcedActive = () => {
+    if (selectedProject) return "Progetti";
+    if (currentView === 'contact') return "Contatti";
+    if (currentView === 'services') return "Servizi";
+    if (currentView === 'projects') return "Progetti";
+    if (currentView === 'blog') return "Le nostre storie";
+    if (currentView === 'about') return "Chi siamo";
+    return undefined;
+  };
+
   const renderContent = () => {
     if (currentView === 'contact') {
       return (
         <div className="flex flex-col min-h-screen">
-          <Navbar 
-              onNavigate={handleNavigateHome} 
-              onShowContact={handleShowContact}
-              onShowServices={handleShowAllServices}
-              onShowProjects={handleShowAllProjects}
-              onShowBlog={handleShowAllBlogPosts} 
-              onShowAbout={handleShowAllAbout}
-              forcedActive="Contatti" 
-          />
           <div className="flex-grow">
             <Contact />
           </div>
@@ -112,15 +121,6 @@ const App: React.FC = () => {
     if (currentView === 'services') {
       return (
         <div className="flex flex-col min-h-screen">
-          <Navbar 
-              onNavigate={handleNavigateHome} 
-              onShowContact={handleShowContact}
-              onShowServices={handleShowAllServices}
-              onShowProjects={handleShowAllProjects}
-              onShowBlog={handleShowAllBlogPosts} 
-              onShowAbout={handleShowAllAbout}
-              forcedActive="Servizi" 
-          />
           <div className="flex-grow">
             <AllServices onShowContact={handleShowContact} />
           </div>
@@ -132,15 +132,6 @@ const App: React.FC = () => {
     if (currentView === 'projects') {
       return (
         <div className="flex flex-col min-h-screen">
-          <Navbar 
-              onNavigate={handleNavigateHome} 
-              onShowContact={handleShowContact}
-              onShowServices={handleShowAllServices}
-              onShowProjects={handleShowAllProjects}
-              onShowBlog={handleShowAllBlogPosts} 
-              onShowAbout={handleShowAllAbout}
-              forcedActive="Progetti" 
-          />
           <div className="flex-grow">
             <AllProjects onProjectSelect={handleProjectSelect} />
           </div>
@@ -152,15 +143,6 @@ const App: React.FC = () => {
     if (currentView === 'blog') {
       return (
         <div className="flex flex-col min-h-screen">
-          <Navbar 
-              onNavigate={handleNavigateHome} 
-              onShowContact={handleShowContact}
-              onShowServices={handleShowAllServices}
-              onShowProjects={handleShowAllProjects}
-              onShowBlog={handleShowAllBlogPosts} 
-              onShowAbout={handleShowAllAbout}
-              forcedActive="Le nostre storie" 
-          />
           <div className="flex-grow">
             <AllBlogPosts onShowContact={handleShowContact} />
           </div>
@@ -172,15 +154,6 @@ const App: React.FC = () => {
     if (currentView === 'about') {
       return (
         <div className="flex flex-col min-h-screen">
-          <Navbar 
-              onNavigate={handleNavigateHome} 
-              onShowContact={handleShowContact}
-              onShowServices={handleShowAllServices}
-              onShowProjects={handleShowAllProjects}
-              onShowBlog={handleShowAllBlogPosts} 
-              onShowAbout={handleShowAllAbout}
-              forcedActive="Chi siamo" 
-          />
           <div className="flex-grow">
             <AllAbout onShowContact={handleShowContact} />
           </div>
@@ -191,13 +164,6 @@ const App: React.FC = () => {
 
     return (
       <>
-        <Navbar 
-          onShowContact={handleShowContact}
-          onShowServices={handleShowAllServices}
-          onShowProjects={handleShowAllProjects}
-          onShowBlog={handleShowAllBlogPosts} 
-          onShowAbout={handleShowAllAbout}
-        />
         <Hero onShowContact={handleShowContact} />
         <StickySocials />
         <About onShowAllAbout={handleShowAllAbout} />
@@ -206,9 +172,8 @@ const App: React.FC = () => {
         <LogoScroll />
         <Values onShowAbout={handleShowAllAbout} />
         <Blog onShowAllBlogPosts={handleShowAllBlogPosts} />
-        <StreetFoodSection />
         <Contact simpleMode={true} />
-        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} />
+        <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </>
     );
   };
@@ -216,10 +181,28 @@ const App: React.FC = () => {
   return (
     <div className="font-sans text-gray-800 antialiased selection:bg-gf-green selection:text-white bg-gf-darker min-h-screen">
       <CustomCursor />
+      
+      <Navbar 
+          onNavigate={handleNavigateHome} 
+          onShowContact={handleShowContact}
+          onShowServices={handleShowAllServices}
+          onShowProjects={handleShowAllProjects}
+          onShowBlog={handleShowAllBlogPosts} 
+          onShowAbout={handleShowAllAbout}
+          forcedActive={getForcedActive()} 
+      />
+
       <div className={selectedProject ? "hidden" : "block"}>
         {renderContent()}
       </div>
-      {selectedProject && <ProjectDetail project={selectedProject} onClose={handleProjectClose} onGoToProjects={handleGoToProjects} />}
+      
+      {selectedProject && (
+        <ProjectDetail 
+          project={selectedProject} 
+          onClose={handleProjectClose} 
+          onGoToProjects={handleGoToProjects} 
+        />
+      )}
     </div>
   );
 };

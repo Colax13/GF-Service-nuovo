@@ -1,13 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GF Service - Strutture per Eventi</title>
+    <title>Malù Service and Games - Strutture per Eventi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
       tailwind.config = {
         theme: {
@@ -45,15 +48,12 @@
   <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
     "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "@vercel/analytics/react": "https://esm.sh/@vercel/analytics@1.4.1/react?external=react,react-dom",
-    "@vercel/analytics/": "https://esm.sh/@vercel/analytics@^1.6.1/"
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
@@ -62,54 +62,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
-    <script>
-      // Funzione di invio asincrona richiesta
-      async function handleSubmit(event) {
-          event.preventDefault();
-          
-          const nomeEl = document.getElementById('nome');
-          const emailEl = document.getElementById('email');
-          const messaggioEl = document.getElementById('messaggio');
-
-          // Verifichiamo l'esistenza degli elementi prima di accedere al valore
-          if (!nomeEl || !emailEl || !messaggioEl) {
-              console.warn("Elementi del form non trovati tramite ID. Assicurati che gli ID 'nome', 'email' e 'messaggio' siano presenti.");
-              return;
-          }
-
-          const formData = {
-              nome: nomeEl.value,
-              email: emailEl.value,
-              messaggio: messaggioEl.value
-          };
-
-          try {
-              const response = await fetch('/api/contact', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(formData),
-              });
-
-              if (response.ok) {
-                  alert('Messaggio inviato con successo!');
-                  event.target.reset();
-              } else {
-                  alert('Errore durante l\'invio. Riprova.');
-              }
-          } catch (error) {
-              console.error('Errore:', error);
-              alert('Errore di connessione.');
-          }
-      }
-
-      // Utilizziamo la delegazione degli eventi perché il form viene renderizzato da React
-      document.addEventListener('submit', function(event) {
-          if (event.target && event.target.id === 'contactForm') {
-              handleSubmit(event);
-          }
-      });
-    </script>
   </body>
 </html>

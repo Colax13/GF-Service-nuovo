@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Facebook, Instagram, Linkedin, Twitter, ArrowUp } from 'lucide-react';
 
@@ -103,9 +104,9 @@ const Footer: React.FC<FooterProps> = ({ onShowContact, onShowAbout, onNavigate 
                     <p className="text-white font-medium">Frosinone, Italia</p>
                     <p>Via Marte, 105<br/>03010 Tecchiena (FR)</p>
                     <div className="pt-4 flex flex-col gap-2">
-                        <a href="mailto:info@gfservice.it" className="hover:text-white transition-colors flex items-center gap-2">
+                        <a href="mailto:info@maluservice.it" className="hover:text-white transition-colors flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-gf-green"></span>
-                            info@gfservice.it
+                            info@maluservice.it
                         </a>
                         <a href="tel:+393331234567" className="hover:text-white transition-colors flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-gf-green"></span>
@@ -161,7 +162,7 @@ const Footer: React.FC<FooterProps> = ({ onShowContact, onShowAbout, onNavigate 
 
             {/* Bottom Bar */}
             <div className={`border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 transition-all duration-1000 delay-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-                <p>&copy; {new Date().getFullYear()} GF Service SRL. P.IVA 12345678900 - All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Malù Service and Games SRL. P.IVA 12345678900 - All rights reserved.</p>
                 <div className="flex gap-6 mt-4 md:mt-0">
                     <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
                     <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>

@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState, useRef } from 'react';
-import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Hammer, Handshake, MapPin, DraftingCompass, X, TrendingUp, Heart } from 'lucide-react';
+import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Hammer, Handshake, MapPin, DraftingCompass, X, TrendingUp, Heart, Truck, Calendar, Map } from 'lucide-react';
 
 interface AllAboutProps {
   onShowContact?: () => void;
@@ -9,7 +10,7 @@ const timelineEvents = [
   {
     year: "2006",
     title: "Le Fondamenta",
-    desc: "GF Service nasce in un piccolo magazzino di Frosinone. Una sola squadra, un furgone e i primi kit da birreria per feste patronali.",
+    desc: "Malù Service and Games nasce in un piccolo magazzino di Frosinone. Una sola squadra, un furgone e i primi kit da birreria per feste patronali.",
     icon:  Clock
   },
   {
@@ -27,98 +28,60 @@ const timelineEvents = [
   {
     year: "2024",
     title: "Le collaborazioni strategiche",
-    desc: "Inizio di collaborazioni nazionali e iternazionali e la nomina a partner tecnico per Street Food International",
+    desc: "Inizio di collaborazioni nazionali e internazionali e la nomina a partner tecnico per Street Food International",
     icon: ShieldCheck
   },
   {
-    year: "2024",
-    title: "Leader Centro Italia",
+    year: "2025",
+    title: "Visone futura",
     desc: "Oggi con lo sviluppo delle casette di legno, ridefiano il concetto di service tecnico, puntando a essere leader nel centro Italia",
     icon: Users
   }
 ];
 
-const teamMembers = [
-  {
-    name: "Marco Rossi",
-    role: "Fondatore & CEO",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
-    quote: "La sicurezza prima del profitto."
-  },
-  {
-    name: "Giulia Bianchi",
-    role: "Direttore Operativo",
-    image: "https://images.unsplash.com/photo-1573496359-136d475583dc?q=80&w=1000&auto=format&fit=crop",
-    quote: "Ogni centimetro conta."
-  },
-  {
-    name: "Roberto Verdi",
-    role: "Capo Squadra Tecnico",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop",
-    quote: "Non esiste maltempo, solo cattivi montaggi."
-  },
-  {
-    name: "Elena Neri",
-    role: "Event Manager",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
-    quote: "Realizziamo l'immaginabile."
-  }
-];
-
 // Images for the gallery
 const photoLoopImages = [
-    "https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1505373877841-8d43f7166778?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1533552083626-47674dc0535e?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515475/palio_di_san_pietro_eremita_6_sjp5ye.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427559/impianti_eetito.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427559/impianti_eetito.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430190/cover_q7wcxz.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg",
+    "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg",
 ];
 
-// The 5 Specific Values with extended content for the interactive section
+// The 5 Specific Values - Visual Only
 const values = [
     { 
         icon: MapPin, 
         title: "ORGOGLIO TERRITORIALE", 
         desc: "Radici locali, visione nazionale.",
-        longDesc: "GF Service non nasce per caso. Nasce in un territorio dove la festa di piazza è sacra. Quando montiamo una struttura, non stiamo solo alzando colonne d'acciaio. Stiamo proteggendo uno spazio dove una comunità scriverà la sua storia. Dal Basso Lazio portiamo questa passione in tutta Italia.",
-        image: "https://images.unsplash.com/photo-1533552083626-47674dc0535e?q=80&w=1974&auto=format&fit=crop"
     },
     { 
         icon: DraftingCompass, 
         title: "PRECISIONE", 
         desc: "Il dettaglio è la nostra ossessione.",
-        longDesc: "In questo lavoro, un centimetro fa la differenza tra un montaggio perfetto e un problema. La nostra ossessione per il dettaglio, dai calcoli statici all'allineamento dell'ultima sedia, garantisce sicurezza assoluta e un'estetica impeccabile in ogni installazione.",
-        image: "https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=2070&auto=format&fit=crop"
     },
     { 
         icon: Users, 
         title: "UMANITÀ", 
         desc: "Persone prima delle strutture.",
-        longDesc: "Non siamo robot. Crediamo nel rapporto umano, nel sorriso durante un montaggio faticoso e nella stretta di mano che vale più di un contratto. La nostra squadra è una famiglia, e trattiamo i clienti come partner, non come numeri.",
-        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop"
     },
     { 
         icon: Hammer, 
         title: "ETICA DEL FARE", 
         desc: "Lavorare duro, lavorare bene.",
-        longDesc: "Non esistono scorciatoie. Esiste solo il lavoro ben fatto. Rispettiamo i tempi, rispettiamo i materiali e soprattutto rispettiamo la fiducia che ci viene data. Lavoriamo fino a quando il risultato non è perfetto, anche se significa restare in cantiere un'ora in più.",
-        image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop"
     },
     { 
         icon: Handshake, 
         title: "COSTRUTTORI DI FIDUCIA", 
         desc: "Partnership solide e durature.",
-        longDesc: "Costruiamo strutture temporanee, ma relazioni che durano nel tempo. I nostri clienti tornano da noi anno dopo anno perché sanno che nel momento del bisogno, GF Service risponde sempre presente, risolvendo problemi invece di crearne.",
-        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2069&auto=format&fit=crop"
     },
 ];
 
 const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
   const [loaded, setLoaded] = useState(false);
-  const [activeValueIndex, setActiveValueIndex] = useState<number | null>(null);
   const detailRef = useRef<HTMLDivElement>(null);
 
   // Field Gallery Logic
@@ -194,19 +157,6 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
     };
   }, []);
 
-  const handleValueClick = (index: number) => {
-    if (activeValueIndex === index) {
-        setActiveValueIndex(null); 
-    } else {
-        setActiveValueIndex(index);
-        setTimeout(() => {
-            if (detailRef.current) {
-                detailRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }, 100);
-    }
-  };
-
   // Prepare columns for the new gallery
   const galleryCols = [
       [...photoLoopImages.slice(0, 4), ...photoLoopImages.slice(0, 2)], 
@@ -218,10 +168,16 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
   return (
     <section className="relative min-h-screen bg-gf-darker text-white selection:bg-gf-green selection:text-white pb-24 overflow-hidden">
       
-      {/* Background Ambience */}
-      <div className="fixed inset-0 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-gf-green/5 rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-emerald-900/10 rounded-full blur-[100px]"></div>
+      {/* Background Ambience - Unified with Services and Projects */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-black">
+          {/* Dynamic blurred glow blobs */}
+          <div className="absolute top-[-10%] -right-[10%] w-[70vw] h-[70vw] bg-gf-green/10 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[10%] -left-[10%] w-[50vw] h-[50vw] bg-emerald-900/10 rounded-full blur-[100px]"></div>
+          
+          {/* The core gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a]/90 to-[#022c24]/95"></div>
+          
+          {/* Noise texture */}
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
       </div>
 
@@ -238,7 +194,7 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
               per <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Incontrarsi.</span>
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
-             Più di semplici noleggiatori. Siamo architetti di momenti, <br className="hidden md:block"/> custodi di tradizioni e partner tecnici per chi sogna in grande.
+             Più di semplici noleggiatori. Siamo architetti di momenti, <br className="hidden md:block" /> custodi di tradizioni e partner tecnici per chi sogna in grande.
           </p>
       </div>
 
@@ -366,13 +322,13 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
                 <div className="order-1 lg:order-2 relative h-[500px] w-full">
                     {/* Image 1: Main Shape */}
                     <div className="absolute top-0 right-0 w-3/4 h-3/4 rounded-tl-[80px] rounded-br-[20px] overflow-hidden border border-white/10 shadow-2xl z-10">
-                        <img src="https://images.unsplash.com/photo-1541363637657-b01ef46ad36f?q=80&w=1000&auto=format&fit=crop" alt="Ciociaria Landscape" className="w-full h-full object-cover" />
+                        <img src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg" alt="Ciociaria Landscape" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gf-green/20 mix-blend-multiply"></div>
                     </div>
 
                     {/* Image 2: Overlapping geometric cut */}
                     <div className="absolute bottom-0 left-0 w-3/5 h-3/5 rounded-full overflow-hidden border-4 border-gf-darker shadow-2xl z-20">
-                        <img src="https://images.unsplash.com/photo-1596627685606-258614457787?q=80&w=1000&auto=format&fit=crop" alt="Local Craft" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                        <img src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png" alt="Malù all'opera" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                     </div>
 
                     {/* Decorative Elements */}
@@ -383,48 +339,61 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
                 </div>
             </div>
 
-            {/* SUB-SECTION: CERTIFIED LOCAL IMPACT */}
+            {/* SUB-SECTION: NEW NUMBERS */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
                 <div className="text-center mb-12">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Il Nostro Contributo Certificato</h3>
-                    <p className="text-gray-400 font-light">Un impegno concreto per la crescita del territorio.</p>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 uppercase tracking-wide">I NOSTRI NUMERI SUL TERRITORIO</h3>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Card 1 */}
                     <div className="relative p-6 bg-black/20 rounded-2xl border border-white/5 hover:border-gf-green/30 transition-all group">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-                            <Users size={40} className="text-gf-green" />
+                            <Calendar size={40} className="text-gf-green" />
                         </div>
-                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">25+</div>
-                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Nuove Assunzioni Locali</div>
-                        <div className="text-[10px] text-gray-500 mt-1">(Ultimi 5 Anni)</div>
+                        <div className="text-[10px] text-gray-500 mb-1 uppercase tracking-widest">OLTRE</div>
+                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">3.000</div>
+                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Eventi Sostenuti</div>
+                        <div className="text-[10px] text-gray-500 mt-1">Nei Borghi della Ciociaria</div>
                     </div>
 
                     {/* Card 2 */}
                     <div className="relative p-6 bg-black/20 rounded-2xl border border-white/5 hover:border-gf-green/30 transition-all group">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-                            <TrendingUp size={40} className="text-gf-green" />
+                            <Users size={40} className="text-gf-green" />
                         </div>
-                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">€ 1.2M</div>
-                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Investiti nel Territorio</div>
-                        <div className="text-[10px] text-gray-500 mt-1">(Fornitori e Servizi Annui)</div>
+                        <div className="text-[10px] text-gray-500 mb-1 uppercase tracking-widest">OLTRE</div>
+                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">300.000</div>
+                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Persone Accolte</div>
+                        <div className="text-[10px] text-gray-500 mt-1">Nelle Nostre Strutture</div>
                     </div>
 
                     {/* Card 3 */}
                     <div className="relative p-6 bg-black/20 rounded-2xl border border-white/5 hover:border-gf-green/30 transition-all group">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-                            <Heart size={40} className="text-gf-green" />
+                            <MapPin size={40} className="text-gf-green" />
                         </div>
-                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">15+</div>
-                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Progetti Sociali</div>
-                        <div className="text-[10px] text-gray-500 mt-1">(Scuole e Associazioni)</div>
+                        <div className="text-[10px] text-gray-500 mb-1 uppercase tracking-widest text-transparent">.</div>
+                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">+70</div>
+                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">Comuni Supportati</div>
+                        <div className="text-[10px] text-gray-500 mt-1">E Valorizzati</div>
+                    </div>
+
+                    {/* Card 4 */}
+                    <div className="relative p-6 bg-black/20 rounded-2xl border border-white/5 hover:border-gf-green/30 transition-all group">
+                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                            <Truck size={40} className="text-gf-green" />
+                        </div>
+                        <div className="text-[10px] text-gray-500 mb-1 uppercase tracking-widest">OLTRE</div>
+                        <div className="text-4xl font-bold text-white mb-2 group-hover:text-gf-green transition-colors">1.200</div>
+                        <div className="text-xs uppercase tracking-widest text-gray-400 font-bold">KM Percorsi</div>
+                        <div className="text-[10px] text-gray-500 mt-1">Ogni Anno per Sostenere Eventi</div>
                     </div>
                 </div>
             </div>
         </div>
 
-      {/* 5. VALUES SECTION */}
+      {/* 5. VALUES SECTION - STATIC (No opening cards) */}
       <div className="container mx-auto px-6 text-center mb-32 relative z-10">
           <div className="inline-block mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">I NOSTRI VALORI</h2>
@@ -433,113 +402,31 @@ const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
           
           <p className="max-w-4xl mx-auto text-gray-300 mb-20 font-light text-lg leading-relaxed">
               Non siamo un'entità astratta. Siamo <span className="text-white font-medium">persone</span> che credono nel valore del lavoro ben fatto.
-              Clicca su un valore per scoprire cosa significa per noi.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-12">
               {values.map((v, i) => {
-                  const isActive = activeValueIndex === i;
                   return (
-                    <button 
+                    <div 
                         key={i} 
-                        onClick={() => handleValueClick(i)}
-                        className={`
-                            flex flex-col items-center gap-6 p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-2 cursor-pointer
-                            ${isActive 
-                                ? 'bg-white/10 border-gf-green shadow-[0_0_30px_rgba(0,112,90,0.3)]' 
-                                : 'bg-white/5 border-white/5 hover:bg-white/[0.08] hover:border-gf-green/30'
-                            }
-                        `}
+                        className="flex flex-col items-center gap-6 p-6 rounded-2xl border bg-white/5 border-white/5 hover:bg-white/[0.08] hover:border-gf-green/30 transition-all duration-300 group"
                     >
-                        <div className={`
-                            w-16 h-16 rounded-full border flex items-center justify-center transition-all duration-300 shadow-lg relative overflow-hidden
-                            ${isActive 
-                                ? 'bg-gradient-to-br from-gf-green to-emerald-500 border-gf-green text-white' 
-                                : 'bg-gf-darker border-white/10 text-gf-green group-hover:bg-gradient-to-br group-hover:from-gf-green group-hover:to-emerald-500 group-hover:text-white'
-                            }
-                        `}>
+                        <div className="w-16 h-16 rounded-full border flex items-center justify-center transition-all duration-300 shadow-lg relative overflow-hidden bg-gf-darker border-white/10 text-gf-green group-hover:bg-gradient-to-br group-hover:from-gf-green group-hover:to-emerald-500 group-hover:text-white">
                             <v.icon size={28} strokeWidth={1.5} className="relative z-10" />
                         </div>
                         <div className="text-center w-full">
-                            <h3 className={`text-xs font-bold uppercase tracking-widest mb-2 h-8 flex items-center justify-center transition-colors ${isActive ? 'text-gf-green' : 'text-white'}`}>
+                            <h3 className="text-xs font-bold uppercase tracking-widest mb-2 h-8 flex items-center justify-center text-white">
                                 {v.title}
                             </h3>
-                            <div className={`w-8 h-[1px] mx-auto mb-3 transition-colors ${isActive ? 'bg-gf-green' : 'bg-white/20'}`}></div>
+                            <div className="w-8 h-[1px] mx-auto mb-3 bg-white/20"></div>
                             <p className="text-sm text-gray-400 font-light leading-snug group-hover:text-gray-300 transition-colors">
                                 {v.desc}
                             </p>
                         </div>
-                    </button>
+                    </div>
                   );
               })}
           </div>
-
-          <div 
-            className={`transition-all duration-700 ease-in-out overflow-hidden ${activeValueIndex !== null ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}
-          >
-              {activeValueIndex !== null && (
-                  <div ref={detailRef} className="relative rounded-3xl overflow-hidden bg-gf-darker border border-gf-green/30 shadow-2xl mx-auto max-w-6xl group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gf-green/10 to-transparent pointer-events-none"></div>
-                    
-                    <button 
-                        onClick={() => setActiveValueIndex(null)}
-                        className="absolute top-4 right-4 z-20 p-2 bg-black/20 hover:bg-gf-green rounded-full text-white transition-colors"
-                    >
-                        <X size={20} />
-                    </button>
-
-                    <div className="flex flex-col md:flex-row">
-                        <div 
-                            className="w-full md:w-5/12 min-h-[300px] md:min-h-[400px] bg-cover bg-center relative animate-fade-in" 
-                            style={{backgroundImage: `url("${values[activeValueIndex].image}")`}}
-                        >
-                            <div className="absolute inset-0 bg-gf-darker/40 mix-blend-multiply"></div>
-                        </div>
-                        <div className="w-full md:w-7/12 p-10 md:p-14 flex flex-col justify-center text-left">
-                            <div className="flex items-center gap-3 mb-6">
-                                {React.createElement(values[activeValueIndex].icon, { className: "text-gf-green", size: 24 })}
-                                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gf-green">Approfondimento</span>
-                            </div>
-                            <h3 className="text-2xl md:text-4xl font-bold text-white mb-6 leading-tight uppercase">
-                                {values[activeValueIndex].title}
-                            </h3>
-                            <p className="text-gray-300 text-lg leading-relaxed mb-6 font-light">
-                                {values[activeValueIndex].longDesc}
-                            </p>
-                            <div className="h-1 w-20 bg-gf-green rounded-full"></div>
-                        </div>
-                    </div>
-                  </div>
-              )}
-          </div>
-      </div>
-
-      {/* 6. TEAM SECTION */}
-      <div className="mb-32 container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-             <h2 className="text-3xl md:text-4xl font-bold mb-4">IL TEAM</h2>
-             <p className="text-gray-400 font-light">Professionisti che non temono la fatica.</p>
-         </div>
-
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-             {teamMembers.map((member, idx) => (
-                 <div key={idx} className="group relative overflow-hidden rounded-2xl aspect-[3/4] border border-white/5">
-                     <div 
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                        style={{ backgroundImage: `url("${member.image}")` }}
-                     ></div>
-                     <div className="absolute inset-0 bg-gradient-to-t from-gf-darker via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
-                     
-                     <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                         <h3 className="text-xl font-bold text-white leading-none mb-1">{member.name}</h3>
-                         <p className="text-gf-green font-bold text-[10px] uppercase tracking-widest mb-3">{member.role}</p>
-                         <p className="text-gray-300 text-xs italic border-l border-white/30 pl-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
-                             "{member.quote}"
-                         </p>
-                     </div>
-                 </div>
-             ))}
-         </div>
       </div>
 
       {/* 7. CERTIFICATIONS & CTA */}

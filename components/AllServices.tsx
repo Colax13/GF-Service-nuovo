@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight } from 'lucide-react';
-import Contact from './Contact';
+
+import React, { useEffect, useRef, useState } from 'react';
+import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight, Phone, Mail, CheckCircle2, Info, ShieldCheck, ClipboardList } from 'lucide-react';
 
 interface SubProduct {
     name: string;
@@ -14,11 +14,13 @@ interface ServiceItem {
     specs: string;
     image: string;
     subProducts?: SubProduct[];
+    longDesc?: string;
 }
 
 interface Category {
     id: string;
     title: string;
+    shortTitle: string; 
     subtitle: string;
     description: string;
     icon: React.ElementType;
@@ -33,142 +35,132 @@ const categories: Category[] = [
   {
     id: "strutture",
     title: "Coperture e Strutture",
-    subtitle: "Spazi & Protezione",
-    description: "La base del tuo evento. Strutture modulari certificate per garantire sicurezza e protezione in ogni condizione, dal piccolo stand alla grande area hospitality.",
+    shortTitle: "Strutture",
+    subtitle: "Soluzioni di Noleggio Spazi",
+    description: "La base del tuo evento. Strutture modulari certificate a noleggio per garantire sicurezza e protezione in ogni condizione climatica.",
     icon: Layers,
     items: [
       { 
         name: "Tendostrutture", 
-        desc: "Modulari, campata singola 10x10m estensibile.", 
+        desc: "Modulari, formate da campate 5x10m estendibili fino a 20x25 o 10x50.", 
         specs: "Cert. UNI EN 13782", 
-        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766517692/Gemini_Generated_Image_5pvrz25pvrz25pvr_xszzdt.png",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png",
+        longDesc: "Le nostre tendostrutture a noleggio rappresentano la soluzione definitiva per grandi eventi. La struttura è formata da campate modulari 5x10 metri, che permettono configurazioni flessibili ed estendibili fino a dimensioni di 20x25m oppure 10x50m, garantendo sempre uno spazio libero da colonne interne.",
         subProducts: [
-            { 
-                name: "Coperture Classiche", 
-                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766517692/Gemini_Generated_Image_5pvrz25pvrz25pvr_xszzdt.png",
-                description: "PVC bianco oscurante, ideale per conferenze e cene di gala."
-            },
-            { 
-                name: "Coperture Trasparenti", 
-                image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop",
-                description: "Teli Crystal panoramici per immergersi nella location circostante."
-            },
-            { 
-                name: "Con Corridoi Laterali", 
-                image: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2069&auto=format&fit=crop",
-                description: "Ampliamento laterale della struttura principale (es. estensione fino a 50x28m) per massimizzare lo spazio coperto."
-            }
+            { name: "Modulo 25x20", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png", description: "Ampia superficie di 500mq ideale per grandi eventi, concerti e festival." },
+            { name: "Modulo 25x10", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop", description: "Soluzione versatile di 250mq per conferenze, aree ristorazione o esposizioni." }
         ]
       },
       { 
         name: "Gazebo Stand", 
-        desc: "Soluzioni modulari disponibili in varie misure: 3x3, 4x4, 5x5, 6x6, 7x7.", 
+        desc: "Moduli professionali disponibili nelle misure 3x3, 4x4 e 5x5 metri.", 
         specs: "PVC Ignifugo CL.2", 
-        image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767200031/gazebo_rojc8v.png",
+        longDesc: "I nostri gazebo professionali a noleggio sono disponibili nelle dimensioni 3x3m, 4x4m e 5x5m per adattarsi a qualsiasi esigenza. La struttura in alluminio anodizzato garantisce leggerezza e una velocità di montaggio/smontaggio imbattibile.",
         subProducts: [
-            {
-                name: "Gazebo 3x3m",
-                image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
-                description: "Ideale per piccoli stand o punti informativi."
-            },
-            {
-                name: "Gazebo 4x4m",
-                image: "https://images.unsplash.com/photo-1528696347323-93e5065216d4?q=80&w=2070&auto=format&fit=crop",
-                description: "Spazio equilibrato per esposizioni e vendita."
-            },
-            {
-                name: "Gazebo 5x5m",
-                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
-                description: "Perfetto per aree catering e accoglienza."
-            },
-            {
-                name: "Gazebo 6x6m",
-                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
-                description: "Ampia superficie per hospitality e grandi stand."
-            },
-            {
-                name: "Gazebo 7x7m",
-                image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop",
-                description: "Massima capienza per eventi di rilievo."
-            }
+            { name: "Variante Aperta", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767200031/gazebo_rojc8v.png", description: "Solo copertura superiore, ideale per ombreggiatura e stand aperti." },
+            { name: "Variante Chiusa", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767200849/gazebo_imzwpf.png", description: "Dotata di pareti laterali per protezione totale da vento e pioggia." }
         ]
       },
       { 
         name: "Casette in Legno", 
-        desc: "Strutture tipiche per mercatini ed esposizioni.", 
+        desc: "Strutture tipiche: dimensioni 3x2 e 6x2.", 
         specs: "Legno Trattato", 
-        image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766593979/casetta_orizzontale_qvazqd.png",
+        longDesc: "Disponibili a noleggio, le nostre casette in legno offrono quell'atmosfera calda e tradizionale perfetta per i villaggi natalizi o fiere dell'artigianato. Fornite complete di bancone e impianto elettrico base su richiesta.",
         subProducts: [
-            {
-                name: "Casetta 3x4m",
-                image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop",
-                description: "Modulo classico per mercatini e biglietterie."
-            },
-            {
-                name: "Casetta 3x8m",
-                image: "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2000&auto=format&fit=crop",
-                description: "Doppio modulo per bar temporanei o grandi esposizioni."
-            }
+            { name: "Casetta Standard 3x2", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766593979/casetta_orizzontale_qvazqd.png", description: "Perfetta per piccoli artigiani o somministrazione food veloce." },
+            { name: "Casetta Maxi 6x2", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766596122/casetta_doppia_orizzontale_fbrpbz.png", description: "Doppio modulo per un ampio spazio espositivo e grande visibilità." }
         ]
       }
     ]
   },
   {
     id: "arredi",
-    title: "Arredi e Allestimenti",
-    subtitle: "Stile & Comfort",
-    description: "Tutto ciò che riempie lo spazio. Dalle sedute eleganti per cerimonie alle soluzioni pratiche per sagre e aree food.",
+    title: "Sedute e Arredi",
+    shortTitle: "Arredi",
+    subtitle: "Design & Comfort a Noleggio",
+    description: "Una selezione curata di sedute ed elementi d'arredo a noleggio per definire lo stile e il carattere del tuo evento.",
     icon: Layout,
     items: [
       { 
-        name: "Sedute & Lounge", 
-        desc: "Selezione completa di sedie e salotti.", 
-        specs: "Vari Stili", 
-        image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop",
-        subProducts: [
-            { name: "Sedie Wedding", image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop", description: "Eleganti sedie chiavarine o in legno bianco per cerimonie." },
-            { name: "Sedie Lounge Rattan", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop", description: "Set divanetti e poltrone comfort per aree relax." },
-            { name: "Sedia di Plastica", image: "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=2070&auto=format&fit=crop", description: "Monoblocco bianca impilabile, robusta ed economica." },
-            { name: "Sedie Black Elegant", image: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=2000&auto=format&fit=crop", description: "Seduta nera di design per eventi serali e gala." }
-        ]
+        name: "Gruvyer Arm Nera", 
+        desc: "Design contemporaneo in polipropilene forato. Ergonomica e resistente.", 
+        specs: "Noleggio Moderno", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766960356/Gemini_Generated_Image_qnvzirqnvzirqnvz_iudrxn.png",
+        longDesc: "La sedia Gruvyer Arm a noleggio è un'icona del design contemporaneo. La sua trama forata garantisce leggerezza e traspirabilità. Realizzata in polipropilene di alta qualità, è perfetta per buffet dinamici e aree relax moderne."
+      },
+      { 
+        name: "Chiavarina Bianca", 
+        desc: "L'eleganza classica per cerimonie e matrimoni d'alta classe.", 
+        specs: "Noleggio Luxury", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766960656/sedia_bianca_matrimonio_oi8pvg.png",
+        longDesc: "Sinonimo di evento esclusivo, noleggiamo la sedia Chiavarina in bianco ottico per esaltare matrimoni e cene di gala. La struttura è leggera ma estremamente solida, ideale per allestimenti eleganti su grandi numeri."
+      },
+      { 
+        name: "Elegant Black Classic", 
+        desc: "Seduta formale e raffinata per gala, congressi ed eventi istituzionali.", 
+        specs: "Noleggio Corporate", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766960909/sedia_nera_in_propilene_rhvjfi.png",
+        longDesc: "La soluzione ideale a noleggio per contesti professionali, platee congressuali ed eventi istituzionali. Silhouette pulita in nero profondo per un'immagine sobria ed impeccabile."
       },
       { 
         name: "Set Birreria", 
-        desc: "Tavoli e panche pieghevoli.", 
-        specs: "Abete Verniciato", 
-        image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=1000&auto=format&fit=crop",
+        desc: "Set con tavolo e panche. Misure tavoli: 220x80 e 220x60.", 
+        specs: "Noleggio Sagre", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766596785/tavolo_220_80_egkszg.png",
+        longDesc: "Il nostro set birreria a noleggio è lo standard per le feste di piazza. Realizzato in abete di prima scelta con verniciatura protettiva, è disponibile in due varianti per adattarsi ai tuoi spazi.",
         subProducts: [
-            { name: "Set 200x60cm", image: "https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?q=80&w=1000&auto=format&fit=crop", description: "Tavolo standard stretto (60cm) con due panche." },
-            { name: "Set 200x80cm", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop", description: "Tavolo maggiorato (80cm) per un comfort superiore." }
+            { name: "Set con Tavolo 220x80", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766596785/tavolo_220_80_egkszg.png", description: "Il formato classico, ampio e confortevole." },
+            { name: "Set con Tavolo 220x60", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766596785/tavolo_220_80_egkszg.png", description: "Variante più stretta, ideale per ottimizzare gli spazi." }
         ]
-      },
-      { 
-        name: "Impianti Spina", 
-        desc: "Sistemi di spillatura mobili e banchi bar.", 
-        specs: "Refrigerati", 
-        image: "https://images.unsplash.com/photo-1574577457805-4927756f4d22?q=80&w=2070&auto=format&fit=crop" 
       }
     ]
   },
   {
     id: "logistica",
     title: "Dettagli Tecnici",
-    subtitle: "Logistica & Tecnica",
-    description: "Il cuore tecnico dell'evento. Riscaldamento, energia, luce e palchi per garantire la riuscita dello show in sicurezza.",
+    shortTitle: "Tecnica",
+    subtitle: "Impianti & Logistica",
+    description: "Il cuore tecnologico dell'evento. Sistemi di riscaldamento, energia, illuminazione e spillatura professionale disponibili a noleggio.",
     icon: Zap,
     items: [
-      { name: "Riscaldamento", desc: "Generatori aria calda e funghi per esterni.", specs: "Gas/Gasolio", image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Illuminazione", desc: "Luci tecniche, decorative e torri faro.", specs: "IP65 Outdoor", image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Impianti Elettrici", desc: "Quadri certificati e distribuzione.", specs: "Cert. 37/08", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop" },
+      { 
+        name: "Impianti Spina", 
+        desc: "Sistemi di spillatura mobili professionali.", 
+        specs: "Noleggio Beverage", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767205348/impianti_2_u3wizu.jpg",
+        longDesc: "Portiamo l'efficienza di un bar professionale nel tuo evento con i nostri impianti spina a noleggio. Sistemi pre-refrigerati che garantiscono una spillatura perfetta anche in condizioni di alto afflusso continuo.",
+        // subProducts rimosso come richiesto
+      },
+      { 
+        name: "Riscaldamento", 
+        desc: "Generatori aria calda e funghi riscaldanti.", 
+        specs: "Comfort Termico", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767202501/fungo_vymbq5.png",
+        longDesc: "Noleggiamo sistemi di riscaldamento scalabili per ogni volume. Dai generatori industriali canalizzati per grandi tendostrutture ai funghi a gas per dehor e aree fumatori esterne.",
+        subProducts: [
+            { name: "Fungo a Gas", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767202501/fungo_vymbq5.png", description: "Design elegante e calore immediato per aree open-air." },
+            { name: "Generatore Aria Calda", image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", description: "Sistema a gasolio/elettrico canalizzato per riscaldamento omogeneo." }
+        ]
+      },
+      { 
+        name: "Illuminazione", 
+        desc: "Lampadine e plafoniere LED funzionali.", 
+        specs: "Noleggio Lighting", 
+        image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop",
+        longDesc: "Soluzioni di illuminazione semplici ed efficaci per i tuoi spazi. Forniamo catenarie con lampadine LED per una luce diffusa e plafoniere LED per un'illuminazione tecnica omogenea.",
+        // subProducts rimosso e descrizione semplificata come richiesto
+      },
       { 
         name: "Palco & Pavimentazioni", 
-        desc: "Palchi modulari e soluzioni di copertura suolo.", 
-        specs: "Certificati", 
-        image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=2070&auto=format&fit=crop",
+        desc: "Palchi modulari e pavimentazioni in legno.", 
+        specs: "Certificazioni Statiche", 
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg",
+        longDesc: "Noleggio di palchi modulari certificati per carichi pesanti e pedane espositive. Le nostre pavimentazioni in legno permettono di livellare superfici sconnesse e isolare termicamente le tendostrutture.",
         subProducts: [
-            { name: "Palco Rialzato 5x4m", image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=2070&auto=format&fit=crop", description: "Modulo palco certificato, altezza variabile." },
-            { name: "Pavimento in Legno", image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop", description: "Pedane in legno livellabili per pavimentare qualsiasi terreno." },
-            { name: "Moquette Decorativa", image: "https://images.unsplash.com/photo-1585923957286-90c44422204c?q=80&w=2000&auto=format&fit=crop", description: "Finitura estetica in vari colori, posata su pavimentazione." }
+            { name: "Pedana 7x5", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", description: "Modulo base antiscivolo per palchi di ogni altezza e dimensione." },
+            { name: "Pavimentazione Legno", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767200816/WhatsApp_Image_2025-12-31_at_18.05.36_glslsw.jpg", description: "Listoni di abete ad incastro per coperture integrali del suolo." }
         ]
       }
     ]
@@ -176,13 +168,44 @@ const categories: Category[] = [
   {
     id: "fun",
     title: "Area Fun",
-    subtitle: "Giochi & Svago",
-    description: "Intrattenimento per tutte le età. Dai grandi classici da bar alle attrazioni vintage e per i più piccoli.",
+    shortTitle: "Fun",
+    subtitle: "Noleggio Giochi & Svago",
+    description: "Intrattenimento per ogni età. Noleggio di grandi classici da bar e attrazioni vintage certificate.",
     icon: Gamepad2,
     items: [
-      { name: "Giochi Classici", desc: "Biliardi, Carambole, Calciobalilla, Freccette.", specs: "Professionali", image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop" },
-      { name: "Arcade & Vintage", desc: "Flipper, Punchball e Macchine Multigioco.", specs: "Freeplay/Gettoniera", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" },
-      { name: "Area Bimbi", desc: "Dondoli, Pesche e attrazioni a gettone.", specs: "Sicurezza CE", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" }
+      { 
+        name: "Giochi Classici", 
+        desc: "Biliardi, Calciobalilla, Freccette.", 
+        specs: "Noleggio Intrattenimento", 
+        image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop",
+        longDesc: "Portiamo il divertimento nel tuo evento con il noleggio di calciobalilla professionali da torneo e biliardi. Attrezzature robuste studiate per resistere all'uso intensivo in luoghi pubblici.",
+        subProducts: [
+            { name: "Calciobalilla Pro", image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop", description: "Modello professionale con piano in vetro e aste rientranti di sicurezza." },
+            { name: "Tavolo Freccette", image: "https://images.unsplash.com/photo-1606099305177-3312948eb922?q=80&w=1000&auto=format&fit=crop", description: "Bersaglio elettronico con sistema di conteggio automatico dei punti." }
+        ]
+      },
+      { 
+        name: "Arcade & Vintage", 
+        desc: "Flipper e Macchine Multigioco.", 
+        specs: "Noleggio Retrogaming", 
+        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
+        longDesc: "Il fascino del vintage a noleggio. Offriamo flipper restaurati e cabinet arcade Bartop con migliaia di giochi pre-caricati, ideali per feste a tema o zone relax aziendali.",
+        subProducts: [
+            { name: "Flipper 80s", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop", description: "Modelli originali revisionati per un'esperienza di gioco autentica." },
+            { name: "Bartop Arcade", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop", description: "Mobile compatto con schermo LED e controlli professionali." }
+        ]
+      },
+      { 
+        name: "Area Bimbi", 
+        desc: "Dondoli e attrazioni a gettone.", 
+        specs: "Certificazioni CE", 
+        image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop",
+        longDesc: "Noleggio di dondoli e giochi a molla per creare aree dedicate ai più piccoli. Tutte le attrazioni sono regolarmente manutenute e fornite di certificazione di sicurezza CE.",
+        subProducts: [
+            { name: "Dondolo Pony", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop", description: "Attrazione a gettone per bambini fino a 6 anni." },
+            { name: "Gioco a Molla", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop", description: "Struttura certificata EN 1176 per aree gioco temporanee." }
+        ]
+      }
     ]
   }
 ];
@@ -190,52 +213,88 @@ const categories: Category[] = [
 const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
     const [activeCategory, setActiveCategory] = useState(categories[0].id);
     const [loaded, setLoaded] = useState(false);
+    const [showMobileNav, setShowMobileNav] = useState(false);
     
-    // State for Background Animation
-    const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+    const [activeCarouselIndices, setActiveCarouselIndices] = useState<Record<string, number>>(
+        Object.fromEntries(categories.map(c => [c.id, 0]))
+    );
 
-    // State for Product Modal
+    const [scrolledCategories, setScrolledCategories] = useState<Record<string, boolean>>(
+        Object.fromEntries(categories.map(c => [c.id, false]))
+    );
+
+    const carouselRefs = useRef<Record<string, HTMLDivElement | null>>({});
+    const [hoveredImage, setHoveredImage] = useState<string | null>(null);
     const [selectedItem, setSelectedItem] = useState<ServiceItem | null>(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
         setLoaded(true);
     }, []);
 
-    // Scroll Spy Logic
     useEffect(() => {
-        const handleScroll = () => {
-            // Offset logic for scroll spy
-            const scrollPosition = window.scrollY + 200; 
-
-            for (const category of categories) {
-                const element = document.getElementById(category.id);
-                if (element) {
-                    const { offsetTop, offsetHeight } = element;
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        setActiveCategory(category.id);
-                    }
+        const headerObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.intersectionRatio < 0.95) {
+                    setShowMobileNav(true);
+                } else {
+                    setShowMobileNav(false);
+                    setActiveCategory(categories[0].id);
                 }
-            }
-        };
+            },
+            { threshold: [0.95] }
+        );
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const categoryObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        if (id && categories.some(c => c.id === id)) {
+                            setActiveCategory(id);
+                        }
+                    }
+                });
+            },
+            { threshold: 0.7 }
+        );
+        
+        const headerEl = document.getElementById('catalog-header');
+        if (headerEl) headerObserver.observe(headerEl);
+
+        categories.forEach(cat => {
+            const el = document.getElementById(cat.id);
+            if (el) categoryObserver.observe(el);
+        });
+
+        return () => {
+            headerObserver.disconnect();
+            categoryObserver.disconnect();
+        };
     }, []);
+
+    const handleCarouselScroll = (categoryId: string) => {
+        const container = carouselRefs.current[categoryId];
+        if (!container) return;
+        const scrollLeft = container.scrollLeft;
+        
+        if (scrollLeft > 5 && !scrolledCategories[categoryId]) {
+            setScrolledCategories(prev => ({ ...prev, [categoryId]: true }));
+        }
+
+        const cardWidth = container.offsetWidth * 0.85;
+        const index = Math.round(scrollLeft / cardWidth);
+        setActiveCarouselIndices(prev => ({ ...prev, [categoryId]: index }));
+    };
 
     const scrollToCategory = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            // Offset for fixed header + spacing
-            const y = element.getBoundingClientRect().top + window.pageYOffset - 120;
-            window.scrollTo({ top: y, behavior: 'smooth' });
+            element.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     const handleItemClick = (item: ServiceItem) => {
-        if (item.subProducts && item.subProducts.length > 0) {
-            setSelectedItem(item);
-        }
+        setSelectedItem(item);
     };
 
     const closeModal = () => {
@@ -243,316 +302,349 @@ const AllServices: React.FC<AllServicesProps> = ({ onShowContact }) => {
     };
 
     return (
-        <>
-            <section className="relative min-h-screen text-white pb-20">
+        <section className="relative h-screen lg:h-auto text-white overflow-hidden lg:overflow-visible bg-black">
+             
+             <div className="fixed inset-0 z-0 pointer-events-none">
+                 {categories.map((cat) => (
+                    cat.items.map((item, idx) => (
+                        <div 
+                            key={`${cat.id}-${item.name}-${idx}`}
+                            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${hoveredImage === item.image ? 'opacity-60 scale-110' : 'opacity-0 scale-100'}`}
+                            style={{ 
+                                backgroundImage: `url("${item.image}")`,
+                                filter: 'blur(80px) saturate(1.5)', 
+                            }}
+                        />
+                    ))
+                 ))}
+                 <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a]/80 to-[#022c24]/90"></div>
+                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
+             </div>
+
+             <div 
+                className={`
+                    lg:hidden fixed top-[80px] left-0 right-0 z-[50] w-full px-4 pt-4 pb-2 transition-all duration-[400ms] ease-out
+                    ${showMobileNav 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 translate-y-[40vh] scale-95 pointer-events-none'}
+                `}
+             >
+                <div className="max-w-md mx-auto flex items-center justify-center gap-2 p-1.5 bg-black/70 border border-white/10 backdrop-blur-2xl rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+                    {categories.map((cat) => (
+                        <button
+                            key={`mob-nav-${cat.id}`}
+                            onClick={() => scrollToCategory(cat.id)}
+                            className={`
+                                flex-1 px-3 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap
+                                ${activeCategory === cat.id 
+                                    ? 'bg-gf-green text-white shadow-lg scale-105' 
+                                    : 'text-gray-400 hover:text-white'
+                                }
+                            `}
+                        >
+                            {cat.shortTitle}
+                        </button>
+                    ))}
+                </div>
+             </div>
+
+             <div className="relative z-10 h-full lg:h-auto overflow-y-auto lg:overflow-visible snap-y snap-mandatory lg:snap-none scroll-smooth">
                  
-                 {/* --- FIXED BACKGROUND & GRADIENT --- */}
-                 {/* This container has the gradient and blobs but is fixed to viewport to avoid scroll issues */}
-                 <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-black">
-                     
-                     {/* 1. DYNAMIC IMAGE LAYER (The Replay Animation) */}
-                     {/* This layer renders ALL images but keeps them hidden until hovered. */}
-                     {categories.map((cat) => (
-                        cat.items.map((item, idx) => (
-                            <div 
-                                key={`${cat.id}-${idx}`}
-                                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out will-change-opacity ${hoveredImage === item.image ? 'opacity-60 scale-110' : 'opacity-0 scale-100'}`}
-                                style={{ 
-                                    backgroundImage: `url("${item.image}")`,
-                                    filter: 'blur(80px) saturate(1.5)', 
-                                }}
-                            />
-                        ))
-                     ))}
-
-                     {/* 2. OVERLAY GRADIENT */}
-                     {/* Reduced opacity slightly in the middle to let the colored blur shine through */}
-                     <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a]/80 to-[#022c24]/90"></div>
-                     
-                     {/* 3. ANIMATED BLOBS (Keep existing animations for extra movement) */}
-                     <div className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-gf-green/5 rounded-full blur-[120px] animate-[float_18s_infinite_ease-in-out]"></div>
-                     <div className="absolute top-[40%] -right-[10%] w-[60vw] h-[60vw] bg-emerald-900/10 rounded-full blur-[120px] animate-[float_22s_infinite_reverse_ease-in-out]"></div>
-                     <div className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] bg-gf-green/5 rounded-full blur-[100px] animate-[pulse_15s_infinite]"></div>
-                     
-                     {/* Noise Overlay */}
-                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
-                 </div>
-
-                 <div className="relative z-10 pt-32 pb-12 container mx-auto px-6">
-                     
-                     {/* --- HEADER --- */}
-                     <div className={`text-center mb-24 max-w-4xl mx-auto transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        
-                        {/* Badge */}
+                 <div id="catalog-header" className="snap-start h-screen flex flex-col justify-center items-center text-center px-6 lg:h-auto lg:pt-32 lg:pb-12">
+                     <div className={`max-w-4xl transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                         <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg">
                             <span className="w-1.5 h-1.5 rounded-full bg-gf-green animate-pulse"></span>
-                            <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 uppercase">Our Catalog</span>
+                            <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 uppercase">Catalogo Noleggio</span>
                         </div>
-                        
-                        {/* Site Standard Title: Bold Sans + Italic Green Serif */}
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight drop-shadow-2xl">
-                            IL NOSTRO <span className="font-serif italic text-gf-green font-light">CATALOGO</span>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight drop-shadow-2xl uppercase">
+                            IL NOSTRO <span className="font-serif italic text-gf-green font-light uppercase">CATALOGO</span>
                         </h1>
-
-                        <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-                            Esplora il catalogo completo delle nostre attrezzature e soluzioni per eventi.
+                        <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto leading-relaxed">
+                            Esplora la nostra gamma completa di attrezzature a noleggio, certificate per eventi professionali di ogni dimensione.
                         </p>
-                     </div>
-
-                     {/* --- MAIN LAYOUT --- */}
-                     <div className="flex flex-col lg:flex-row gap-16 items-start relative">
                         
-                        {/* LEFT: Sidebar Navigation - Sticky */}
-                        {/* Note: Sticky works here because the parent section does not have overflow-hidden */}
-                        <aside 
-                            className={`hidden lg:block lg:w-1/4 sticky top-32 transition-all duration-1000 ease-out delay-500 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
-                        >
-                            {/* Panel with Strong Shadow for contrast against gradient */}
-                            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
-                                
-                                <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6 text-opacity-50">
-                                    Indice Categorie
-                                </h3>
-                                <ul className="space-y-1">
-                                    {categories.map((cat) => (
-                                        <li key={cat.id}>
-                                            <button
-                                                onClick={() => scrollToCategory(cat.id)}
-                                                className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between group transition-all duration-300 relative overflow-hidden ${
-                                                    activeCategory === cat.id 
-                                                    ? 'text-white' 
-                                                    : 'text-gray-400 hover:text-white'
-                                                }`}
-                                            >
-                                                {/* Active Background Slide */}
-                                                <div className={`absolute inset-0 bg-gf-green transition-transform duration-300 origin-left ${activeCategory === cat.id ? 'scale-x-100 opacity-20' : 'scale-x-0 group-hover:scale-x-100 group-hover:opacity-10'}`}></div>
-                                                
-                                                {/* Left Border Indicator */}
-                                                <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 bg-gf-green rounded-r-full transition-all duration-300 ${activeCategory === cat.id ? 'opacity-100' : 'opacity-0'}`}></div>
-
-                                                <span className="flex items-center gap-3 relative z-10">
-                                                    <cat.icon size={16} className={activeCategory === cat.id ? 'text-gf-green' : 'text-gray-500 group-hover:text-gray-300'} />
-                                                    <span className="font-medium text-sm tracking-wide">{cat.title}</span>
-                                                </span>
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div className="mt-8 pt-8 border-t border-white/5">
-                                    <button 
-                                        onClick={onShowContact}
-                                        className="w-full py-3 border border-white/10 hover:border-gf-green text-gray-300 hover:text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-gf-green/10 transition-all flex items-center justify-center gap-2 group"
-                                    >
-                                        Richiedi Preventivo <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform"/>
-                                    </button>
+                        <div className={`lg:hidden mt-20 flex flex-col items-center transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                            <div className="relative flex flex-col items-center gap-4">
+                                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-gf-green animate-pulse">
+                                    Scorri Catalogo
+                                </span>
+                                <div className="relative w-[2px] h-20 bg-white/10 overflow-hidden rounded-full shadow-[0_0_10px_rgba(0,112,90,0.2)]">
+                                    <div className="absolute top-0 left-0 w-full h-full bg-gf-green origin-top animate-scrollLine"></div>
                                 </div>
                             </div>
-                        </aside>
+                        </div>
+                     </div>
+                 </div>
 
-                        {/* RIGHT: Content Column */}
-                        <div className="w-full lg:w-3/4 flex flex-col gap-32">
-                            {categories.map((cat, idx) => (
-                                <div 
-                                    id={cat.id} 
-                                    key={cat.id} 
-                                    className={`scroll-mt-32 transition-all duration-1000 ease-out`}
-                                    style={{ 
-                                        opacity: loaded ? 1 : 0, 
-                                        transform: loaded ? 'translateY(0)' : 'translateY(40px)',
-                                        transitionDelay: `${idx * 150}ms`
-                                    }}
-                                >
-                                    {/* Category Header Strip */}
-                                    <div className="flex flex-col md:flex-row md:items-end gap-6 mb-10 pb-6 border-b border-white/5 relative">
-                                        <div className="absolute bottom-0 left-0 w-12 h-[1px] bg-gf-green"></div>
-                                        
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-xl bg-gf-green/20 flex items-center justify-center text-gf-green backdrop-blur-sm border border-gf-green/30 shadow-[0_0_15px_rgba(0,112,90,0.2)]">
-                                                <cat.icon size={24} />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-3xl font-bold text-white leading-none mb-1">{cat.title}</h3>
-                                                <p className="text-gf-green font-serif italic">{cat.subtitle}</p>
-                                            </div>
+                 <div className="container mx-auto px-6 lg:flex lg:flex-row lg:gap-16 lg:items-start">
+                    
+                    <aside className={`hidden lg:block lg:w-1/4 sticky top-32 transition-all duration-1000 ease-out delay-500 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                        <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                            <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6 text-opacity-50">Indice Noleggio</h3>
+                            <ul className="space-y-1">
+                                {categories.map((cat) => (
+                                    <li key={cat.id}>
+                                        <button
+                                            onClick={() => scrollToCategory(cat.id)}
+                                            className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between group transition-all duration-300 relative overflow-hidden ${activeCategory === cat.id ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+                                        >
+                                            <div className={`absolute inset-0 bg-gf-green transition-transform duration-300 origin-left ${activeCategory === cat.id ? 'scale-x-100 opacity-20' : 'scale-x-0 group-hover:scale-x-100 group-hover:opacity-10'}`}></div>
+                                            <span className="flex items-center gap-3 relative z-10">
+                                                <cat.icon size={16} className={activeCategory === cat.id ? 'text-gf-green' : 'text-gray-500 group-hover:text-gray-300'} />
+                                                <span className="font-medium text-sm tracking-wide">{cat.title}</span>
+                                            </span>
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div className="w-full lg:w-3/4 flex flex-col pb-20">
+                        {categories.map((cat) => (
+                            <div 
+                                id={cat.id} 
+                                key={cat.id} 
+                                className="snap-start h-screen flex flex-col justify-center pt-[160px] lg:h-auto lg:pt-0 lg:mb-32"
+                            >
+                                <div className="flex flex-col md:flex-row md:items-end gap-6 mb-8 lg:mb-10 pb-6 border-b border-white/5 relative">
+                                    <div className="absolute bottom-0 left-0 w-12 h-[1px] bg-gf-green"></div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-gf-green/20 flex items-center justify-center text-gf-green backdrop-blur-sm border border-gf-green/30">
+                                            <cat.icon size={24} />
                                         </div>
-                                        <p className="md:ml-auto text-gray-400 text-sm max-w-sm leading-relaxed border-l-2 border-white/10 pl-4">
-                                            {cat.description}
-                                        </p>
+                                        <div>
+                                            <h3 className="text-2xl lg:text-3xl font-bold text-white leading-none mb-1 uppercase tracking-tight">{cat.title}</h3>
+                                            <p className="text-gf-green font-serif italic">{cat.subtitle}</p>
+                                        </div>
                                     </div>
+                                </div>
 
-                                    {/* Items Grid */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="relative group/carousel">
+                                    <div 
+                                        ref={el => { carouselRefs.current[cat.id] = el; }}
+                                        onScroll={() => handleCarouselScroll(cat.id)}
+                                        className="flex lg:grid lg:grid-cols-2 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0 scrollbar-hide"
+                                    >
                                         {cat.items.map((item, i) => (
                                             <div 
-                                                key={i} 
-                                                onClick={() => handleItemClick(item)}
+                                                key={`${cat.id}-item-${i}`} 
+                                                className="min-w-[85vw] md:min-w-[45vw] lg:min-w-0 snap-center lg:snap-align-none"
                                                 onMouseEnter={() => setHoveredImage(item.image)}
                                                 onMouseLeave={() => setHoveredImage(null)}
-                                                className={`group relative h-[320px] rounded-2xl overflow-hidden border border-white/10 hover:border-gf-green/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_40px_rgba(0,112,90,0.3)] ${item.subProducts ? 'cursor-pointer hover:ring-1 hover:ring-gf-green/50' : 'cursor-default'}`}
                                             >
-                                                
-                                                {/* Image Background */}
                                                 <div 
-                                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                                    style={{ backgroundImage: `url("${item.image}")` }}
+                                                    onClick={() => handleItemClick(item)}
+                                                    className="group relative h-[250px] lg:h-[320px] rounded-2xl overflow-hidden border border-white/10 hover:border-gf-green/50 transition-all duration-500 shadow-2xl cursor-pointer"
                                                 >
-                                                    {/* Dark Gradient Overlay - Darkens on active */}
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                                </div>
-
-                                                {/* Specs Badge */}
-                                                <div className="absolute top-4 right-4 z-20 flex flex-col gap-2 items-end">
-                                                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-white/80 bg-black/60 backdrop-blur-md px-2 py-1 rounded border border-white/10 group-hover:border-gf-green/30 group-hover:text-white transition-colors">
-                                                        {item.specs}
-                                                    </span>
-                                                    {item.subProducts && (
-                                                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gf-green bg-black/80 backdrop-blur-md px-2 py-1 rounded border border-gf-green/50 animate-pulse">
-                                                            <Package size={10} /> + {item.subProducts.length} Varianti
+                                                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 lg:group-hover:scale-110" style={{ backgroundImage: `url("${item.image}")` }}>
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-60"></div>
+                                                    </div>
+                                                    <div className="absolute top-4 right-4 z-20">
+                                                        <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-white/80 bg-black/60 backdrop-blur-md px-2 py-1 rounded border border-white/10 group-hover:border-gf-green/30">
+                                                            {item.specs}
                                                         </span>
-                                                    )}
-                                                </div>
-
-                                                {/* Content (Bottom) */}
-                                                <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full z-20">
-                                                    <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 flex flex-col items-start">
-                                                         
-                                                         <h4 className="text-white font-bold text-2xl mb-2 group-hover:text-gf-green transition-colors leading-none uppercase drop-shadow-md flex items-center gap-2">
-                                                            {item.name}
-                                                            {item.subProducts && <ChevronRight size={20} className="text-gf-green opacity-0 group-hover:opacity-100 transition-opacity" />}
-                                                         </h4>
-                                                         
-                                                         {/* Separator */}
-                                                         <div className="h-[2px] bg-gf-green transition-all duration-500 mb-3 w-0 group-hover:w-12"></div>
-
-                                                         {/* Description */}
-                                                         <p className="text-gray-300 text-sm leading-relaxed font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
-                                                            {item.desc}
-                                                         </p>
+                                                    </div>
+                                                    <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full z-20">
+                                                        <div className="lg:transform lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500">
+                                                            <h4 className="text-white font-bold text-xl lg:text-2xl mb-1 group-hover:text-gf-green transition-colors leading-none uppercase drop-shadow-md flex items-center gap-2">
+                                                                {item.name}
+                                                                <ChevronRight size={18} className="text-gf-green animate-pulse" />
+                                                            </h4>
+                                                            <div className="h-[2px] bg-gf-green w-12 mb-2 lg:w-0 lg:group-hover:w-12 transition-all duration-500"></div>
+                                                            <p className="text-gray-300 text-xs lg:text-sm leading-relaxed font-light lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+                                                                {item.desc}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-
-                     </div>
-
-                 </div>
-
-                 {/* --- PRODUCT CAROUSEL MODAL --- */}
-                 {selectedItem && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity" onClick={closeModal}></div>
-                        
-                        <div className="relative bg-gf-darker border border-white/10 rounded-3xl w-full max-w-5xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-[slideUp_0.4s_ease-out]">
-                             
-                             {/* --- DYNAMIC BACKGROUND FOR MODAL --- */}
-                             <div className="absolute inset-0 z-0 pointer-events-none">
-                                {selectedItem.subProducts?.map((prod, idx) => (
-                                    <div 
-                                        key={`modal-bg-${idx}`}
-                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${hoveredImage === prod.image ? 'opacity-60 scale-110' : 'opacity-0 scale-100'}`}
-                                        style={{ 
-                                            backgroundImage: `url("${prod.image}")`,
-                                            filter: 'blur(60px) saturate(1.5)', 
-                                        }}
-                                    />
-                                ))}
-                                {/* Overlay to ensure text readability on top of blur */}
-                                <div className="absolute inset-0 bg-gf-darker/80"></div>
-                             </div>
-
-                             {/* Modal Header */}
-                             <div className="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-gf-darker/50 backdrop-blur-xl relative z-10">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <div className="w-10 h-10 rounded-full bg-gf-green/20 flex items-center justify-center text-gf-green">
-                                            <Package size={20} />
-                                        </div>
-                                        <h3 className="text-2xl md:text-3xl font-bold text-white leading-none">{selectedItem.name}</h3>
+                                    <div className="lg:hidden flex justify-center items-center gap-2 mt-6">
+                                        {cat.items.map((_, dotIdx) => (
+                                            <div 
+                                                key={`dot-${cat.id}-${dotIdx}`}
+                                                className={`h-1.5 rounded-full transition-all duration-300 ${activeCarouselIndices[cat.id] === dotIdx ? 'w-6 bg-gf-green' : 'w-2 bg-white/20'}`}
+                                            />
+                                        ))}
                                     </div>
-                                    <p className="text-gray-400 text-sm md:text-base font-light ml-13">{selectedItem.desc}</p>
                                 </div>
-                                <button 
-                                    onClick={closeModal}
-                                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all hover:rotate-90"
-                                >
-                                    <X size={20} />
-                                </button>
-                             </div>
+                            </div>
+                        ))}
 
-                             {/* Modal Body - Carousel/Grid */}
-                             <div className="relative z-10 flex-1 overflow-y-auto p-6 md:p-8 bg-transparent">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {selectedItem.subProducts?.map((prod, idx) => (
-                                        <div 
-                                            key={idx} 
-                                            className="group relative bg-white/5 border border-white/5 rounded-xl overflow-hidden hover:border-gf-green/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,112,90,0.15)] hover:-translate-y-1"
-                                            onMouseEnter={() => setHoveredImage(prod.image)}
-                                            onMouseLeave={() => setHoveredImage(null)}
-                                        >
-                                            
-                                            {/* Image */}
-                                            <div className="relative h-48 overflow-hidden">
-                                                <div 
-                                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                                    style={{ backgroundImage: `url("${prod.image}")` }}
-                                                ></div>
-                                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                                            </div>
-
-                                            {/* Content */}
-                                            <div className="p-5">
-                                                <h4 className="text-lg font-bold text-white mb-2 group-hover:text-gf-green transition-colors">{prod.name}</h4>
-                                                <p className="text-sm text-gray-400 font-light leading-relaxed">{prod.description || "Soluzione ideale per eventi esclusivi."}</p>
-                                            </div>
-
-                                            {/* Action Bar */}
-                                            <div className="px-5 pb-5 pt-0 mt-auto flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                                <span className="text-[10px] uppercase font-bold text-gf-green tracking-widest">Disponibile</span>
-                                                <button 
-                                                    onClick={() => { closeModal(); if(onShowContact) onShowContact(); }}
-                                                    className="w-8 h-8 rounded-full bg-gf-green flex items-center justify-center text-white hover:bg-white hover:text-gf-green transition-colors shadow-lg"
-                                                >
-                                                    <ArrowRight size={14} />
-                                                </button>
-                                            </div>
+                        <div className="snap-start mt-20 md:mt-32">
+                            <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-gf-green/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+                                
+                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                                    <div className="flex-1 text-center md:text-left">
+                                        <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 uppercase tracking-tight">Pronto per il <span className="text-gf-green italic font-serif lowercase">noleggio?</span></h3>
+                                        <p className="text-gray-400 font-light mb-8 max-w-md">Contatta il nostro team tecnico per un preventivo di noleggio personalizzato per il tuo evento. Gestiamo ogni fase: dal sopralluogo al montaggio.</p>
+                                        
+                                        <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+                                            <a href="tel:+393331234567" className="flex items-center gap-3 text-white hover:text-gf-green transition-colors">
+                                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><Phone size={18} /></div>
+                                                <span className="font-bold text-sm tracking-widest">+39 333 123 4567</span>
+                                            </a>
+                                            <a href="mailto:info@maluservice.it" className="flex items-center gap-3 text-white hover:text-gf-green transition-colors">
+                                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><Mail size={18} /></div>
+                                                <span className="font-bold text-sm tracking-widest">info@maluservice.it</span>
+                                            </a>
                                         </div>
-                                    ))}
+                                    </div>
+                                    
+                                    <div className="w-full md:w-auto">
+                                        <button 
+                                            onClick={onShowContact}
+                                            className="w-full md:w-auto bg-gf-green hover:bg-emerald-600 text-white px-10 py-5 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3 group/btn"
+                                        >
+                                            Preventivo Noleggio <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+                                        </button>
+                                    </div>
                                 </div>
-                             </div>
-
-                             {/* Modal Footer */}
-                             <div className="relative z-10 p-4 border-t border-white/10 bg-gf-darker/80 text-center text-xs text-gray-500">
-                                <p>Tutte le strutture sono certificate secondo le normative vigenti.</p>
-                             </div>
+                            </div>
                         </div>
                     </div>
-                 )}
-                 
-                 <style>{`
-                    @keyframes float {
-                        0%, 100% { transform: translate(0, 0); }
-                        33% { transform: translate(30px, -50px); }
-                        66% { transform: translate(-20px, 20px); }
-                    }
-                    @keyframes slideUp {
-                        0% { transform: translateY(50px); opacity: 0; }
-                        100% { transform: translateY(0); opacity: 1; }
-                    }
-                    @keyframes fadeInGradient {
-                        0% { opacity: 0; }
-                        100% { opacity: 1; }
-                    }
-                 `}</style>
-            </section>
-            
-            {/* Added Contact Form at the bottom */}
-            <Contact simpleMode={true} />
-        </>
+                 </div>
+             </div>
+
+             {/* SCHEDA TECNICA POP-UP (MODAL) */}
+             {selectedItem && (
+                <div className="fixed inset-0 z-[140] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/95 backdrop-blur-xl transition-opacity animate-in fade-in duration-300" onClick={closeModal}></div>
+                    <div className="relative bg-gf-darker border border-white/10 rounded-3xl w-full max-w-5xl overflow-hidden shadow-[0_0_50px_rgba(0,112,90,0.3)] flex flex-col max-h-[90vh] animate-in zoom-in duration-300">
+                         {/* Header Modal */}
+                         <div className="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-gf-darker/50 backdrop-blur-md relative z-10">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-gf-green/20 flex items-center justify-center text-gf-green border border-gf-green/30">
+                                    <ClipboardList size={24} />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl md:text-3xl font-black text-white leading-none uppercase tracking-tight">{selectedItem.name}</h3>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-gf-green bg-gf-green/10 px-2 py-0.5 rounded">{selectedItem.specs}</span>
+                                        <span className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">Servizio: Noleggio Professionale</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onClick={closeModal} className="w-12 h-12 rounded-full bg-white/5 hover:bg-gf-green hover:rotate-90 transition-all duration-300 flex items-center justify-center text-white/50 hover:text-white group border border-white/10 shadow-lg">
+                                <X size={24} />
+                            </button>
+                         </div>
+
+                         {/* Content Modal */}
+                         <div className="relative z-10 flex-1 overflow-y-auto">
+                            <div className="p-6 md:p-10">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                                    {/* Product Visual */}
+                                    <div className="lg:col-span-5">
+                                        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+                                            <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-auto aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                            <div className="absolute bottom-4 left-4 flex gap-2">
+                                                <div className="bg-black/60 backdrop-blur-md p-2 rounded-lg border border-white/10"><Info size={16} className="text-gf-green" /></div>
+                                                <div className="bg-black/60 backdrop-blur-md p-2 rounded-lg border border-white/10"><ShieldCheck size={16} className="text-gf-green" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Product Info */}
+                                    <div className="lg:col-span-7 flex flex-col justify-center">
+                                        <div className="mb-8">
+                                            <h4 className="text-sm font-black uppercase tracking-[0.3em] text-gf-green mb-4">Specifiche Noleggio</h4>
+                                            <p className="text-gray-300 text-lg font-light leading-relaxed mb-6">
+                                                {selectedItem.longDesc || selectedItem.desc}
+                                            </p>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 group hover:border-gf-green/30 transition-all">
+                                                    <CheckCircle2 size={18} className="text-gf-green" />
+                                                    <span className="text-sm text-gray-400">Materiale certificato e sicuro</span>
+                                                </div>
+                                                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 group hover:border-gf-green/30 transition-all">
+                                                    <CheckCircle2 size={18} className="text-gf-green" />
+                                                    <span className="text-sm text-gray-400">Logistica e trasporto inclusi</span>
+                                                </div>
+                                                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 group hover:border-gf-green/30 transition-all">
+                                                    <CheckCircle2 size={18} className="text-gf-green" />
+                                                    <span className="text-sm text-gray-400">Assistenza montaggio h24</span>
+                                                </div>
+                                                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 group hover:border-gf-green/30 transition-all">
+                                                    <CheckCircle2 size={18} className="text-gf-green" />
+                                                    <span className="text-sm text-gray-400">Quotazione personalizzata</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* CTA Footer inside modal */}
+                                        <div className="pt-6 border-t border-white/10 mt-4 flex flex-col sm:flex-row gap-4">
+                                            <button 
+                                                onClick={() => { closeModal(); onShowContact?.(); }}
+                                                className="flex-1 bg-gf-green hover:bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all flex items-center justify-center gap-3 group"
+                                            >
+                                                Preventivo Noleggio <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                            </button>
+                                            <a href="tel:+393331234567" className="px-8 py-4 rounded-xl border border-white/10 hover:bg-white/5 text-white flex items-center justify-center gap-3 transition-all">
+                                                <Phone size={18} />
+                                                <span className="font-bold text-sm tracking-widest">Chiama ora</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Sezione Componenti (Se presenti sub-prodotti) */}
+                                {selectedItem.subProducts && selectedItem.subProducts.length > 0 && (
+                                    <div className="mt-16 pt-12 border-t border-white/10">
+                                        <h4 className="text-sm font-black uppercase tracking-[0.3em] text-gray-500 mb-10 text-center">Varianti e Accessori Disponibili a Noleggio</h4>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                            {selectedItem.subProducts.map((prod, idx) => (
+                                                <div key={idx} className="group relative bg-black/30 border border-white/5 rounded-2xl overflow-hidden hover:border-gf-green/50 transition-all duration-300">
+                                                    <div className="relative h-48 overflow-hidden">
+                                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url("${prod.image}")` }}></div>
+                                                        <div className="absolute inset-0 bg-black/40"></div>
+                                                    </div>
+                                                    <div className="p-6">
+                                                        <h5 className="text-lg font-bold text-white mb-2 group-hover:text-gf-green transition-colors">{prod.name}</h5>
+                                                        <p className="text-sm text-gray-400 font-light leading-relaxed">{prod.description || "Soluzione ideale per allestimenti esclusivi."}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                         </div>
+                    </div>
+                </div>
+             )}
+             
+             <style>{`
+                .scrollbar-hide::-webkit-scrollbar { display: none; }
+                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+                @keyframes slideUp {
+                    0% { transform: translateY(50px); opacity: 0; }
+                    100% { transform: translateY(0); opacity: 1; }
+                }
+                @keyframes scrollLine {
+                    0% { transform: scaleY(0); transform-origin: top; }
+                    40% { transform: scaleY(1); transform-origin: top; }
+                    41% { transform: scaleY(1); transform-origin: bottom; }
+                    80% { transform: scaleY(0); transform-origin: bottom; }
+                    100% { transform: scaleY(0); transform-origin: top; }
+                }
+                .animate-scrollLine {
+                    animation: scrollLine 2.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+                }
+                @keyframes swipeArrowIconSmall {
+                    0% { transform: translateX(-5px); opacity: 0.3; }
+                    50% { transform: translateX(5px); opacity: 1; }
+                    100% { transform: translateX(-5px); opacity: 0.3; }
+                }
+                .animate-swipeArrowIconSmall {
+                    animation: swipeArrowIconSmall 2s ease-in-out infinite;
+                }
+             `}</style>
+        </section>
     );
 }
 

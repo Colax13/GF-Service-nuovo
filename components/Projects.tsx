@@ -133,6 +133,26 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
 
   const activeDot = currentIndex % projects.length;
 
+  const handleDotClick = (index: number) => {
+    if (mobileScrollRef.current) {
+        // Find the index in the middle set of infiniteProjects
+        const targetIndex = projects.length + index;
+        const cardWidth = mobileScrollRef.current.offsetWidth * 0.8;
+        const gap = 24;
+        const scrollPosition = targetIndex * (cardWidth + gap);
+        
+        // Offset to center the card
+        const offset = (mobileScrollRef.current.offsetWidth - cardWidth) / 2;
+        mobileScrollRef.current.scrollTo({
+            left: scrollPosition - offset,
+            behavior: 'smooth'
+        });
+    } else {
+        // For desktop
+        setCurrentIndex(index);
+    }
+  };
+
   return (
     <section id="progetti" ref={sectionRef} className="py-24 md:py-32 bg-black relative overflow-hidden flex flex-col items-center">
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -152,11 +172,11 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
         </div>
 
         <div className="lg:hidden w-full flex flex-col items-center">
-            <div ref={mobileScrollRef} onScroll={handleScroll} className="w-full flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-6 px-10 pb-8 transition-all duration-500" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div ref={mobileScrollRef} onScroll={handleScroll} className="w-full flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-6 px-10 pb-4 transition-all duration-500" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {infiniteProjects.map((project, index) => (
-                <div key={index} onClick={() => onProjectSelect?.(project)} className={`min-w-[80vw] snap-center relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-500 ease-out flex-shrink-0 ${index === currentIndex ? 'scale-100 opacity-100' : 'scale-90 opacity-40 grayscale-[0.3]'}`}>
+                <div key={index} onClick={() => onProjectSelect?.(project)} className={`min-w-[80vw] snap-center relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-500 ease-out flex-shrink-0 ${index === currentIndex ? 'scale-100 opacity-100' : 'scale-90 opacity-100 grayscale-0'}`}>
                   <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${project.image})` }} />
-                  <div className="absolute inset-0 bg-black/30" />
+                  <div className={`absolute inset-0 bg-black/30 transition-opacity duration-500 ${index === currentIndex ? 'opacity-0' : 'opacity-100'}`} />
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent p-8 flex flex-col justify-end">
                     <h3 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight leading-tight">{project.title}</h3>
                     <div className="flex items-center gap-2 text-xs text-gray-300 uppercase tracking-widest font-semibold"><MapPin size={14} className="text-gf-green" />{project.location}</div>
@@ -190,7 +210,19 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
           <button onClick={() => setCurrentIndex(activeDot + 1)} className="absolute right-8 z-40 bg-black/40 hover:bg-gf-green text-white p-4 rounded-full transition-all"><ArrowRight size={24} /></button>
         </div>
 
-        <div className="mt-8">
+        {/* Pagination Dots */}
+        <div className="flex items-center justify-center gap-2 mt-12 mb-8">
+            {projects.map((_, index) => (
+                <button
+                    key={index}
+                    onClick={() => handleDotClick(index)}
+                    className={`h-1.5 transition-all duration-500 rounded-full ${index === activeDot ? 'w-10 bg-gf-green' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+                    aria-label={`Vai al progetto ${index + 1}`}
+                />
+            ))}
+        </div>
+
+        <div className="mt-4">
              <a href="#" onClick={(e) => { e.preventDefault(); onShowAllProjects?.(); }} className="group flex items-center gap-4 text-white uppercase tracking-widest text-xs font-bold hover:text-gf-green transition-colors">
                 <span className="border-b border-white/30 pb-1 group-hover:border-gf-green transition-all">Sfoglia tutto il portfolio</span>
                 <ArrowUpRight size={16} />
