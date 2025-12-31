@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Hammer, Handshake, MapPin, DraftingCompass, X, TrendingUp, Heart, Truck, Calendar, Map } from 'lucide-react';
+import { Clock, Users, ShieldCheck, Award, Target, ArrowRight, CheckCircle, Hammer, Handshake, MapPin, DraftingCompass, Truck, Calendar } from 'lucide-react';
 
 interface AllAboutProps {
   onShowContact?: () => void;
@@ -82,7 +82,6 @@ const values = [
 
 const AllAbout: React.FC<AllAboutProps> = ({ onShowContact }) => {
   const [loaded, setLoaded] = useState(false);
-  const detailRef = useRef<HTMLDivElement>(null);
 
   // Field Gallery Logic
   const gallerySectionRef = useRef<HTMLDivElement>(null);

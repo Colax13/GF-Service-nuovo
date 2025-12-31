@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Calendar, BookOpen, Tag, Search, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { ArrowRight, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface AllBlogPostsProps {
   onShowContact?: () => void;

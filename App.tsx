@@ -15,7 +15,6 @@ import AllAbout from './components/AllAbout';
 import Footer from './components/Footer';
 import StickySocials from './components/StickySocials';
 import CustomCursor from './components/CustomCursor';
-import StreetFoodSection from './components/StreetFoodSection';
 import LogoScroll from './components/LogoScroll';
 import ProjectDetail, { ProjectData } from './components/ProjectDetail';
 
@@ -172,7 +171,7 @@ const App: React.FC = () => {
         <LogoScroll />
         <Values onShowAbout={handleShowAllAbout} />
         <Blog onShowAllBlogPosts={handleShowAllBlogPosts} />
-        <Contact simpleMode={true} />
+        <Contact />
         <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </>
     );

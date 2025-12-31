@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Play, X, MapPin, Package, CheckCircle2, Info } from 'lucide-react';
+import { ArrowLeft, X, MapPin, Package, CheckCircle2 } from 'lucide-react';
 
 export interface GalleryItem {
   image: string;
@@ -36,7 +36,6 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, onGoToProjects }) => {
   const [loaded, setLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setLoaded(true), 100);
@@ -59,26 +58,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, onGoToP
         }
     };
   }, []);
-
-  const isDirectVideo = (url: string | undefined) => {
-    if (!url) return false;
-    const directExtensions = ['.mp4', '.mov', '.webm', '.ogg', '/video/upload/'];
-    return directExtensions.some(ext => url.toLowerCase().includes(ext));
-  };
-
-  const getEmbedUrl = (url: string | undefined) => {
-    if (!url) return '';
-    if (url.includes('youtube.com/watch?v=')) {
-      return url.replace('watch?v=', 'embed/');
-    }
-    if (url.includes('youtu.be/')) {
-      return url.replace('youtu.be/', 'youtube.com/embed/');
-    }
-    if (url.includes('vimeo.com/')) {
-      return url.replace('vimeo.com/', 'player.vimeo.com/video/');
-    }
-    return url;
-  };
 
   const renderDescription = (text: string | undefined) => {
     if (!text) return "Dettagli del progetto in fase di caricamento.";

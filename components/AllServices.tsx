@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Package, Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight, Phone, Mail, CheckCircle2, Info, ShieldCheck, ClipboardList } from 'lucide-react';
+import { Layers, Zap, Layout, ArrowRight, Gamepad2, X, ChevronRight, Phone, Mail, CheckCircle2, Info, ShieldCheck, ClipboardList } from 'lucide-react';
 
 interface SubProduct {
     name: string;

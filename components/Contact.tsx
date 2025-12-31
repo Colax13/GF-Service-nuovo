@@ -3,10 +3,10 @@ import React, { useRef, useState } from 'react';
 import { Loader2, Phone, Mail, FileText, ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 
 interface ContactProps {
-  simpleMode?: boolean;
+  // empty
 }
 
-const Contact: React.FC<ContactProps> = ({ simpleMode = false }) => {
+const Contact: React.FC<ContactProps> = ({ }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
