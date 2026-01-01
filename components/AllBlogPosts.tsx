@@ -129,7 +129,7 @@ const allPosts: BlogPostData[] = [
   }
 ];
 
-const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onShowContact, onPostSelect }) => {
+const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onPostSelect }) => {
     const [loaded, setLoaded] = useState(false);
     const [activeCategory, setActiveCategory] = useState('Tutti');
     const [currentPage, setCurrentPage] = useState(1);

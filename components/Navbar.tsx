@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MessageCircle, Menu, X, ArrowRight, ArrowLeft } from 'lucide-react';
+import { MessageCircle, Menu, X, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface NavbarProps {
   onBackToHome?: () => void; // Renders the specialized "Back" header
