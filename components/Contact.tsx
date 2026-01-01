@@ -12,7 +12,7 @@ const Contact: React.FC<ContactProps> = ({ }) => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <section id="contatti" ref={sectionRef} className="relative pt-32 pb-24 min-h-screen flex flex-col items-center justify-start overflow-hidden bg-gf-darker">
+    <section id="contatti" ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden bg-gf-darker">
        
        {/* Background Image with Overlay */}
        <div 
@@ -42,7 +42,7 @@ const Contact: React.FC<ContactProps> = ({ }) => {
             </p>
           </div>
 
-          <div className="relative w-full min-h-[400px]">
+          <div className="relative w-full min-h-[400px] flex flex-col justify-center">
             
             {!showForm ? (
                 /* SELECTION GRID */

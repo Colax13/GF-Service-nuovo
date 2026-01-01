@@ -126,7 +126,7 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
     { 
       title: "COPERTURE MODULARI", 
       subtitle: "Tendostrutture modulari e gazebo professionali",
-      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png" 
     },
     { 
       title: "TAVOLI E SEDUTE", 
@@ -141,12 +141,12 @@ const Services: React.FC<ServicesProps> = ({ onShowAllServices, onShowContact })
     { 
       title: "SPILLATORI MOBILI", 
       subtitle: "Impianti spina e fornitura beverage",
-      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515659/spillatori_lcwozy.jpg" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767279264/Spillatori_home_page_vwleui.png" 
     },
     { 
       title: "GIOCHI E INTRATTENIMENTO", 
       subtitle: "Aree svago e divertimento per tutti",
-      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg" 
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427510/flipper_rb0m4z.jpg" 
     },
   ];
 

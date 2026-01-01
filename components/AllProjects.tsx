@@ -232,15 +232,13 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                             </div>
                         ))}
                     </div>
+                 </div>
+                 
+                 {/* Full Width Street Food Section */}
+                 <StreetFoodSection />
 
-                    <div className="relative mb-32">
-                         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full flex flex-col items-center gap-4 mb-8">
-                            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-gf-green/50 to-gf-green"></div>
-                         </div>
-                         <StreetFoodSection />
-                    </div>
-
-                    <div className={`mt-12 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                 <div className="container mx-auto px-6">
+                    <div className={`mt-24 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                         <div className="relative max-w-5xl mx-auto rounded-[32px] overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-12 md:p-20 text-center shadow-2xl">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gf-green/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>

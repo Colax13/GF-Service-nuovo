@@ -17,16 +17,18 @@ import StickySocials from './components/StickySocials';
 import CustomCursor from './components/CustomCursor';
 import LogoScroll from './components/LogoScroll';
 import ProjectDetail, { ProjectData } from './components/ProjectDetail';
+import BlogPostDetail, { BlogPostData } from './components/BlogPostDetail';
 
 type ViewState = 'home' | 'contact' | 'services' | 'projects' | 'blog' | 'about';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>('home');
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+  const [selectedBlogPost, setSelectedBlogPost] = useState<BlogPostData | null>(null);
 
-  // Disable body scroll when a project is selected
+  // Disable body scroll when a project or blog post is selected
   useEffect(() => {
-    if (selectedProject) {
+    if (selectedProject || selectedBlogPost) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -34,40 +36,46 @@ const App: React.FC = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [selectedProject]);
+  }, [selectedProject, selectedBlogPost]);
 
   const handleShowContact = () => {
     setSelectedProject(null);
+    setSelectedBlogPost(null);
     setCurrentView('contact');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllServices = () => {
     setSelectedProject(null);
+    setSelectedBlogPost(null);
     setCurrentView('services');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllProjects = () => {
     setSelectedProject(null);
+    setSelectedBlogPost(null);
     setCurrentView('projects');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllBlogPosts = () => {
     setSelectedProject(null);
+    setSelectedBlogPost(null); // Chiude l'articolo se aperto
     setCurrentView('blog');
     window.scrollTo(0, 0);
   };
 
   const handleShowAllAbout = () => {
     setSelectedProject(null);
+    setSelectedBlogPost(null);
     setCurrentView('about');
     window.scrollTo(0, 0);
   };
 
   const handleNavigateHome = (href: string) => {
     setSelectedProject(null);
+    setSelectedBlogPost(null);
     setCurrentView('home');
     setTimeout(() => {
         const id = href.replace('#', '');
@@ -94,9 +102,18 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleBlogPostSelect = (post: BlogPostData) => {
+      setSelectedBlogPost(post);
+  };
+
+  const handleBlogPostClose = () => {
+      setSelectedBlogPost(null);
+  };
+
   // Determina quale voce della navbar deve essere attiva
   const getForcedActive = () => {
     if (selectedProject) return "Progetti";
+    if (selectedBlogPost) return "Le nostre storie";
     if (currentView === 'contact') return "Contatti";
     if (currentView === 'services') return "Servizi";
     if (currentView === 'projects') return "Progetti";
@@ -143,7 +160,10 @@ const App: React.FC = () => {
       return (
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow">
-            <AllBlogPosts onShowContact={handleShowContact} />
+            <AllBlogPosts 
+                onShowContact={handleShowContact} 
+                onPostSelect={handleBlogPostSelect}
+            />
           </div>
           <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
         </div>
@@ -188,10 +208,11 @@ const App: React.FC = () => {
           onShowProjects={handleShowAllProjects}
           onShowBlog={handleShowAllBlogPosts} 
           onShowAbout={handleShowAllAbout}
-          forcedActive={getForcedActive()} 
+          forcedActive={getForcedActive()}
+          forceBackground={!!selectedProject || !!selectedBlogPost}
       />
 
-      <div className={selectedProject ? "hidden" : "block"}>
+      <div className={(selectedProject || selectedBlogPost) ? "hidden" : "block"}>
         {renderContent()}
       </div>
       
@@ -200,6 +221,13 @@ const App: React.FC = () => {
           project={selectedProject} 
           onClose={handleProjectClose} 
           onGoToProjects={handleGoToProjects} 
+        />
+      )}
+
+      {selectedBlogPost && (
+        <BlogPostDetail
+          post={selectedBlogPost}
+          onClose={handleBlogPostClose}
         />
       )}
     </div>

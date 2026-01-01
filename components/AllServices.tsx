@@ -129,7 +129,7 @@ const categories: Category[] = [
         name: "Impianti Spina", 
         desc: "Sistemi di spillatura mobili professionali.", 
         specs: "Noleggio Beverage", 
-        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767205348/impianti_2_u3wizu.jpg",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767279264/Spillatori_home_page_vwleui.png",
         longDesc: "Portiamo l'efficienza di un bar professionale nel tuo evento con i nostri impianti spina a noleggio. Sistemi pre-refrigerati che garantiscono una spillatura perfetta anche in condizioni di alto afflusso continuo.",
         // subProducts rimosso come richiesto
       },
@@ -141,7 +141,7 @@ const categories: Category[] = [
         longDesc: "Noleggiamo sistemi di riscaldamento scalabili per ogni volume. Dai generatori industriali canalizzati per grandi tendostrutture ai funghi a gas per dehor e aree fumatori esterne.",
         subProducts: [
             { name: "Fungo a Gas", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767202501/fungo_vymbq5.png", description: "Design elegante e calore immediato per aree open-air." },
-            { name: "Generatore Aria Calda", image: "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=2070&auto=format&fit=crop", description: "Sistema a gasolio/elettrico canalizzato per riscaldamento omogeneo." }
+            { name: "Generatore Aria Calda", image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767280025/Cannone_aria_il2fdm.png", description: "Sistema a gasolio/elettrico canalizzato per riscaldamento omogeneo." }
         ]
       },
       { 

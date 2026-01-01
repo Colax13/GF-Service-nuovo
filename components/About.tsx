@@ -116,7 +116,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className={`hidden lg:block lg:col-span-3 transition-all duration-1000 ease-out delay-200 ${inView ? 'opacity-100 translate-y-12' : 'opacity-0 translate-y-32'}`}>
                 <div className="relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 group">
                     <img 
-                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767204595/strutture_tor7na.png" 
                         alt="Event Setup Detail" 
                         className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0"
                     />
@@ -207,7 +207,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className={`hidden lg:block lg:col-span-3 transition-all duration-1000 ease-out delay-300 ${inView ? 'opacity-100 -translate-y-12' : 'opacity-0 translate-y-32'}`}>
                 <div className="relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 group">
                     <img 
-                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767277917/all_about_nekx7p.png" 
                         alt="Team Work" 
                         className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0"
                     />
@@ -222,7 +222,7 @@ const About: React.FC<AboutProps> = ({ onShowAllAbout }) => {
             <div className="block lg:hidden w-full mt-8">
                 <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5">
                      <img 
-                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png" 
+                        src="https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767277917/all_about_nekx7p.png" 
                         alt="Team Work" 
                         className="w-full h-full object-cover opacity-80"
                     />
