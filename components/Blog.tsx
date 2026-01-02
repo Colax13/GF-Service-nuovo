@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Calendar, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -74,25 +75,25 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
 
   const posts = [
     {
-      category: "Inspirazione",
-      title: "Come trasformare una piazza vuota in un teatro.",
-      excerpt: "Il dietro le quinte del Festival del Jazz: dalla logistica dei palchi modulari alla gestione dell'acustica all'aperto.",
-      date: "04 Nov 2025",
-      image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop"
+      category: "News & Trend",
+      title: "BEA 2025: cosa ci insegnano i grandi progetti premiati",
+      excerpt: "Il BEA Italia 2025 ha messo sul tavolo un palmarès ricco di insegnamenti concreti. Analisi dei vincitori: Ferrari, Giubileo, Cranchi Yachts e Barilla.",
+      date: "12 Giu 2025",
+      image: "https://live.staticflickr.com/65535/54943669597_6237b71f01_c.jpg"
     },
     {
-      category: "Trend Eventi",
-      title: "Sostenibilità negli allestimenti: il futuro è modulare.",
-      excerpt: "Perché le strutture temporanee sono la scelta più ecologica per i grandi eventi. Analisi dei materiali e riutilizzo.",
-      date: "21 Ott 2025",
-      image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop"
+      category: "Territorio & Radici",
+      title: "Borghi in Festa: il Capodanno che ha ridato vita a Vallepietra",
+      excerpt: "Immagina un borgo di 400 anime che sfida l'inverno. Il racconto di come una tendostruttura ha trasformato una piazza in pendenza in una sala da ballo.",
+      date: "05 Gen 2025",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg"
     },
     {
-      category: "Case Study",
-      title: "Gestire l'imprevisto: Il villaggio di Natale sotto la neve.",
-      excerpt: "Un racconto dal campo: come abbiamo garantito la sicurezza e il comfort termico durante l'ondata di gelo del 2024.",
-      date: "15 Set 2025",
-      image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop"
+      category: "Case History",
+      title: "Mercatini di Natale a Porta di Roma",
+      excerpt: "Porta di Roma non si ferma mai. Come abbiamo montato un intero villaggio natalizio lavorando solo di notte per non interrompere il flusso.",
+      date: "15 Nov 2024",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg"
     }
   ];
 
@@ -162,7 +163,7 @@ const Blog: React.FC<BlogProps> = ({ onShowAllBlogPosts }) => {
   };
 
   return (
-    <section id="blog" ref={sectionRef} className="py-24 bg-gf-darker text-white relative overflow-hidden border-t border-white/5">
+    <section id="news" ref={sectionRef} className="py-24 bg-gf-darker text-white relative overflow-hidden border-t border-white/5">
       
       <div className="container mx-auto px-6 relative z-10">
         

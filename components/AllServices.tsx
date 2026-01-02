@@ -148,7 +148,7 @@ const categories: Category[] = [
         name: "Illuminazione", 
         desc: "Lampadine e plafoniere LED funzionali.", 
         specs: "Noleggio Lighting", 
-        image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767371201/Luci_rqa0b0.png",
         longDesc: "Soluzioni di illuminazione semplici ed efficaci per i tuoi spazi. Forniamo catenarie con lampadine LED per una luce diffusa e plafoniere LED per un'illuminazione tecnica omogenea.",
         // subProducts rimosso e descrizione semplificata come richiesto
       },

@@ -10,7 +10,7 @@ import Blog from './components/Blog';
 import Contact from './components/Contact';
 import AllServices from './components/AllServices';
 import AllProjects from './components/AllProjects';
-import AllBlogPosts from './components/AllBlogPosts';
+import AllBlogPosts, { allPosts } from './components/AllBlogPosts';
 import AllAbout from './components/AllAbout';
 import Footer from './components/Footer';
 import StickySocials from './components/StickySocials';
@@ -18,6 +18,7 @@ import CustomCursor from './components/CustomCursor';
 import LogoScroll from './components/LogoScroll';
 import ProjectDetail, { ProjectData } from './components/ProjectDetail';
 import BlogPostDetail, { BlogPostData } from './components/BlogPostDetail';
+import ScrollToTop from './components/ScrollToTop';
 
 type ViewState = 'home' | 'contact' | 'services' | 'projects' | 'blog' | 'about';
 
@@ -25,18 +26,24 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>('home');
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
   const [selectedBlogPost, setSelectedBlogPost] = useState<BlogPostData | null>(null);
+  const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   // Disable body scroll when a project or blog post is selected
   useEffect(() => {
     if (selectedProject || selectedBlogPost) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      // If mobile form is NOT open, we allow scrolling. 
+      // If mobile form IS open, Contact component handles the lock internally.
+      // But to be safe, we check if mobileFormOpen is false here.
+      if (!mobileFormOpen) {
+         document.body.style.overflow = '';
+      }
     }
     return () => {
-      document.body.style.overflow = '';
+       if (!mobileFormOpen) document.body.style.overflow = '';
     };
-  }, [selectedProject, selectedBlogPost]);
+  }, [selectedProject, selectedBlogPost, mobileFormOpen]);
 
   const handleShowContact = () => {
     setSelectedProject(null);
@@ -94,6 +101,9 @@ const App: React.FC = () => {
 
   const handleProjectClose = () => {
       setSelectedProject(null);
+      // Reindirizza alla pagina "Il nostro portfolio" (projects) quando si chiude il dettaglio
+      setCurrentView('projects');
+      window.scrollTo(0, 0);
   };
 
   const handleGoToProjects = () => {
@@ -112,22 +122,38 @@ const App: React.FC = () => {
 
   // Determina quale voce della navbar deve essere attiva
   const getForcedActive = () => {
-    if (selectedProject) return "Progetti";
-    if (selectedBlogPost) return "Le nostre storie";
+    if (selectedProject) return "Portfolio";
+    if (selectedBlogPost) return "News";
     if (currentView === 'contact') return "Contatti";
     if (currentView === 'services') return "Servizi";
-    if (currentView === 'projects') return "Progetti";
-    if (currentView === 'blog') return "Le nostre storie";
+    if (currentView === 'projects') return "Portfolio";
+    if (currentView === 'blog') return "News";
     if (currentView === 'about') return "Chi siamo";
     return undefined;
   };
+
+  // Calcolo Next/Prev Post
+  const getAdjacentPosts = () => {
+    if (!selectedBlogPost) return { prev: null, next: null };
+    const currentIndex = allPosts.findIndex(p => p.id === selectedBlogPost.id);
+    if (currentIndex === -1) return { prev: null, next: null };
+
+    // Prev è l'indice precedente (array index - 1), Next è il successivo
+    const prev = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+    const next = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+    return { prev, next };
+  };
+
+  const { prev: prevPost, next: nextPost } = getAdjacentPosts();
+
 
   const renderContent = () => {
     if (currentView === 'contact') {
       return (
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow">
-            <Contact />
+            <Contact onMobileFormToggle={setMobileFormOpen} />
           </div>
           <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
         </div>
@@ -163,6 +189,7 @@ const App: React.FC = () => {
             <AllBlogPosts 
                 onShowContact={handleShowContact} 
                 onPostSelect={handleBlogPostSelect}
+                onShowProjects={handleShowAllProjects}
             />
           </div>
           <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
@@ -191,7 +218,7 @@ const App: React.FC = () => {
         <LogoScroll />
         <Values onShowAbout={handleShowAllAbout} />
         <Blog onShowAllBlogPosts={handleShowAllBlogPosts} />
-        <Contact />
+        <Contact onMobileFormToggle={setMobileFormOpen} />
         <Footer onShowContact={handleShowContact} onShowAbout={handleShowAllAbout} onNavigate={handleNavigateHome} />
       </>
     );
@@ -200,6 +227,7 @@ const App: React.FC = () => {
   return (
     <div className="font-sans text-gray-800 antialiased selection:bg-gf-green selection:text-white bg-gf-darker min-h-screen">
       <CustomCursor />
+      <ScrollToTop />
       
       <Navbar 
           onNavigate={handleNavigateHome} 
@@ -210,6 +238,7 @@ const App: React.FC = () => {
           onShowAbout={handleShowAllAbout}
           forcedActive={getForcedActive()}
           forceBackground={!!selectedProject || !!selectedBlogPost}
+          isHidden={mobileFormOpen}
       />
 
       <div className={(selectedProject || selectedBlogPost) ? "hidden" : "block"}>
@@ -227,7 +256,13 @@ const App: React.FC = () => {
       {selectedBlogPost && (
         <BlogPostDetail
           post={selectedBlogPost}
+          prevPost={prevPost}
+          nextPost={nextPost}
           onClose={handleBlogPostClose}
+          onNavigate={handleBlogPostSelect}
+          onShowContact={handleShowContact}
+          onShowAbout={handleShowAllAbout}
+          onNavigateToSection={handleNavigateHome}
         />
       )}
     </div>

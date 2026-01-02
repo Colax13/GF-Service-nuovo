@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, MapPin } from 'lucide-react';
 import { ProjectData, GalleryItem } from './ProjectDetail';
@@ -15,6 +16,13 @@ const octoberFestGallery: GalleryItem[] = [
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", label: "Pavimentazione palco modulare.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427554/palchetto_x5eb9l.jpg", label: "Palchetto modulare.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427510/flipper_rb0m4z.jpg", label: "Area giochi: Flipper Vintage.", orientation: 'portrait' }
+];
+
+const madonnaGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304546/a_cf0vvy.jpg", label: "Panoramica della piazza allestita.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304551/WhatsApp_Image_2025-10-20_at_12.31.11_qwdtiy.jpg", label: "Convivialità e spazi comuni.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304769/Gemini_Generated_Image_i94ugbi94ugbi94u_ulwnlz.png", label: "Illuminazione e atmosfera serale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304564/WhatsApp_Image_2025-10-20_at_12.31.12_wk9gyy.jpg", label: "Gestione dei flussi e viabilità.", orientation: 'landscape' },
 ];
 
 const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (project: ProjectData) => void; }> = ({ onShowAllProjects, onProjectSelect }) => {
@@ -87,6 +95,39 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
         { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "Struttura e gazebi visti dall'ingresso." }
       ],
       materials: ["Tendostruttura 50x10m", "30 kit da birreria", "2 gazebi 4x4", "1 gazebo 3x3"]
+    },
+    {
+      title: "Madonna del Carmine",
+      location: "Alatri (Tecchena), Lazio",
+      category: "Sagre e Feste di Paese",
+      client: "Comitato Festeggiamenti / Pro Loco",
+      typeLabel: "Ente Pubblico/Associazione locale",
+      target: "Comunità locale",
+      year: "2025",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304546/a_cf0vvy.jpg",
+      description: "Tecchena, Madonna del Carmine 2025. Una festa patronale come tante altre nelle comunità del Lazio, ma con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service non solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n**300 kit da birreria**: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, ma anche i turisti, i connazionali tornati dal resto d'Italia, la comunità allargata.\n\nQui inizia la vera sfida: distribuire 300 kit in uno spazio pubblico limitato senza creare caos, mantenendo la viabilità e la sicurezza, coordinando fornitori alimentari e personale, assicurando che ogni kit sia raggiungibile e funzionale.\n\nQuesta è la maestria che i nostri clienti non vedono ma riconoscono: la capacità di trasformare un numero grande in un'esperienza fluida. Non 300 tavoli sparsi nel caos - 300 tavoli che raccontano una storia di inclusione e comunità.\n\nPer la Madonna del Carmine 2025 a Tecchena, abbiamo dimostrato che la scala non è un problema quando la si gestisce con intelligenza logistica.",
+      imageNarrative: "La sfida logistica: allestire 300 tavoli garantendo flussi sicuri e ordinati.",
+      galleryItems: madonnaGallery,
+      materials: ["300 kit da birreria", "Coordinamento logistico massivo", "Gestione della sicurezza e della viabilità", "Distribuzione ottimale dello spazio"]
+    },
+    {
+      title: "Palio San Pietro Eremita",
+      location: "Trevi nel Lazio, Lazio",
+      category: "Sagre e Feste di Paese",
+      client: "Palio tradizionale",
+      typeLabel: "Ente Pubblico/Associazione locale",
+      target: "Comunità locale + turisti",
+      year: "2024",
+      image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg",
+      description: "**Il Palio di San Pietro Eremita - Tre anni, una relazione duratura basata su affidabilità**\n\nAlcune collaborazioni non nascono dal nulla: si costruiscono nel tempo, progetto dopo progetto. Il Palio di San Pietro Eremita di Trevi nel Lazio è uno di questi casi. Abbiamo supportato questo evento storico per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: **400 transenne** delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica. Ma il vero nemico non è la dimensione: è il **timing assoluto**.\n\nDomenica mattina, prima che la sabbia copra la strada per la corsa: tutto deve essere montato. Subito dopo la corsa: tutto deve essere smontato. Il margine di errore è zero.\n\nTre anni di esecuzione senza difetti ci hanno insegnato che l'affidabilità non è una promessa: è una dimostrazione ripetuta. Quando qualcuno sa che tornerai, che farai bene, che anticiperai i problemi - quella non è più una relazione fornitore-cliente, è una partnership.\n\nIl Palio di San Pietro Eremita non ci sceglie per il prezzo: ci sceglie perché siamo diventati invisibili nel loro evento. Facciamo il nostro lavoro così bene che loro possono concentrarsi completamente sulla loro festa.",
+      imageNarrative: "La messa in sicurezza del percorso tramite 400 transenne professionali è l'elemento critico per la riuscita di questa manifestazione storica.",
+      galleryItems: [
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg", label: "Il percorso storico in sicurezza." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515474/palio_di_san_pietro_eremita_5_rnhjna.jpg", label: "Dettaglio rievocazione storica." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg", label: "Partecipazione della comunità." },
+        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_2_aygjdp.jpg", label: "Transenne e gestione folla." }
+      ],
+      materials: ["400 transenne", "3 gazebi", "30 kit da birreria", "Partnership continuativa su 3 anni"]
     }
   ];
 
@@ -154,7 +195,7 @@ const Projects: React.FC<{ onShowAllProjects?: () => void; onProjectSelect?: (pr
   };
 
   return (
-    <section id="progetti" ref={sectionRef} className="py-24 md:py-32 bg-black relative overflow-hidden flex flex-col items-center">
+    <section id="portfolio" ref={sectionRef} className="py-24 md:py-32 bg-black relative overflow-hidden flex flex-col items-center">
       <div className="absolute inset-0 z-0 overflow-hidden">
           {projects.map((project, index) => (
               <div key={index} className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === activeDot ? 'opacity-50' : 'opacity-0'}`} style={{ backgroundImage: `url(${project.image})`, filter: 'blur(60px) saturate(2)' }} />

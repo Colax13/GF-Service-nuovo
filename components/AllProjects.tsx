@@ -4,20 +4,64 @@ import { Camera, MapPin, Instagram, Facebook } from 'lucide-react';
 import { ProjectData, GalleryItem } from './ProjectDetail';
 import StreetFoodSection from './StreetFoodSection';
 
+// --- GALLERIE FOTOGRAFICHE ---
+
+// October Fest: Tutte le foto, ordine mixato per varietà
 const octoberFestGallery: GalleryItem[] = [
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427539/struttura_interna_1_iaz1ji.jpg", label: "Vista prospettica interna tendostruttura.", orientation: 'landscape' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427497/fuori_1_u5vafl.jpg", label: "Dettaglio ingresso esterno.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427551/struttura_interna_3_zmw9ip.jpg", label: "Allineamento tavoli interna.", orientation: 'landscape' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427492/struttur_ainterna_1_xn3x1l.jpg", label: "Allestimento luci interne.", orientation: 'portrait' },
-    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg", label: "Area intrattenimento e svago.", orientation: 'landscape' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427567/struttura_interna_4_fnsxdx.jpg", label: "Allestimento zona bar.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427527/giochi_1_zwzbxj.jpg", label: "Area intrattenimento e svago.", orientation: 'landscape' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427537/struttur_ainterna_2_y6ipjj.jpg", label: "Finiture dei teli PVC.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427525/air_hockey_nmm4of.jpg", label: "Area giochi: Air Hockey.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427559/impianti_eetito.jpg", label: "Impianto spina professionale.", orientation: 'portrait' },
-    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", label: "Pavimentazione palco modulare.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427554/palchetto_x5eb9l.jpg", label: "Configurazione palco eventi.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg", label: "Pavimentazione palco modulare.", orientation: 'portrait' },
     { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427510/flipper_rb0m4z.jpg", label: "Area giochi: Flipper Vintage.", orientation: 'portrait' }
 ];
+
+// Mercatini: 4 Foto (16:9, 4:3, 4:3, 16:9)
+const mercatiniGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Panoramica delle casette natalizie.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Personalizzazione branding cliente.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Suggestione notturna delle strutture.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "Integrazione nel contesto urbano.", orientation: 'landscape' },
+];
+
+// Tavolata: 4 Foto (16:9, 4:3, 4:3, 16:9)
+const tavolataGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea dell'asse principale.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Dettaglio mise en place conviviale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430424/tavolata_kvlj4x.jpg", label: "Allestimento tecnico dei kit.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "Prospettiva infinita della tavolata.", orientation: 'landscape' },
+];
+
+// Beer Festival: 4 Foto (16:9, 4:3, 4:3, 16:9)
+const beerFestivalGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg", label: "La maestosa tendostruttura 50x10m.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "Dettaglio spillatura birra artigianale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432824/20251205_155318_ad71ej.jpg", label: "Banchi di servizio Shire Brewing.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg", label: "Setup interno con illuminazione calda.", orientation: 'landscape' },
+];
+
+// Palio: 4 Foto (16:9, 4:3, 4:3, 16:9)
+const palioGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg", label: "Il percorso storico in sicurezza.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515474/palio_di_san_pietro_eremita_5_rnhjna.jpg", label: "Dettaglio rievocazione storica.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg", label: "Partecipazione della comunità.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_2_aygjdp.jpg", label: "Transenne e gestione folla.", orientation: 'landscape' },
+];
+
+// Madonna del Carmine: 4 Foto (16:9, 4:3, 4:3, 16:9)
+const madonnaGallery: GalleryItem[] = [
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304546/a_cf0vvy.jpg", label: "Panoramica della piazza allestita.", orientation: 'landscape' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304551/WhatsApp_Image_2025-10-20_at_12.31.11_qwdtiy.jpg", label: "Convivialità e spazi comuni.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304769/Gemini_Generated_Image_i94ugbi94ugbi94u_ulwnlz.png", label: "Illuminazione e atmosfera serale.", orientation: 'portrait' },
+    { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304564/WhatsApp_Image_2025-10-20_at_12.31.12_wk9gyy.jpg", label: "Gestione dei flussi e viabilità.", orientation: 'landscape' },
+];
+
 
 const projects: ProjectData[] = [
   {
@@ -34,12 +78,7 @@ const projects: ProjectData[] = [
     imageNarrative: "Le 17 casette di legno sono state progettate per resistere a 8 settimane di esposizione continua, garantendo isolamento termico e un'estetica calda e accogliente.",
     videoUrl: "https://res.cloudinary.com/dcmd1ukvx/video/upload/v1766015229/mood_orizzontale_qualit%C3%A0_bassissima_rnpesa.mov",
     videoLabel: "L'atmosfera magica dei Mercatini di Natale a Porta di Roma.",
-    galleryItems: [
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg", label: "Schiera di casette di legno." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg", label: "Dettaglio della casetta con logo Porta Pia." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg", label: "Detagli di una casetta al calar del solo." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg", label: "L'integrazione tra le strutture e il flusso di visitatori del centro." }
-    ],
+    galleryItems: mercatiniGallery,
     materials: ["17 casette di legno modulari", "Personalizzazione estetica", "Gestione stagionale continuativa", "Coesione visiva su 8 settimane"]
   },
   {
@@ -69,12 +108,7 @@ const projects: ProjectData[] = [
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg",
     description: "\"Tavolata\" è il nome giusto: 180 tavoli distribuiti lungo il corso storico di Sora, trasformato temporaneamente in un'estensione del tessuto urbano. Ma dietro questa semplicità, c'è una complessità logistica che pochi comprendono. \n\nLa sfida non era la dimensione - 180 kit da birreria e 4 gazebi 4x4 - ma il **timing chirurgico**: montaggio sabato pomeriggio in poche ore, smontaggio nella notte del giorno stesso prima delle 9 del mattino, quando la strada doveva tornare al traffico quotidiano.\n\nAbbiamo coordinato il lavoro in modo che ogni gazebo, ogni kit, ogni tavolo si materializzasse al proprio posto senza intralcio, creando una continuità visiva lungo il corso. I gazebi non erano barriere, ma riferimenti - ancore visive che dicevano \"qui è diverso, qui c'è comunità\".\n\nIl risultato? Una strada che per 12 ore è diventata quello che tutte le strade potrebbero essere: uno spazio dove le persone si incontrano, mangiano, bevono, parlano. E domenica mattina, tutto spariva come non fosse mai stato. Questa è la maestria della logistica temporanea: scomparire perfettamente.",
     imageNarrative: "La logistica ha previsto il posizionamento millimetrico di 180 kit birreria lungo l'asse stradale principale di Sora in meno di 4 ore.",
-    galleryItems: [
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431459/Tavolata-1_n5ofik.jpg", label: "L'infinita linea di tavoli che attraversa il centro storico." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430420/sora-panorama-notte-2-960x639_lxpywe.jpg", label: "Gazebo 4x4m posizionati come punti di snodo for the beverage." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766430424/tavolata_kvlj4x.jpg", label: "Dettaglio dell'allestimento dei kit birreria." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766431972/sora-tavolata-22-xq-1_gei6bz.jpg", label: "Vista aerea della distribuzione lungo l'asse stradale." }
-    ],
+    galleryItems: tavolataGallery,
     materials: ["180 kit da birreria", "4 gazebi 4x4", "Montaggio/smontaggio rapido coordinato"]
   },
   {
@@ -89,13 +123,23 @@ const projects: ProjectData[] = [
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg",
     description: "Per il Belgian Beer Festival di Fiuggi abbiamo fornito una tendostruttura 50x10 metri come area principale dell’evento, attrezzata con 30 kit da birreria per le zone degustazione.\n\nAll’esterno abbiamo installato 2 gazebi 4x4 per gli stand e un gazebo 3x3 come punto di passaggio e supporto logistico tra le diverse aree.\n\nLa richiesta del cliente era semplice e chiara: uno spazio coperto affidabile, funzionale e rapido da montare per tre giorni di festival, in grado di garantire comfort al pubblico anche in inverno.\n\nCi siamo occupati di posizionamento delle strutture e coordinamento del montaggio, lasciando al cliente la libertà di personalizzare interni, arredi e comunicazione visiva secondo la propria identità.",
     imageNarrative: "La maestosa tendostruttura 50x10m ha ospitato uno dei festival brassicoli più importanti del Lazio garantendo comfort termico.",
-    galleryItems: [
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432820/20251205_154924_1_nfhx4d.jpg", label: "La maestosa tendostruttura 50x10 metri." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432825/20251205_155327_zomoet.jpg", label: "L'atmosfera calda creata all'interno." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432824/20251205_155318_ad71ej.jpg", label: "Dettaglio spillatrici Shire Brewing." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766432826/20251205_155040_ajnu8u.jpg", label: "Struttura e gazebi visti dall'ingresso." }
-    ],
+    galleryItems: beerFestivalGallery,
     materials: ["Tendostruttura 50x10m", "30 kit da birreria", "2 gazebi 4x4", "1 gazebo 3x3"]
+  },
+  {
+    title: "Madonna del Carmine",
+    location: "Alatri (Tecchena), Lazio",
+    category: "Sagre e Feste di Paese",
+    client: "Comitato Festeggiamenti / Pro Loco",
+    typeLabel: "Ente Pubblico/Associazione locale",
+    target: "Comunità locale",
+    type: "sagre",
+    year: "2025",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767304546/a_cf0vvy.jpg",
+    description: "Tecchena, Madonna del Carmine 2025. Una festa patronale come tante altre nelle comunità del Lazio, ma con un'ambizione: essere memorabile. La Pro Loco ha scelto di affidarsi a GF Service non solo per le strutture, ma per la capacità di gestire complessità logistica a scala.\n\n**300 kit da birreria**: un numero che non è casuale. Rappresenta la decisione di servire non solo i residente, ma anche i turisti, i connazionali tornati dal resto d'Italia, la comunità allargata.\n\nQui inizia la vera sfida: distribuire 300 kit in uno spazio pubblico limitato senza creare caos, mantenendo la viabilità e la sicurezza, coordinando fornitori alimentari e personale, assicurando che ogni kit sia raggiungibile e funzionale.\n\nQuesta è la maestria che i nostri clienti non vedono ma riconoscono: la capacità di trasformare un numero grande in un'esperienza fluida. Non 300 tavoli sparsi nel caos - 300 tavoli che raccontano una storia di inclusione e comunità.\n\nPer la Madonna del Carmine 2025 a Tecchena, abbiamo dimostrato che la scala non è un problema quando la si gestisce con intelligenza logistica.",
+    imageNarrative: "La sfida logistica: allestire 300 tavoli garantendo flussi sicuri e ordinati.",
+    galleryItems: madonnaGallery,
+    materials: ["300 kit da birreria", "Coordinamento logistico massivo", "Gestione della sicurezza e della viabilità", "Distribuzione ottimale dello spazio"]
   },
   {
     title: "Palio San Pietro Eremita",
@@ -107,14 +151,9 @@ const projects: ProjectData[] = [
     type: "sagre",
     year: "2024",
     image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg",
-    description: "Abbiamo supportato il Palio San Pietro Eremita per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: 400 transenne delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica.",
+    description: "**Il Palio di San Pietro Eremita - Tre anni, una relazione duratura basata su affidabilità**\n\nAlcune collaborazioni non nascono dal nulla: si costruiscono nel tempo, progetto dopo progetto. Il Palio di San Pietro Eremita di Trevi nel Lazio è uno di questi casi. Abbiamo supportato questo evento storico per tre edizioni consecutive, e ogni anno la sfida è rimasta la stessa ma con una pressione sempre crescente.\n\nLa configurazione è complessa: **400 transenne** delimitano lo spazio dove i cavalli correranno, 3 gazebi offrono rifugio ai visitatori, 30 kit da birreria strutturano l'esperienza enogastronomica. Ma il vero nemico non è la dimensione: è il **timing assoluto**.\n\nDomenica mattina, prima che la sabbia copra la strada per la corsa: tutto deve essere montato. Subito dopo la corsa: tutto deve essere smontato. Il margine di errore è zero.\n\nTre anni di esecuzione senza difetti ci hanno insegnato che l'affidabilità non è una promessa: è una dimostrazione ripetuta. Quando qualcuno sa che tornerai, che farai bene, che anticiperai i problemi - quella non è più una relazione fornitore-cliente, è una partnership.\n\nIl Palio di San Pietro Eremita non ci sceglie per il prezzo: ci sceglie perché siamo diventati invisibili nel loro evento. Facciamo il nostro lavoro così bene che loro possono concentrarsi completamente sulla loro festa.",
     imageNarrative: "La messa in sicurezza del percorso tramite 400 transenne professionali è l'elemento critico per la riuscita di questa manifestazione storica.",
-    galleryItems: [
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_2_aygjdp.jpg", label: "Vista su cavallo e transenne per la sicurezza." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg", label: "Visione ampia del percorso." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515475/palio_di_san_pietro_eremita_6_sjp5ye.jpg", label: "Dettaglio sulle emozioni." },
-        { image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg", label: "Orgoglio e appartenenza partecipanti." }
-    ],
+    galleryItems: palioGallery,
     materials: ["400 transenne", "3 gazebi", "30 kit da birreria", "Partnership continuativa su 3 anni"]
   }
 ];
@@ -176,17 +215,42 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                  </div>
 
                  <div className="container mx-auto px-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
-                        <div className="flex flex-wrap justify-center gap-2 p-1 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
-                            {filters.map((filter) => (
-                                <button
-                                    key={filter.id}
-                                    onClick={() => setActiveFilter(filter.id)}
-                                    className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${activeFilter === filter.id ? 'bg-gf-green text-white shadow-lg scale-105' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
-                                >
-                                    {filter.label}
-                                </button>
-                            ))}
+                    {/* MENU FILTRI: Versione Mobile e Desktop separate */}
+                    <div className="mb-16">
+                        {/* MOBILE: Horizontal Scroll */}
+                        <div className="md:hidden w-full">
+                            <div className="flex overflow-x-auto gap-3 pb-4 -mx-6 px-6 scrollbar-hide">
+                                {filters.map((filter) => (
+                                    <button
+                                        key={filter.id}
+                                        onClick={() => setActiveFilter(filter.id)}
+                                        className={`
+                                            whitespace-nowrap px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-300
+                                            ${activeFilter === filter.id 
+                                                ? 'bg-gf-green border-gf-green text-white shadow-lg' 
+                                                : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                                            }
+                                        `}
+                                    >
+                                        {filter.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* DESKTOP: Centered Segmented Control */}
+                        <div className="hidden md:flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div className="flex flex-wrap justify-center gap-2 p-1 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
+                                {filters.map((filter) => (
+                                    <button
+                                        key={filter.id}
+                                        onClick={() => setActiveFilter(filter.id)}
+                                        className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${activeFilter === filter.id ? 'bg-gf-green text-white shadow-lg scale-105' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                                    >
+                                        {filter.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -276,6 +340,11 @@ const AllProjects: React.FC<AllProjectsProps> = ({ onProjectSelect }) => {
                     </div>
                  </div>
              </div>
+             
+             <style>{`
+                .scrollbar-hide::-webkit-scrollbar { display: none; }
+                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+             `}</style>
         </section>
     );
 }

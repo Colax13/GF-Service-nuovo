@@ -6,6 +6,7 @@ import { BlogPostData } from './BlogPostDetail';
 interface AllBlogPostsProps {
   onShowContact?: () => void;
   onPostSelect?: (post: BlogPostData) => void;
+  onShowProjects?: () => void;
 }
 
 // Configurazione Paginazione
@@ -14,40 +15,180 @@ const ITEMS_PER_PAGE = 5;
 // Categorie aggiornate con Tone of Voice professionale
 const filters = [
     'Tutti', 
-    'Design & Ispirazione', 
     'News & Trend', 
     'Case History', 
     'Territorio & Radici'
 ];
 
-// Dati aggiornati con contenuto completo per l'articolo ID 4
-const allPosts: BlogPostData[] = [
+// Dati aggiornati: rimossi i post senza contenuto (ID 1, 5, 6)
+export const allPosts: BlogPostData[] = [
   {
-    id: 1,
-    category: "Design & Ispirazione",
-    title: "Come trasformare una piazza vuota in un teatro.",
-    excerpt: "Il dietro le quinte del Festival del Jazz: dalla logistica dei palchi modulari alla gestione dell'acustica all'aperto. Scopri come il nostro team ha affrontato le sfide di un montaggio in tempi record nel centro storico.",
-    date: "04 Nov 2025",
-    image: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070&auto=format&fit=crop",
-    readTime: "5 min"
+    id: 7,
+    category: "News & Trend",
+    title: "BEA 2025: cosa ci insegnano i grandi progetti premiati",
+    excerpt: "Il BEA Italia 2025 ha messo sul tavolo un palmarès ricco di insegnamenti concreti. Analisi dei vincitori: Ferrari, Giubileo, Cranchi Yachts e Barilla.",
+    date: "12 Giu 2025",
+    image: "https://live.staticflickr.com/65535/54943669597_6237b71f01_c.jpg",
+    readTime: "7 min",
+    content: {
+        sections: [
+            {
+                text: "Il BEA Italia 2025, chiuso a Roma durante la Live Communication Week, ha messo sul tavolo un palmarès ricco di insegnamenti concreti. Oltre ai premi, è una fotografia nitida delle strategie che funzionano oggi negli eventi, dalle scelte creative fino ai dettagli operativi che fanno la differenza tra un appuntamento qualunque e un’esperienza memorabile."
+            },
+            {
+                title: "Ferrari Amalfi World Première: creare mondi, non solo mostrare prodotti",
+                text: "Next Group ha dominato con il Grand Prix per la Ferrari Amalfi World Première, premiata anche Best Product Launch e Best Unexpected Use of a Space. Non si trattava di presentare un’auto nuova: era un’esperienza sensoriale che trasformava un luogo qualunque in una dimensione Ferrari, dove ogni elemento – dalla luce alla disposizione degli spazi – contribuiva a una narrazione coerente. Il pubblico non guardava, viveva.\n\n**Un evento non mostra: trasporta.**",
+                image: "https://besteventawards.it/wp-content/uploads/2025/11/FerrariAmalfiWorldPremire_eventoImgEvento3.jpg", 
+                imageSide: "right"
+            },
+            {
+                title: "Giubileo 2025: un’idea semplice che scala all’infinito",
+                text: "Ninetynine si è aggiudicata il Grand Prix Iconic con i Grandi Eventi Giubilari 2025, tra cui il Giubileo dei Giovani con il palco-altare immersivo di 1.400 mq. Un concept spirituale che usava lo spazio fisico per amplificare il messaggio, dimostrando come un’idea chiara possa crescere su scala monumentale senza perdere autenticità. Anche in presenza di decine di migliaia di persone, ogni dettaglio restava al servizio del significato.\n\n**Un’idea forte non ha limiti di scala.**",
+                image: "https://besteventawards.it/wp-content/uploads/2025/11/Giubileo2025-GrandiEventi_eventoImgEvento3.jpg",
+                imageSide: "left"
+            },
+            {
+                title: "Cranchi Yachts Fuorisalone: il lusso è nei dettagli spaziali",
+                text: "Adverteam ha portato a casa 3 medaglie con Immersio Temporis – Cranchi Yachts @Fuorisalone 2025, un’esperienza multisensoriale che fondeva heritage nautico e design contemporaneo. Il pubblico non vedeva barche esposte: percorreva un viaggio dove ogni metro quadro, ogni angolazione, ogni flusso di persone raccontava la marca in modo impeccabile. Lo spazio non era sfondo: era protagonista silenzioso.\n\n**Lo spazio fisico è parte del racconto.**",
+                image: "https://besteventawards.it/wp-content/uploads/2025/11/ImmersioTemporis-CranchiYachtsFuorisalone2025_eventoImgEvento1.jpg", 
+                imageSide: "right"
+            },
+            {
+                title: "Basil Bar Pesto Barilla: trasformare un prodotto in cultura",
+                text: "Sempre Adverteam ha conquistato Oro B2C con Basil Bar by Pesto Barilla, un bistrot immersivo che elevava un alimento quotidiano a esperienza culturale. Non era un semplice assaggio gratuito: era un pezzo di Italia che si poteva toccare con mano, dove layout, materiali e disposizione degli spazi diventavano strumenti per comunicare tradizione e identità. Il food non era solo cibo, ma narrazione.\n\n**Un prodotto diventa esperienza se lo spazio lo sostiene.**",
+                image: "https://besteventawards.it/wp-content/uploads/2025/11/BasilBarbyPestoBarilla_eventoImgEvento1.jpg",
+                imageSide: "left"
+            },
+            {
+                title: "Conclusione",
+                text: "Quello che emerge dal BEA 2025 è un settore maturo, dove creatività, tecnologia e strategia vivono insieme solo se ancorate a un’idea forte. Gli eventi premiati non sono one shot spettacolari, ma ecosistemi pensati per lasciare un segno, dove ogni elemento – dal concept agli spazi fisici – lavora per lo stesso obiettivo.\n\n**GF Service legge in questi progetti la conferma del proprio ruolo:** fornire strutture che non si limitano a ospitare l’evento, ma lo rendono concreto e possibile."
+            }
+        ]
+    }
+  },
+  {
+    id: 8,
+    category: "Territorio & Radici",
+    title: "Borghi in Festa: il Capodanno che ha ridato vita a Vallepietra",
+    excerpt: "Immagina un borgo di 400 anime che sfida l'inverno. Il racconto di come una tendostruttura ha trasformato una piazza in pendenza in una sala da ballo per la comunità.",
+    date: "05 Gen 2025",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg",
+    readTime: "6 min",
+    content: {
+        sections: [
+          {
+            text: "Immagina un borgo di appena 400 anime, aggrappato ai Monti Simbruini, dove l’inverno porta silenzio e molti giovani scelgono la città. **Vallepietra, piccolo centro della Ciociaria**, ha deciso di andare controcorrente.\n\nPer la seconda edizione del Capodanno Vallepietrano (31 dicembre 2024), Piazza Italia si è riempita di calore, musica e convivialità, accogliendo circa 50 persone riunite per cenare e festeggiare insieme."
+          },
+          {
+            title: "Dall'esperimento alla tradizione",
+            text: "Non era più un esperimento. Dopo il successo della prima edizione, il paese ha scelto di trasformare l’evento in una tradizione.\n\nGF Service ha risposto con una **tendostruttura da 200 mq, due cannoni riscaldanti, 30 tavoli e 150 sedie**, trasformando la piazza in una vera e propria sala accogliente e viva. Le immagini parlano da sole: tavoli rossi apparecchiati, palco illuminato, persone che ballano e brindano fino a notte fonda.",
+            image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767310041/605760077_122185477238448864_5147057568440744254_n_djnwhq.jpg", 
+            imageSide: "right"
+          },
+          {
+            title: "La sfida logistica: vicoli e pendenze",
+            text: "Portare tutto questo nel cuore del borgo non è stato semplice. Piazza Italia presenta una leggera pendenza per lo scolo dell’acqua e accessi stretti, incastonati tra vicoli che non perdonano mezzi ingombranti.\n\nÈ stato quindi necessario utilizzare un **camion di piccole dimensioni**, entrare in retromarcia fino all’imbocco, scaricare rapidamente lasciando libero il passaggio ai pedoni e montare ogni elemento con precisione millimetrica per garantire il perfetto livellamento della struttura.\n\nI lavori sono iniziati il 23 dicembre, sotto un freddo secco ma gestibile, e si sono conclusi con calma il 5 gennaio. Nessuna fretta, nessun intoppo: la piazza è stata allestita senza mai disturbare la vita del borgo.",
+            image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png", 
+            imageSide: "left"
+          },
+          {
+            title: "Il valore sociale",
+            text: "Quelle 50 persone – circa il 12% della popolazione – non erano semplici commensali. Erano una comunità che sceglie di ritrovarsi.\n\nUna cena che riempie ristoranti solitamente vuoti d’inverno, musica che ridà voce a vicoli silenziosi, una notte capace di dare respiro all’economia locale e rafforzare i legami. La Pro Loco parla già di una terza edizione, ed è forse questo il vero miracolo.\n\n**GF Service non ha semplicemente montato una struttura**: ha contribuito alla nascita di una tradizione che contrasta lo spopolamento, guarda al futuro e dimostra che anche nei centri storici più complessi si può generare rinascita. Vallepietra ce lo ha insegnato.",
+             image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767310038/605887278_122185477274448864_6400889896911390130_n_efa17m.jpg",
+            imageSide: "right"
+          }
+        ]
+    }
+  },
+  {
+    id: 3,
+    category: "Case History",
+    title: "Mercatini di Natale a Porta di Roma: montare la magia senza fermare la città",
+    excerpt: "Porta di Roma non si ferma mai. Come abbiamo montato un intero villaggio natalizio lavorando solo di notte per non interrompere il flusso di migliaia di visitatori.",
+    date: "15 Nov 2024",
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
+    readTime: "5 min",
+    content: {
+        sections: [
+            {
+                text: "Porta di Roma, uno dei centri commerciali più frequentati del quadrante nord della Capitale, non si ferma mai.\n\nDal 10 novembre 2024 al 6 gennaio 2025, i piazzali esterni davanti a Decathlon, Ikea e Leroy Merlin si sono trasformati in un **villaggio natalizio fatto di luci, profumo di cannella e casette di legno**.\n\nMercatini di Natale, pista di pattinaggio e animazioni domenicali per famiglie hanno animato l’area per quasi due mesi, con migliaia di visitatori ogni weekend, negozi sempre aperti e una città che continua a muoversi."
+            },
+            {
+                title: "La sfida: lavorare mentre la città dorme",
+                text: "Organizzare un mercatino in un contesto come questo significa accettare un vincolo non negoziabile: **il flusso non può essere interrotto**.\n\nGF Service ha raccolto la sfida montando tutte le casette in sole tre notti, lavorando esclusivamente **dalle 22:00 alle 08:00**, senza interferire con un solo cliente o con le attività commerciali.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767371665/20251106_004635_jhvhuk.jpg",
+                imageSide: "right"
+            },
+            {
+                title: "Tre notti per non fermare Roma",
+                text: "Il piano operativo era chirurgico. Obiettivo: completare il montaggio in due notti anziché tre.\n\n**Notte 1.** Arrivo puntuale, squadre suddivise per compiti chiari. Il carico sul camion era studiato al dettaglio: solo il materiale necessario per quella notte, nessuno spreco. Scarico e montaggio organizzati per blocchi, con casette pronte una dopo l’altra, in modo progressivo e senza intoppi.\n\n**Notte 2.** Stesso ritmo, precisione assoluta. Entro le 08:00 il piazzale era pulito e perfettamente ordinato, come se nulla fosse accaduto. I clienti sono arrivati per lo shopping natalizio trovando il mercatino già vivo e operativo.\n\nPianificazione iniziale, logistica coordinata e montaggio sequenziale hanno permesso di chiudere in anticipo, lasciando l’area impeccabile e completamente funzionale.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767371682/20251107_041535_zosutg.jpg",
+                imageSide: "left"
+            },
+            {
+                title: "La magia senza intoppi",
+                text: "Il risultato è stato evidente: un villaggio natalizio capace di incantare famiglie intere, con stand artigianali, gastronomia italiana e una pista di pattinaggio davanti a Leroy Merlin.\n\nAnimazioni con mascotte, bolle di sapone e Babbo Natale hanno animato le domeniche, il tutto senza che un solo negozio chiudesse, nemmeno per un minuto.\n\nIn un luogo come Porta di Roma, dove il traffico umano e commerciale non si arresta mai, questo è il massimo risultato possibile: **accendere la magia del Natale senza spegnere la città**.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg",
+                imageSide: "right"
+            },
+            {
+                title: "Costruire senza intralciare",
+                text: "Lavorare di notte per non disturbare il giorno. Precisione operativa al servizio della vita quotidiana.\n\nÈ questo l’approccio che GF Service porta nei grandi progetti: creare spazi di aggregazione senza interferire con chi quei luoghi li vive ogni giorno. Porta di Roma lo ha ricordato chiaramente: **la vera professionalità è rendere possibile un evento senza farsi notare**."
+            }
+        ],
+        gallery: [
+             "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
+             "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739408566_ewgmpq.jpg",
+             "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016453/1765739385298_i6e0d3.jpg",
+             "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016459/1765739407842_g7kg1r.jpg"
+        ]
+    }
   },
   {
     id: 2,
     category: "News & Trend",
     title: "Sostenibilità negli allestimenti: il futuro è modulare.",
+    subtitle: "Perché progettare strutture riutilizzabili è l'unica vera scelta ecologica per gli eventi temporanei.",
     excerpt: "Perché le strutture temporanee sono la scelta più ecologica per i grandi eventi. Analisi dei materiali, riutilizzo delle componenti e riduzione dell'impatto ambientale nei festival moderni.",
     date: "21 Ott 2025",
-    image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop",
-    readTime: "4 min"
-  },
-  {
-    id: 3,
-    category: "Case History",
-    title: "Gestire l'imprevisto: Il villaggio di Natale sotto la neve.",
-    excerpt: "Un racconto dal campo: come abbiamo garantito la sicurezza e il comfort termico durante l'ondata di gelo del 2024. Le soluzioni tecniche adottate per le nostre casette in legno.",
-    date: "15 Set 2025",
-    image: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2000&auto=format&fit=crop",
-    readTime: "6 min"
+    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png",
+    readTime: "6 min",
+    content: {
+        sections: [
+            {
+                title: "Introduzione: perché parlarne ora",
+                text: "Negli eventi temporanei la parola “sostenibilità” rischia spesso di essere uno slogan.\n\nEppure è proprio qui, negli allestimenti che nascono e scompaiono in pochi giorni, che si gioca una parte importante dell’impatto ambientale: materiali usati una sola volta, sprechi di risorse, trasporti pesanti, smontaggi complessi.\n\nL’alternativa esiste già, ed è più concreta di quanto sembri: **progettare allestimenti modulari, riutilizzabili e riconfigurabili**, pensati per vivere molti eventi diversi invece di un solo appuntamento."
+            },
+            {
+                title: "Cosa significa “modulare” negli allestimenti",
+                text: "Un allestimento modulare non è solo “smontabile”.\n\nÈ un sistema di strutture, tavoli, pedane, casette, transenne e coperture che può essere ricomposto in configurazioni diverse a seconda del tipo di evento, dello spazio e del numero di persone attese.\n\nIn pratica, lo stesso kit di attrezzature può diventare:\n\n• Una sagra di paese un weekend;\n• Un festival della birra il mese successivo;\n• Un mercatino di Natale in inverno, con una disposizione completamente diversa.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png",
+                imageSide: "left"
+            },
+            {
+                title: "Perché il futuro è modulare (e non solo greenwashing)",
+                text: "La modularità è sostenibile perché lavora su tre livelli contemporaneamente:\n\n**Ambientale**: meno strutture “usa e getta”, più elementi riutilizzati decine di volte, minore produzione di rifiuti.\n\n**Logistico**: montaggi e smontaggi più rapidi, meno mezzi coinvolti, meno viaggi, meno ore di lavoro sprecate.\n\n**Economico**: gli organizzatori possono investire su eventi ricorrenti sapendo che le stesse strutture si adattano a formati diversi nel tempo.\n\nNon si tratta solo di usare materiali “green”, ma di cambiare il modo in cui si pensa lo spazio: da soluzione “una tantum” a infrastruttura temporanea che torna utile, stagione dopo stagione."
+            },
+            {
+                title: "Dal kit alla comunità",
+                text: "Per sagre, fiere e mercatini di Natale, la scelta di strutture modulari ha un impatto diretto sulla vita dei territori.\n\nI comuni possono ripensare la stessa piazza più volte l’anno, senza dover ricominciare da zero a ogni evento. Le Pro Loco e le associazioni riducono sprechi e costi, mantenendo standard più alti di sicurezza e ordine degli spazi.\n\nUn set di casette in legno, kit da birreria e tendostrutture ben progettato può accompagnare un territorio lungo l’intero calendario: primavera di feste locali, estate di festival, inverno di mercatini.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
+                imageSide: "left"
+            },
+            {
+                title: "Il ruolo di chi noleggia strutture",
+                text: "Per chi noleggia strutture e allestimenti, la sostenibilità non è solo una voce in più sul sito.\n\nSignifica progettare il proprio magazzino come un sistema modulare: casette che si adattano a contesti diversi, kit che funzionano tanto in un borgo quanto in un centro commerciale, tendostrutture che cambiano configurazione senza dover ripartire da zero ogni volta.\n\nIn questo modo, ogni evento diventa meno “usa e getta” e più parte di un ciclo: ciò che oggi ospita una festa patronale, domani può diventare un villaggio natalizio o un festival enogastronomico, con lo stesso hardware ma una storia diversa da raccontare.",
+                image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png",
+                imageSide: "right"
+            }
+        ],
+        gallery: [
+            "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766427546/palchetto_2_pzbl66.jpg",
+            "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766962753/tendostruttura_realistica_pa55up.png",
+            "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766016460/1765739430363_qaqvc8.jpg",
+            "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203566/camion_z0qlfj.png"
+        ]
+    }
   },
   {
     id: 4,
@@ -61,25 +202,25 @@ const allPosts: BlogPostData[] = [
     content: {
         sections: [
             {
-                text: "A Trevi nel Lazio, piccolo centro della Ciociaria affacciato sui Monti Simbruini, la fine dell'estate ha un suono preciso: **quello degli zoccoli di cavallo** che attraversano il corso principale del paese.\n\nÈ il Palio di San Pietro Eremita, una tradizione lunga anni, che ogni 31 Agosto riporta migliaia persone per le vie del borgo. Nel 2025 **le presenze hanno superato le 10.000 persone**, un numero che racconta da solo la portata di un evento che permette al paesino di quintuplicare la vita del borgo.",
+                text: "A Trevi nel Lazio, piccolo centro della Ciociaria affacciato sui Monti Simbruini, la fine dell'estate ha un suono preciso: **quello degli zoccoli di cavallo** che attraversano il corso principale del paese.\n\nÈ il Palio di San Pietro Eremita, una tradizione lunga anni, che ogni 31 Agosto riporta migliaia di persone per le vie del borgo. Nel 2025 **le presenze hanno superato le 10.000 persone**, un numero che racconta da solo la portata di un evento che permette al paesino di quintuplicare la vita nelle sue strade.\n\nMa oltre i numeri, il Palio è una storia che tiene insieme fede e appartenenza.",
                 image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_2_aygjdp.jpg",
                 imageSide: "right"
             },
             {
                 title: "Una storia che tiene insieme fede e appartenenza.",
-                text: "Il Palio nasce come omaggio al patrono del paese, San Pietro Eremita, figura religiosa venerata sin dal Medioevo. Oggi è una sfida tra otto contrade (Civita, Rivo, Cunicella, Suria, Santo Nicola, Borgo Madonna, Piajo e Cinarzo) che si contendono un drappo e **l'orgoglio di rappresentare la propria parte di Trevi**.\n\nNei giorni che precedono la corsa il paese cambia volto: le bandiere colorano i balconi e vengono allestiti stand di Food & Beverage.\nIl Palio è **un rito collettivo che unisce generazioni e ruoli diversi**: bambini, anziani, visitatori, volontari e tecnici.",
+                text: "Il Palio nasce come omaggio al patrono del paese, San Pietro Eremita, figura religiosa venerata sin dal Medioevo. Oggi è una sfida tra otto contrade (Civita, Rivo, Cunicella, Suria, Santo Nicola, Borgo Madonna, Piajo e Cinarzo) che si contendono un drappo e **l'orgoglio di rappresentare la propria parte di Trevi**.\n\nPer chi partecipa, non è solo una corsa: è il momento in cui ogni rione sente di rappresentare Trevi intera.\n\nNei giorni che precedono la corsa il paese cambia volto: le bandiere colorano i balconi e vengono allestiti stand di Food & Beverage.\nIl Palio è **un rito collettivo che unisce generazioni e ruoli diversi**: bambini, anziani, visitatori, volontari e tecnici.",
                 image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515475/palio_di_san_pietro_eremita_6_sjp5ye.jpg",
                 imageSide: "left"
             },
             {
                 title: "Un impatto che va oltre la festa",
-                text: "Per un borgo di 2.000 abitanti, un evento come il Palio **significa molto più di una tradizione conservata**. Significa turismo, visibilità, sostegno all'economia locale.\nRistoranti e bar lavorano a pieno ritmo, i negozi restano aperti fino a tardi e le strutture ricettive registrano il tutto esaurito.\n\nMa soprattutto, il **paese ritrova una vitalità** e una dimensione di comunità che spesso si perde durante l'anno.\nÈ la prova di come anche eventi di piccola scala, quando ben organizzati, abbiano **un valore strategico nel tessuto sociale e culturale di un territorio**.",
+                text: "Per un borgo di 2.000 abitanti, un evento come il Palio **significa molto più di una tradizione che resiste nel tempo**. Significa turismo, visibilità, sostegno all'economia locale.\nRistoranti e bar lavorano a pieno ritmo, i negozi restano aperti fino a tardi e le strutture ricettive registrano il tutto esaurito.\n\nMa soprattutto, il **paese ritrova una vitalità** e una dimensione di comunità che spesso si perde durante l'anno.\nÈ la prova di come anche un evento locale, quando ben organizzato, abbia **un valore strategico nel tessuto sociale e culturale di un territorio**.",
                 image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg",
                 imageSide: "right"
             },
             {
                 title: "Il ruolo di GF Service",
-                text: "In occasione di questo evento, **GF Service ha contribuito alla riuscita** fornendo transenne, tavoli, panche e gazebi destinate alle aree di supporto, accoglienza e sicurezza.\n\nUn evento discreto ma essenziale, che ha aiutato a gestire al meglio l'enorme flusso di persone e garantire la riuscita dell'evento.\nUn intervento che, seppur piccolo, racconta bene la filosofia dell'azienda: **essere parte del territorio**, sostenendone la vitalità culturale e il valore delle tradizioni locali.",
+                text: "In occasione di questo evento, **GF Service ha contribuito alla riuscita** fornendo transenne, tavoli, panche e gazebi destinate alle aree di supporto, accoglienza e sicurezza.\n\nIl montaggio è stato effettuato nelle poche ore disponibili la mattina dell’evento e lo smontaggio subito dopo la corsa, liberando il corso in tempi stretti e in sicurezza.\n\nÈ un intervento forse poco visibile al pubblico, ma decisivo per gestire in sicurezza un flusso di oltre 10.000 persone.\nEd è proprio questo tipo di lavoro che racconta la filosofia dell’azienda: **essere parte del territorio**, sostenendone la vitalità culturale e il valore delle tradizioni locali.",
                 image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_1_klxvgc.jpg",
                 imageSide: "left"
             }
@@ -90,46 +231,10 @@ const allPosts: BlogPostData[] = [
             "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1766515473/palio_di_san_pietro_eremita_3_oabv1e.jpg"
         ]
     }
-  },
-  {
-    id: 5,
-    category: "Case History",
-    title: "Street Food Tour: La sfida dell'energia.",
-    excerpt: "Come alimentare 120 truck in movimento senza interruzioni. Il nostro setup elettrico spiegato passo dopo passo per garantire continuità di servizio.",
-    date: "22 Lug 2025",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2070&auto=format&fit=crop",
-    readTime: "5 min"
-  },
-  {
-    id: 6,
-    category: "Design & Ispirazione",
-    title: "5 Idee brillanti per il tuo prossimo evento",
-    excerpt: "Dall'illuminazione d'atmosfera all'uso creativo delle pedane modulari. Spunti creativi per rendere unico il tuo allestimento.",
-    date: "02 Lug 2025",
-    image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2070&auto=format&fit=crop",
-    readTime: "3 min"
-  },
-  {
-    id: 7,
-    category: "News & Trend",
-    title: "BEA 2025: Cosa ci insegnano i grandi operatori del settore?",
-    excerpt: "Reportage esclusivo dal Best Event Awards. Le tendenze globali che influenzeranno il mercato italiano nei prossimi anni.",
-    date: "12 Giu 2025",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop",
-    readTime: "7 min"
-  },
-  {
-    id: 8,
-    category: "Territorio & Radici",
-    title: "Borghi in Festa: La logistica nei vicoli stretti.",
-    excerpt: "Le difficoltà e le soddisfazioni di portare grandi strutture in piccoli centri storici. La nostra esperienza a Trevi nel Lazio e Alatri.",
-    date: "05 Mag 2025",
-    image: "https://res.cloudinary.com/dcmd1ukvx/image/upload/v1767203050/Picinisco-1_irrxjh.jpg",
-    readTime: "4 min"
   }
 ];
 
-const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onPostSelect }) => {
+const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onPostSelect, onShowProjects }) => {
     const [loaded, setLoaded] = useState(false);
     const [activeCategory, setActiveCategory] = useState('Tutti');
     const [currentPage, setCurrentPage] = useState(1);
@@ -407,7 +512,10 @@ const AllBlogPosts: React.FC<AllBlogPostsProps> = ({ onPostSelect }) => {
                                             </div>
                                         </div>
                                         
-                                        <button className="w-full py-3 bg-white text-black hover:bg-gf-green hover:text-white transition-colors rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
+                                        <button 
+                                            onClick={() => onShowProjects?.()}
+                                            className="w-full py-3 bg-white text-black hover:bg-gf-green hover:text-white transition-colors rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 group/btn"
+                                        >
                                             Esplora Portfolio <ArrowUpRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                                         </button>
                                     </div>

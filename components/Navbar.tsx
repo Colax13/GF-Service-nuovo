@@ -12,14 +12,15 @@ interface NavbarProps {
   onNavigate?: (href: string) => void; // Renders standard header but intercepts clicks
   forcedActive?: string; // Force a specific link to be active (e.g., for sub-pages)
   forceBackground?: boolean; // Forces the background to be visible
+  isHidden?: boolean; // Hides the navbar completely (used for mobile form)
 }
 
 const navLinks = [
   { name: 'Home', href: '#hero' },
   { name: 'Servizi', href: '#servizi' },
-  { name: 'Progetti', href: '#progetti' },
+  { name: 'Portfolio', href: '#portfolio' },
   { name: 'Chi siamo', href: '#chi-siamo' },
-  { name: 'Le nostre storie', href: '#blog' },
+  { name: 'News', href: '#news' },
   { name: 'Contatti', href: '#contatti' },
 ];
 
@@ -32,7 +33,8 @@ const Navbar: React.FC<NavbarProps> = ({
   onShowAbout,
   onNavigate, 
   forcedActive,
-  forceBackground = false
+  forceBackground = false,
+  isHidden = false
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -85,13 +87,13 @@ const Navbar: React.FC<NavbarProps> = ({
         return;
     }
 
-    if (linkName === 'Progetti' && onShowProjects) {
+    if (linkName === 'Portfolio' && onShowProjects) {
         onShowProjects();
         setMobileMenuOpen(false);
         return;
     }
 
-    if (linkName === 'Le nostre storie' && onShowBlog) {
+    if (linkName === 'News' && onShowBlog) {
         onShowBlog();
         setMobileMenuOpen(false);
         return;
@@ -135,7 +137,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-[130] transition-all duration-300 ${scrolled || onBackToHome || forceBackground ? 'bg-black/60 backdrop-blur-lg lg:bg-gf-darker/95 lg:backdrop-blur-md py-4 lg:py-6 shadow-lg' : 'bg-transparent py-6 lg:py-10'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-[130] transition-all duration-500 transform ${isHidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled || onBackToHome || forceBackground ? 'bg-black/60 backdrop-blur-lg lg:bg-gf-darker/95 lg:backdrop-blur-md py-4 lg:py-6 shadow-lg' : 'bg-transparent py-6 lg:py-10'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center text-white relative z-[131]">
           
           {/* Left: Back Button or Standard Links */}

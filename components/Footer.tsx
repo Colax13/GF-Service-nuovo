@@ -122,7 +122,7 @@ const Footer: React.FC<FooterProps> = ({ onShowContact, onShowAbout, onNavigate 
             >
                 <h4 className="font-bold text-sm uppercase tracking-widest mb-8 text-gf-green">Esplora</h4>
                 <ul className="space-y-3 text-sm text-gray-400 font-light">
-                {['Home', 'Servizi', 'Progetti', 'Chi siamo', 'Le nostre storie', 'Contatti'].map((item) => {
+                {['Home', 'Servizi', 'Portfolio', 'Chi siamo', 'News', 'Contatti'].map((item) => {
                     let href = `#${item.toLowerCase().replace(/ /g, '-')}`;
                     if (item === 'Home') href = '#hero';
                     
